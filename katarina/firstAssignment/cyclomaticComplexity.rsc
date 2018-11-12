@@ -1,4 +1,5 @@
 module cyclomaticComplexity
+import List;
 import analysis::m3::AST;
 import analysis::m3::Core;
 import lang::java::m3::AST;
@@ -8,13 +9,24 @@ import lang::java::jdt::m3::AST;
 import util::Resources;
 import IO;
 import analysis::graphs::Graph;
+import util::FileSystem;
+import Set;
 
+//path: path to a folder which contains java files
+//returns a list with the complexity per file and the last number of the list is the overall complexity
+public list[int] complexityOfAPath(loc path){
+list[loc] visibleFilesInPath = toList(visibleFiles(path));
+return complexityOfAProject(visibleFilesInPath);
+}
+
+
+//returns a list with the complexity per file and the last number of the list is the overall complexity
 public list[int] complexityOfAProject(list[loc] files){
 list[int] result = [];
 for(file <- files){
 	result += complexityOfAClass(file);
 }
-return result;
+return result+sum(result);
 }
 
 
