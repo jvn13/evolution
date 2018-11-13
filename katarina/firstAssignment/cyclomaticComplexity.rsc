@@ -40,7 +40,7 @@ return result+sum(result);
 //index 5: foreach
 //index 6; catch
 //index 7: infix
-public list[int] complexityOfAClass(loc file){
+private list[int] complexityOfAClass(loc file){
 int countIfs = 0;
 int countFor = 0;
 int countCase = 0;
