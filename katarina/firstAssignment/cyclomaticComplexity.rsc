@@ -12,8 +12,8 @@ import analysis::graphs::Graph;
 import util::FileSystem;
 import Set;
 
-//path: path to a folder which contains java files
-//returns a list with the complexity per file and the last number of the list is the overall complexity
+//path: path to a folder which contains (not only) java files
+//returns a list with the complexity per unit and the last number of the list is the sum of the complexity of all units
 public list[int] complexityOfAPath(loc path){
 list[loc] visibleFilesInPath = toList(getFiles(path));
 return complexityOfAProject(visibleFilesInPath);
