@@ -15,8 +15,12 @@ import Set;
 //path: path to a folder which contains java files
 //returns a list with the complexity per file and the last number of the list is the overall complexity
 public list[int] complexityOfAPath(loc path){
-list[loc] visibleFilesInPath = toList(visibleFiles(path));
+list[loc] visibleFilesInPath = toList(getFiles(path));
 return complexityOfAProject(visibleFilesInPath);
+}
+
+public list[loc] getFiles(loc project) {
+    return [f | f <- visibleFiles(project), f.extension == "java"];
 }
 
 
@@ -31,42 +35,34 @@ return result+sum(result);
 
 
 
-//per file return complexity & number for each case of methods @TODO check for other patterns
-//index 0: sum
-//index 1: if
-//index 2: for
-//index 3: case
-//index 4: while
-//index 5: foreach
-//index 6; catch
-//index 7: infix
-private list[int] complexityOfAClass(loc file){
-int countIfs = 0;
-int countFor = 0;
-int countCase = 0;
-int countWhile = 0;
-int countForeach = 0;
-int countCatch = 0;
-int countInfix = 0;
+//per file return complexity & number for each case of methods
+public list[int] complexityOfAClass(loc file){
 
-Declaration declarationOfFile = getDeclaration(file);
+	list[int] result = [];
+	Declaration decl = getDeclaration(file);
+	visit(decl){
+		case methodCase1:\method(_,_,_,_,_) : result += complexityPerMethod(methodCase1);
+	}
+	return result;
+	}
 
-visit(declarationOfFile){
-	case \if(_,_) : countIfs += 1;
-	case \if(_,_,_) : countIfs += 1;
-	case \for(_,_,_) : countFor +=1;
-	case \for(_,_,_,_) : countFor +=1;
-	case \case(_) : countCase +=1;
-	case \while(_,_) : countWhile +=1;
-	case \foreach(_,_,_) : countForeach +=1;
-	case \catch(_,_) : countCatch +=1;
-	case infix(_,"&&",_) : countInfix +=1;
-	case infix(_,"||",_) : countInfix +=1;
 
-	} 
-	//return [countIfs+countFor+countCase+countWhile+countForeach+countCatch+countInfix,countIfs,countFor, countCase, countWhile, countForeach, countCatch, countInfix];
-	return [countIfs+countFor+countCase+countWhile+countForeach+countCatch+countInfix];
+private int complexityPerMethod(method){
+ 		int result = 0;
+ 			visit(method){
+				case \if(_,_) : result += 1;
+				case \if(_,_,_) : result += 1;
+				case \for(_,_,_) : result +=1;
+				case \for(_,_,_,_) : result +=1;
+				case \case(_) : result +=1;
+				case \while(_,_) : result +=1;
+				case \foreach(_,_,_) : result +=1;
+				case \catch(_,_) : result +=1;
+				case infix(_,"&&",_) : result +=1;
+				case infix(_,"||",_) : result +=1;
 
+				} 
+	return result;
 }
 
 public Declaration getDeclaration(loc file){
