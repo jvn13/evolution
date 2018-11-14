@@ -1,31 +1,52 @@
 module Analyze
 
+import CC;
 import Count;
-import Documentation;
+import Duplication;
 import IO;
 import List;
+import Map;
 import Rank;
 import Read;
+import Set;
 import lang::java::jdt::m3::Core;
+import util::Math;
 
 public void main() {
-	 loc java_project = |project://smallsql0.21_src|;
-	//loc java_project = |project://BinaryConverter|;
-	mmm = read(java_project);
-	countMetrics(mmm);
+	 loc project = |project://smallsql0.21_src|;
+	//loc project = |project://BinaryConverter|;
+	//loc project = |project://hsqldb-2.3.1|;
+	
+	mmm = read(project);
+	list[loc] projectFiles = getFiles(project);
+	lines = getProjectLoc(projectFiles);
+	
+	visiualize();
+	
+	// Volume
+	volume = size(lines);
+	volumeRank = getVolumeRank(volume);
+	println("Volume: \t\t<volume> \t\t<rankToSymbol(volumeRank)>");
+	
+	// Unit Size
+	unitSizes = getLocPerMethod(mmm);
+	unitSizeRisks = unitRisk(unitSizes, <10, 100, 200>);
+  unitSizeRank = getUnitRank(unitSizeRisks);
+  println("Unit Size: \t\t<sum(unitSizes)/toReal(size(unitSizes))> \t<rankToSymbol(unitSizeRank)>");
+	
+	// Unit Complexity
+	unitComplexities = [2,4,5,6]; // TODO
+	unitComplexityRisks = unitRisk(unitComplexities, <10, 20, 50>);
+	unitComplexityRank = getUnitRank(unitComplexityRisks);
+	println("Unit Complexity: \t<sum(unitComplexities)/toReal(size(unitComplexities))> \t\t<rankToSymbol(unitComplexityRank)>");
+	
+	// Duplication
+	map[str,list[list[int]]] duplicateBlocks = createBlocks(lines);
+	set[int] duplicateLines = blockToLines(duplicateBlocks);
+	println("Duplicates: \t\t<size(duplicateLines)> \t\t<rankToSymbol(getDuplicationRank(calculatePercentage(size(duplicateLines), size(lines))))>");
 }
 
-public void countMetrics(M3 mmm){
-	comments = getDocumentation(mmm);
-	println("Metric \t\tValue \tRank");
-	println("------------------------------");
-	// Volume
-	volume = countProjectLines(mmm, size(comments));
-	volume_rank = volumeRank(volume);
-	println("Volume: \t<volume> \t<volume_rank>");
-	// Unit size
-	unit_sizes = countMethodLines(mmm, comments);
-	unit_size_risk = unitSizeRisk(unit_sizes);
-	unit_size_rank = unitSizeRank(unit_size_risk);
-	println("Unit size: \t<sum(unit_sizes)/size(unit_sizes)> \t<unit_size_rank>");
+public void visiualize() {
+	println("Metric \t\t\tValue \t\tRank");
+  println("-----------------------------------------------");
 }

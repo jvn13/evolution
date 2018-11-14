@@ -3,12 +3,12 @@ module Read
 import IO;
 import List;
 import Set;
-import util::Resources;
 import lang::java::jdt::m3::Core;
+import util::Resources;
+import util::FileSystem;
 
-// list[loc] projects_list = getAllProjects();
-public list[loc] getAllProjects(){
-  return toList(projects());
+public list[loc] getFiles(loc project) {
+	return [f | f <- visibleFiles(project), f.extension == "java"];
 }
 
 public M3 read(loc java_project) {

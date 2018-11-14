@@ -10,7 +10,7 @@ data RiskProfile = riskProfile(
 	int veryhigh
 );
 
-public int volumeRank(int volume) {
+public int getVolumeRank(int volume) {
 	kloc = volume/1000;
 	
 	if(kloc < 66) {
@@ -20,6 +20,20 @@ public int volumeRank(int volume) {
 	} else if(kloc < 246) {
 		return 3;
 	} else if(kloc < 246) {
+		return 2;
+	} else {
+		return 1;
+	}
+}
+
+public int getDuplicationRank(int percentage) {
+	if(percentage <= 3) {
+		return 5;
+	} else if(percentage <= 5) {
+		return 4;
+	} else if(percentage <= 10) {
+		return 3;
+	} else if(percentage <= 20) {
 		return 2;
 	} else {
 		return 1;
@@ -39,15 +53,25 @@ public RiskProfile toPercentage(RiskProfile risks) {
 	return risks;
 }
 
-public RiskProfile unitSizeRisk(list[int] unit_sizes) {
+public str rankToSymbol(int rank) {
+	switch(rank) {
+		case 5: return "++";
+		case 4: return "+";
+		case 3: return "o";
+		case 2: return "-";
+		case 1: return "--";
+	}	
+}
+
+public RiskProfile unitRisk(list[int] values, tuple[int,int,int] boundaries) {
 	risks = riskProfile(0, 0, 0, 0);
 	
-	for(m <- unit_sizes) {
-		if(m < 10) {
+	for(m <- values) {
+		if(m < boundaries[0]) {
 			risks.low += 1;
-		} else if(m < 100) {
+		} else if(m < boundaries[1]) {
 			risks.moderate += 1;
-		} else if(m < 200) {
+		} else if(m < boundaries[2]) {
 			risks.high += 1;
 		} else {
 			risks.veryhigh += 1;
@@ -59,7 +83,7 @@ public RiskProfile unitSizeRisk(list[int] unit_sizes) {
 	return risks;
 }
 
-public int unitSizeRank(RiskProfile risks) {
+public int getUnitRank(RiskProfile risks) {
 	if(
 		(risks.moderate <= 25) &&
 		(risks.high <= 0) &&
