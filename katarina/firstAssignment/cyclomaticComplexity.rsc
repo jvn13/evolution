@@ -11,17 +11,16 @@ import IO;
 import analysis::graphs::Graph;
 import util::FileSystem;
 import Set;
+import Rank;
+
 
 //path: path to a folder which contains (not only) java files
 //returns a list with the complexity per unit and the last number of the list is the sum of the complexity of all units
 public list[int] complexityOfAPath(loc path){
-list[loc] visibleFilesInPath = toList(getFiles(path));
+list[loc] visibleFilesInPath = getFiles(path);
 return complexityOfAProject(visibleFilesInPath);
 }
 
-public list[loc] getFiles(loc project) {
-    return [f | f <- visibleFiles(project), f.extension == "java"];
-}
 
 
 //returns a list with the complexity per file and the last number of the list is the overall complexity
@@ -30,8 +29,10 @@ list[int] result = [];
 for(file <- files){
 	result += complexityOfAClass(file);
 }
-return result+sum(result);
+return result;
 }
+
+
 
 
 
@@ -48,7 +49,7 @@ public list[int] complexityOfAClass(loc file){
 
 
 private int complexityPerMethod(method){
- 		int result = 0;
+ 		int result = 1;
  			visit(method){
 				case \if(_,_) : result += 1;
 				case \if(_,_,_) : result += 1;
@@ -65,6 +66,21 @@ private int complexityPerMethod(method){
 	return result;
 }
 
+
+
+public RiskProfile riskEvaluationOfAPath(loc file){
+	
+	list[int] complOfThePath = complexityOfAPath(file);
+	return unitComplexityRisk(complOfThePath);
+	
+}
+
+
+public list[loc] getFiles(loc project) {
+    return [f | f <- visibleFiles(project), f.extension == "java"];
+}
+
 public Declaration getDeclaration(loc file){
 	return createAstFromFile(file,true);
 }
+
