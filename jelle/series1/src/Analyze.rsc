@@ -16,8 +16,8 @@ public void Analyze(loc project) {
 	
 	scores.volume = size(lines);
 	scores.unitSize = getLocPerMethod(project);
-	scores.unitCC = complexityOfAProject(project);
-	scores.duplicates = duplicates(lines);
+	scores.unitCC = getCCPerMethod(project);
+	scores.duplicates = getDuplicateLinesPerProject(lines);
 	
 	ratings = composeRatings(scores);
 	printInfo(scores, ratings);
