@@ -1,10 +1,7 @@
 module Read
 
 import IO;
-import List;
-import Set;
 import lang::java::jdt::m3::Core;
-import util::Resources;
 import util::FileSystem;
 
 public list[loc] getFiles(loc project) {

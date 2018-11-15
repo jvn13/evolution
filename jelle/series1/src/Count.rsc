@@ -2,20 +2,9 @@ module Count
 
 import IO;
 import List;
+import Read;
 import String;
 import lang::java::jdt::m3::Core;
-
-public list[int] getLocPerMethod(M3 mmm) {
-	return [size(getLoc(m)) | m <- methods(mmm)];
-}
-
-public list[str] getProjectLoc(list[loc] projectFiles) {
-	lines = [];
-	for(f <- projectFiles) {
-		lines += getLoc(f);
-	}
-	return lines;
-}
 
 public list[str] getLoc(loc file) {
 	list[str] lines = readFileLines(file);
@@ -45,9 +34,20 @@ public list[str] getLoc(loc file) {
 		}
 		
 		
-		if(!isEmpty(l) && !inComment) {
-			code += [l];
-		}
+		if(!isEmpty(l) && !inComment) code += [l];
 	}
 	return code;
+}
+
+
+public list[int] getLocPerMethod(loc project) {
+	mmm = read(project);
+	return [size(getLoc(m)) | m <- methods(mmm)];
+}
+
+public list[str] getProjectLoc(loc project) {
+	list[loc] projectFiles = getFiles(project);
+	lines = [];
+	for(file <- projectFiles) lines += getLoc(file);
+	return lines;
 }
