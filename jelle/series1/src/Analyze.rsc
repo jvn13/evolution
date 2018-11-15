@@ -42,14 +42,3 @@ public void Main() {
 	});
 	println("Execution time: <time> ms");
 }
-
-/*
-public void visiualize() {
-	println("Metric \t\t\tValue \t\tRank");
-  println("-----------------------------------------------");
-  println("Volume: \t\t<volume> \t\t<rankToSymbol(volumeRank)>");
-  println("Unit Size: \t\t<sum(unitSizes)/toReal(size(unitSizes))> \t<rankToSymbol(unitSizeRank)>");
-	println("Unit Complexity: \t<sum(unitComplexities)/toReal(size(unitComplexities))> \t<rankToSymbol(unitComplexityRank)>");
-	println("Duplicates: \t\t<size(duplicateLines)> \t\t<rankToSymbol()>");
-}
-*/
