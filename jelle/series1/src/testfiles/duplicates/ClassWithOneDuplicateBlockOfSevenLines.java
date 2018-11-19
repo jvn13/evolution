@@ -16,7 +16,7 @@ public class ClassWithOneDuplicateBlockOfSevenLines {
 		default: return 4;
 		}
 	 }
-
+// comment
 	public int getNumber(int number) {
 	switch(number) {
 	case 1:
@@ -28,12 +28,14 @@ public class ClassWithOneDuplicateBlockOfSevenLines {
 	case 4:
 		return 7;
 		default: return number;}
-	}
+	} /* comment*/
 
 	public void setNumber(int number) {
 		this.numberGlobal = number;
 	}
 	 
-	
+	/*
+	 * comment
+	 */
 
 }
