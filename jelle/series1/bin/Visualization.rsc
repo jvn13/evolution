@@ -26,7 +26,7 @@ public void printDuplicates(list[str] lines, set[int] duplicateLines) {
 public void printInfo(ScoresType scores, map[str,int] ratings) {
 	map[str,str] ratingsSymbols = (metric : ratingToSymbol(ratings[metric]) | metric <- ratings);
 	// Header
-	println("Metric\t\t\tValue\t\tRating");
+	println("Characteristic\t\t\tValue\t\tRating");
 	println("--------------------------------------------------");
 	// Volume
 	println("Volume:\t\t\t<scores.volume>\t\t<ratingsSymbols["volume"]>");
@@ -40,12 +40,12 @@ public void printInfo(ScoresType scores, map[str,int] ratings) {
 	println("Duplicates:\t\t<scores.duplicates> (<scores.duplicatePercentage>%)\t<ratingsSymbols["duplicates"]>");
 	println();
 	
-	analysability = floor((ratings["volume"] + ratings["duplicates"] + ratings["unitSize"])/3.0);
-	changeability = floor((ratings["unitCC"] + ratings["duplicates"])/2.0);
-	testability = floor((ratings["unitCC"] + ratings["unitSize"])/2.0);
+	analysability = floor(0.4*ratings["volume"] + 0.2*ratings["duplicates"] + 0.4*ratings["unitSize"]);
+	changeability = floor(0.5*ratings["unitCC"] + 0.5*ratings["duplicates"]);
+	testability = floor(0.7*ratings["unitCC"] + 0.3*ratings["unitSize"]);
 	maintainability = (analysability + changeability + testability)/3;
 	
-	println("Metric\t\t\tRating");
+	println("Characteristic\t\t\tRating");
 	println("--------------------------------------------------");
 	println("Analysability:\t\t<ratingToSymbol(analysability)>");
 	println("Changeability:\t\t<ratingToSymbol(changeability)>");
