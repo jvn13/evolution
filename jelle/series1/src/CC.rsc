@@ -34,8 +34,8 @@ public int getMethodCC(Declaration meth){
 		case \while(_,_) : result += 1;
 		case \foreach(_,_,_) : result += 1;
 		case \catch(_,_) : result += 1;
-		case \infix(_,"&&",_) : result += 1;
-		case \infix(_,"||",_) : result += 1;
+		case infix(_,"&&",_) : result += 1;
+		case infix(_,"||",_) : result += 1;
 	} 
 	return result;
 }

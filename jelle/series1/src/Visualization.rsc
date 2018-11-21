@@ -26,7 +26,7 @@ public void printDuplicates(list[str] lines, set[int] duplicateLines) {
 public void printInfo(ScoresType scores, map[str,int] ratings) {
 	map[str,str] ratingsSymbols = (metric : ratingToSymbol(ratings[metric]) | metric <- ratings);
 	// Header
-	println("Metric\t\t\tValue\t\tRating");
+	println("Characteristic\t\t\tValue\t\tRating");
 	println("--------------------------------------------------");
 	// Volume
 	println("Volume:\t\t\t<scores.volume>\t\t<ratingsSymbols["volume"]>");
@@ -45,7 +45,7 @@ public void printInfo(ScoresType scores, map[str,int] ratings) {
 	testability = floor(0.7*ratings["unitCC"] + 0.3*ratings["unitSize"]);
 	maintainability = (analysability + changeability + testability)/3;
 	
-	println("Metric\t\t\tRating");
+	println("Characteristic\t\t\tRating");
 	println("--------------------------------------------------");
 	println("Analysability:\t\t<ratingToSymbol(analysability)>");
 	println("Changeability:\t\t<ratingToSymbol(changeability)>");
