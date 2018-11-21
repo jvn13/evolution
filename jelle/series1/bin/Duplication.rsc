@@ -5,11 +5,14 @@ import String;
 import List;
 import Set;
 import Map;
+import Visualization;
 
 public int getDuplicateLinesPerProject(list[str] lines) {
-	map[str,list[list[int]]] duplicateBlocks = getDuplicateBlocks(lines);
-	set[int] duplicateLines = blockToLines(duplicateBlocks);
-	return size(duplicateLines);
+	// map[str,list[list[int]]] duplicateBlocks = getDuplicateBlocks(lines);
+	// set[int] duplicateLines = blockToLines(duplicateBlocks);
+	// printDuplicates(lines, duplicateLines); 
+	int duplicates = getDuplicateBlocks(lines);
+	return duplicates;
 }
 
 private set[int] blockToLines(map[str,list[list[int]]] duplicates) {
@@ -23,8 +26,13 @@ private set[int] blockToLines(map[str,list[list[int]]] duplicates) {
 	return dupLines;
 }
 
-private map[str,list[list[int]]] getDuplicateBlocks(list[str] lines) {
+private int getDuplicateBlocks(list[str] lines) {
 	map[str,list[list[int]]] blocks = ();
+	
+	int dupCounter = 0;
+	bool inBlock = false;
+	
+	int counter = 0;
 	
 	for(int i <- [0 .. size(lines) - 5]) {
 		str block = "";
@@ -33,9 +41,20 @@ private map[str,list[list[int]]] getDuplicateBlocks(list[str] lines) {
 		
 		if(block in blocks) {
 			blocks[block] += [[i .. (i + 6)]];
+			
+			if(inBlock) {
+				dupCounter += 1;
+			} else {
+				dupCounter += 6;
+				inBlock = true;
+			}
+			counter += 1;
 		} else {
 			blocks += ( block : [[i .. (i + 6)]]);
+			inBlock = false;
 		}
 	}
-	return (block : blocks[block] | block <- blocks, size(blocks[block]) > 1);
+	// println("Duplicate blocks: <counter>");
+	// return (block : blocks[block] | block <- blocks, size(blocks[block]) > 1);
+	return dupCounter;
 }

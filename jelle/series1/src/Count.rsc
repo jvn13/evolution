@@ -18,7 +18,7 @@ public list[str] getLoc(loc file) {
 		// Find the index of single line comment and remove everything behind it
 		i = findFirst(l, "//");
 		if(i != -1) {
-			l = l[..i];
+			l = trim(l[..i]);
 		}
 		
 		i = findFirst(l, "/*");
@@ -26,13 +26,12 @@ public list[str] getLoc(loc file) {
 		if(i != -1 && j != -1) {
 			l = trim(l[..i]) + trim(l[(j+2)..]);
 		} else if(i != -1) {
-			l = l[..i];
+			l = trim(l[..i]);
 			inComment = true;
 		} else if(j != -1) {
 			l = trim(l[(j+2)..]);
 			inComment = false;
 		}
-		
 		
 		if(!isEmpty(l) && !inComment) code += [l];
 	}

@@ -2,6 +2,7 @@ module Rating
 
 import Helper;
 import IO;
+import Visualization;
 
 /*
 	The SIG ratings are converted to the following integer ratings:
@@ -27,8 +28,9 @@ public int getDuplicationRating(int duplicates, int volume) {
 	}
 }
 
-public int getUnitRating(list[int] values, tuple[int,int,int] boundaries) {
+public int getUnitRating(str name, list[int] values, tuple[int,int,int] boundaries) {
 	RiskProfile risks = getUnitRisk(values, boundaries);
+	printRiskProfile(name, risks);
 	if(
 		(risks.moderate <= 25) &&
 		(risks.high <= 0) &&
@@ -80,9 +82,9 @@ public int getVolumeRating(int volume) {
 		return 5;
 	} else if(kloc < 246) {
 		return 4;
-	} else if(kloc < 246) {
+	} else if(kloc < 665) {
 		return 3;
-	} else if(kloc < 246) {
+	} else if(kloc < 1310) {
 		return 2;
 	} else {
 		return 1;

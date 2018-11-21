@@ -13,7 +13,8 @@ data ScoresType = Scores(
 	int volume,
 	list[int] unitSize,
 	list[int] unitCC,
-	int duplicates
+	int duplicates,
+	real duplicatePercentage
 );
 
 public int calculatePercentage(int partial, int total) {
