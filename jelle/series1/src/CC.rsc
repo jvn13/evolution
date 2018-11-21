@@ -12,7 +12,7 @@ public list[int] getCCPerMethod(loc project){
 }
 
 //per file return complexity & number for each case of methods
-private list[int] getClassCC(loc file){
+public list[int] getClassCC(loc file){
 	list[int] result = [];
 	Declaration decl = getDeclaration(file);
 	
@@ -22,7 +22,7 @@ private list[int] getClassCC(loc file){
 	return result;
 }
 
-private int getMethodCC(Declaration meth){
+public int getMethodCC(Declaration meth){
 	int result = 1;
 	
 	visit(meth){
