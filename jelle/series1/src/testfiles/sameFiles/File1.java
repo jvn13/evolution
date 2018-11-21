@@ -1,6 +1,6 @@
-package testfiles.temporary;
+package testfiles.sameFiles;
 
-public class file1 {
+public class File1 {
 	/*
 	 Test comment
 	 */

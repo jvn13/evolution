@@ -14,21 +14,37 @@ public bool duplicationTest(str name, loc project, int exact) {
 }
 
 test bool fileOrder() = duplicationTest(
-	"File Order Test", 
+	"File order", 
 	|project://series1/src/testfiles/fileOrder|, 
 	12
 );
 
+test bool someOverlap() = duplicationTest(
+	"Some overlap", 
+	|project://series1/src/testfiles/basicDuplication|,
+	25
+);
+
 test bool sameFiles() = duplicationTest(
-	"Same Files", 
+	"Two identical files", 
 	|project://series1/src/testfiles/sameFiles|,
 	36
 );
 
 test bool oneFile() = duplicationTest(
-	"One File", 
+	"One file",
 	|project://series1/src/testfiles/sameFiles/File1.java|,
 	12
 );
 
+test bool zeroCase() = duplicationTest(
+	"Block of 7", 
+	|project://series1/src/testfiles/basicDuplication/File2.java|,
+	7
+);
 
+test bool zeroCase() = duplicationTest(
+	"Zero case", 
+	|project://series1/src/testfiles/basicDuplication/File1.java|,
+	0
+);
