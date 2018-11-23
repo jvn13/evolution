@@ -38,7 +38,7 @@ public void printInfo(ScoresType scores, map[str,int] ratings) {
 	println("Unit Complexity:\t<avgCC> (avg)\t\t<ratingsSymbols["unitCC"]>");
 	// Duplicates
 	println("Duplicates:\t\t<scores.duplicates> (<scores.duplicatePercentage>%)\t\t<ratingsSymbols["duplicates"]>");
-	println("Previously seen:\t<scores.seen> (<scores.seenPercentage>%)\t\t<ratingsSymbols["seen"]>");
+	println("Redundants:\t\t<scores.redundants> (<scores.redundantPercentage>%)\t\t<ratingsSymbols["redundants"]>");
 	println();
 	
 	analysability = floor(0.4*ratings["volume"] + 0.2*ratings["duplicates"] + 0.4*ratings["unitSize"]);
