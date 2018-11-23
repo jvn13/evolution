@@ -33,7 +33,7 @@ private map[str,int] composeRatings(ScoresType scores) {
 	return (
 		"volume" : getVolumeRating(scores.volume),
 	  "unitCC" : getUnitCCRating("Unit CC", scores.unitCC, <10, 20, 50>),
-		"duplicates" : getDuplicationRating(scores.duplicates, scores.volume)
+		"duplicates" : getDuplicationRating(scores.duplicates, scores.volume),
 	  "unitSize" : getUnitRating("Unit size", scores.unitSize, <15, 30, 60>),
 		"redundants" : getDuplicationRating(scores.redundants, scores.volume)
 	);
