@@ -144,10 +144,10 @@ public int getVolumeRating(int volume) {
 
 public RiskProfile toPercentageCC(list[int] locPerRiskRank){
 	risks = riskProfile(0,0,0,0);
-	risks.low = round(toReal(locPerRiskRank[0])/toReal(sizeOfProject)*100);
-	risks.moderate = round(toReal(locPerRiskRank[1])/toReal(sizeOfProject)*100);
-	risks.high = round(toReal(locPerRiskRank[2])/toReal(sizeOfProject)*100);
-	risks.veryhigh=round(toReal(locPerRiskRank[3])/toReal(sizeOfProject)*100);
+	risks.low = round(toReal(locPerRiskRank[0])/toReal(scores.volume)*100);
+	risks.moderate = round(toReal(locPerRiskRank[1])/toReal(scores.volume)*100);
+	risks.high = round(toReal(locPerRiskRank[2])/toReal(scores.volume)*100);
+	risks.veryhigh=round(toReal(locPerRiskRank[3])/toReal(scores.volume)*100);
 	return risks;
 } 
 

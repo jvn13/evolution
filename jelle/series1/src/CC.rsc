@@ -9,7 +9,6 @@ import analysis::m3::AST;
 //returns a list with the complexity per file
 public list[tuple[int,int]] getCCPerMethod(loc project){
 	list[loc] files = getFiles(project);
-	println(size(files));
 	list[tuple[int,int]] result = [];
 	for(f <- files) result += getClassCC(f);
 	return result;

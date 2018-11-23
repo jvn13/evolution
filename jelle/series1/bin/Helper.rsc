@@ -17,7 +17,7 @@ data ScoresType = Scores(
 	int redundants,
 	real duplicatePercentage,
 	real redundantPercentage,
-	int unitParameters
+	list[int] unitInterfacing
 );
 
 public int calculatePercentage(int partial, int total) {
