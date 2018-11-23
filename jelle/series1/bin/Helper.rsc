@@ -14,7 +14,9 @@ data ScoresType = Scores(
 	list[int] unitSize,
 	list[int] unitCC,
 	int duplicates,
-	real duplicatePercentage
+	int redundants,
+	real duplicatePercentage,
+	real redundantPercentage
 );
 
 public int calculatePercentage(int partial, int total) {

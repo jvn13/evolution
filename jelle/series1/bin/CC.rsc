@@ -12,7 +12,7 @@ public list[int] getCCPerMethod(loc project){
 }
 
 //per file return complexity & number for each case of methods
-private list[int] getClassCC(loc file){
+public list[int] getClassCC(loc file){
 	list[int] result = [];
 	Declaration decl = getDeclaration(file);
 	
@@ -22,12 +22,13 @@ private list[int] getClassCC(loc file){
 	return result;
 }
 
-private int getMethodCC(Declaration meth){
+public int getMethodCC(Declaration meth){
 	int result = 1;
 	
 	visit(meth){
 		case \if(_,_) : result += 1;
 		case \if(_,_,_) : result += 1;
+		case \conditional(_,_,_): result +=1;
 		case \for(_,_,_) : result += 1;
 		case \for(_,_,_,_) : result += 1;
 		case \case(_) : result += 1;
