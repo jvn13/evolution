@@ -12,7 +12,7 @@ data RiskProfile = riskProfile(
 data ScoresType = Scores(
 	int volume,
 	list[int] unitSize,
-	list[int] unitCC,
+	list[tuple[int,int]] unitCC,
 	int duplicates,
 	int redundants,
 	real duplicatePercentage,

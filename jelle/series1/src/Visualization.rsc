@@ -34,8 +34,7 @@ public void printInfo(ScoresType scores, map[str,int] ratings) {
 	avgSize = round(sum(scores.unitSize)/toReal(size(scores.unitSize)),0.001);
 	println("Unit Size:\t\t<avgSize> (avg)\t\t<ratingsSymbols["unitSize"]>");
 	// Unit CC
-	avgCC = round(sum(scores.unitCC)/toReal(size(scores.unitCC)),0.001);
-	println("Unit Complexity:\t<avgCC> (avg)\t\t<ratingsSymbols["unitCC"]>");
+	println("Unit Complexity:\t\t\t<ratingsSymbols["unitCC"]>");
 	// Duplicates
 	println("Duplicates:\t\t<scores.duplicates> (<scores.duplicatePercentage>%)\t\t<ratingsSymbols["duplicates"]>");
 	println("Redundants:\t\t<scores.redundants> (<scores.redundantPercentage>%)\t\t<ratingsSymbols["redundants"]>");
