@@ -22,6 +22,7 @@ private void Analyze(loc project) {
 	<scores.duplicates, scores.redundants> = getDuplicateLinesPerProject(lines);
 	scores.duplicatePercentage = round(scores.duplicates/ toReal(scores.volume)*100, 0.01);
 	scores.redundantPercentage = round(scores.redundants/ toReal(scores.volume)*100, 0.01);
+	scores.unitParameters = getParameterCountPerMethod(project);
 	
 	ratings = composeRatings(scores);
 	printInfo(scores, ratings);
@@ -39,7 +40,7 @@ private map[str,int] composeRatings(ScoresType scores) {
 
 public void Main() {
 	loc project = |project://smallsql0.21_src|;
-	//loc project = |project://series1/src/testfiles/temporary|;
+	//loc project = |project://BinaryConverter|;
 	//loc project = |project://hsqldb-2.3.1|;
 	
 	time = realTime(void () {
