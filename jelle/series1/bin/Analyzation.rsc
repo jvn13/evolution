@@ -12,11 +12,13 @@ import util::Benchmark;
 import util::Math;
 import Visualization;
 
+public int sizeOfProject = 0;
+
 private void Analyze(loc project) {
 	ScoresType scores = Scores(0,[],[],0, 0, 0.0, 0.0);
 	lines = getProjectLoc(project);
-	
 	scores.volume = size(lines);
+	sizeOfProject = scores.volume;
 	scores.unitSize = getLocPerMethod(project);
 	scores.unitCC = getCCPerMethod(project);
 	<scores.duplicates, scores.redundants> = getDuplicateLinesPerProject(lines);
@@ -30,9 +32,9 @@ private void Analyze(loc project) {
 private map[str,int] composeRatings(ScoresType scores) {
 	return (
 		"volume" : getVolumeRating(scores.volume),
+	  "unitCC" : getUnitCCRating("Unit CC", scores.unitCC, <10, 20, 50>),
+		"duplicates" : getDuplicationRating(scores.duplicates, scores.volume)
 	  "unitSize" : getUnitRating("Unit size", scores.unitSize, <15, 30, 60>),
-	  "unitCC" : getUnitRating("Unit CC", scores.unitCC, <10, 20, 50>),
-		"duplicates" : getDuplicationRating(scores.duplicates, scores.volume),
 		"redundants" : getDuplicationRating(scores.redundants, scores.volume)
 	);
 }
