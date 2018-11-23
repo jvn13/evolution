@@ -28,6 +28,7 @@ public int getMethodCC(Declaration meth){
 	visit(meth){
 		case \if(_,_) : result += 1;
 		case \if(_,_,_) : result += 1;
+		case \conditional(_,_,_): result +=1;
 		case \for(_,_,_) : result += 1;
 		case \for(_,_,_,_) : result += 1;
 		case \case(_) : result += 1;
