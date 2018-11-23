@@ -55,7 +55,7 @@ public void printInfo(ScoresType scores, map[str,int] ratings) {
 
 public void printRiskProfile(str name, RiskProfile risks) {
 	println("<name> risks");
-	println("----------------------"); 
+	println("----------------------");
 	println("Low:\t\t<risks.low>%");
 	println("Moderate:\t<risks.moderate>%");
 	println("High:\t\t<risks.high>%");

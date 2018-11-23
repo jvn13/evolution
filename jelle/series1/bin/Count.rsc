@@ -5,6 +5,7 @@ import List;
 import Read;
 import String;
 import lang::java::jdt::m3::Core;
+import Type;
 
 public list[str] getLoc(loc file) {
 	list[str] lines = readFileLines(file);
@@ -38,6 +39,19 @@ public list[str] getLoc(loc file) {
 	return code;
 }
 
+public list[int] getParameterCountPerMethod(loc project) {
+	parametersPerMethod = [];
+	mmm = read(project);
+	projectParameters = parameters(mmm);
+	projectMethods = methods(mmm);
+	for(projectMethod <- projectMethods) {
+		counter = 0;
+		methodPath = projectMethod.path;
+		methodParameters = [p | p <- projectParameters, contains(p.path, methodPath)];
+		parametersPerMethod += [size(methodParameters)];
+	}
+	return parametersPerMethod;
+}
 
 public list[int] getLocPerMethod(loc project) {
 	mmm = read(project);
