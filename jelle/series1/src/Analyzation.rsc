@@ -12,11 +12,13 @@ import util::Benchmark;
 import util::Math;
 import Visualization;
 
+public int sizeOfProject = 0;
+
 private void Analyze(loc project) {
 	ScoresType scores = Scores(0,[],[],0, 0.0);
 	lines = getProjectLoc(project);
-	
 	scores.volume = size(lines);
+	sizeOfProject = scores.volume;
 	scores.unitSize = getLocPerMethod(project);
 	scores.unitCC = getCCPerMethod(project);
 	scores.duplicates = getDuplicateLinesPerProject(lines);
@@ -30,15 +32,15 @@ private map[str,int] composeRatings(ScoresType scores) {
 	return (
 		"volume" : getVolumeRating(scores.volume),
 	  "unitSize" : getUnitRating("Unit size", scores.unitSize, <10, 100, 200>),
-	  "unitCC" : getUnitRating("Unit CC", scores.unitCC, <10, 20, 50>),
+	  "unitCC" : getUnitCCRating("Unit CC", scores.unitCC, <10, 20, 50>),
 		"duplicates" : getDuplicationRating(scores.duplicates, scores.volume)
 	);
 }
 
 public void Main() {
-	//loc project = |project://smallsql0.21_src|;
+	loc project = |project://smallsql0.21_src|;
 	//loc project = |project://series1/src/testfiles/temporary|;
-	loc project = |project://hsqldb-2.3.1|;
+	//loc project = |project://hsqldb-2.3.1|;
 	
 	time = realTime(void () {
 		Analyze(project);
