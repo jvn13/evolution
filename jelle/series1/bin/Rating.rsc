@@ -63,11 +63,11 @@ public int getUnitRating(str name, list[int] values, tuple[int,int,int] boundari
 public RiskProfile getUnitRisk(list[int] values, tuple[int,int,int] boundaries) {
 	risks = riskProfile(0, 0, 0, 0);
 	for(m <- values) {
-		if(m < boundaries[0]) {
+		if(m <= boundaries[0]) {
 			risks.low += 1;
-		} else if(m < boundaries[1]) {
+		} else if(m <= boundaries[1]) {
 			risks.moderate += 1;
-		} else if(m < boundaries[2]) {
+		} else if(m <= boundaries[2]) {
 			risks.high += 1;
 		} else {
 			risks.veryhigh += 1;

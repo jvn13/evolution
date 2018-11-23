@@ -15,14 +15,15 @@ import Visualization;
 public int sizeOfProject = 0;
 
 private void Analyze(loc project) {
-	ScoresType scores = Scores(0,[],[],0, 0.0);
+	ScoresType scores = Scores(0,[],[],0, 0, 0.0, 0.0);
 	lines = getProjectLoc(project);
 	scores.volume = size(lines);
 	sizeOfProject = scores.volume;
 	scores.unitSize = getLocPerMethod(project);
 	scores.unitCC = getCCPerMethod(project);
-	scores.duplicates = getDuplicateLinesPerProject(lines);
+	<scores.duplicates, scores.redundants> = getDuplicateLinesPerProject(lines);
 	scores.duplicatePercentage = round(scores.duplicates/ toReal(scores.volume)*100, 0.01);
+	scores.redundantPercentage = round(scores.redundants/ toReal(scores.volume)*100, 0.01);
 	
 	ratings = composeRatings(scores);
 	printInfo(scores, ratings);
@@ -31,9 +32,10 @@ private void Analyze(loc project) {
 private map[str,int] composeRatings(ScoresType scores) {
 	return (
 		"volume" : getVolumeRating(scores.volume),
-	  "unitSize" : getUnitRating("Unit size", scores.unitSize, <10, 100, 200>),
 	  "unitCC" : getUnitCCRating("Unit CC", scores.unitCC, <10, 20, 50>),
 		"duplicates" : getDuplicationRating(scores.duplicates, scores.volume)
+	  "unitSize" : getUnitRating("Unit size", scores.unitSize, <15, 30, 60>),
+		"redundants" : getDuplicationRating(scores.redundants, scores.volume)
 	);
 }
 
