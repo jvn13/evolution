@@ -95,10 +95,9 @@ public int getUnitCCRating(str name, list[tuple[int,int]] values, tuple[int,int,
 }
 
 public RiskProfile getUnitCCRisk(list[tuple[int risk,int lines]] values, tuple[int,int,int] boundaries){
-
-linesPerRiskRank = [0,0,0,0];
-for(m <- values){
-	if(m.risk <= boundaries[0]) {
+	linesPerRiskRank = [0,0,0,0];
+	for(m <- values){
+		if(m.risk <= boundaries[0]) {
 			linesPerRiskRank[0] += m.lines;
 		} else if(m.risk <= boundaries[1]) {
 			linesPerRiskRank[1] +=m.lines;
@@ -112,19 +111,19 @@ for(m <- values){
 }
 
 public RiskProfile getUnitRisk(list[int] values, tuple[int,int,int] boundaries) {
-	risks = riskProfile(0, 0, 0, 0);
-	for(m <- values) {
-		if(m <= boundaries[0]) {
-			risks.low += 1;
-		} else if(m <= boundaries[1]) {
-			risks.moderate += 1;
-		} else if(m <= boundaries[2]) {
-			risks.high += 1;
+	linesPerRiskRank = [0, 0, 0, 0];
+	for(val <- values) {
+		if(val <= boundaries[0]) {
+			linesPerRiskRank[0] += val;
+		} else if(val <= boundaries[1]) {
+			linesPerRiskRank[1] += val;
+		} else if(val <= boundaries[2]) {
+			linesPerRiskRank[2] += val;
 		} else {
-			risks.veryhigh += 1;
+			linesPerRiskRank[3] += val;
 		}
 	}
-	return toPercentage(risks);
+	return toPercentageCC(linesPerRiskRank);
 }
 
 public int getVolumeRating(int volume) {

@@ -18,12 +18,11 @@ private void Analyze(loc project) {
 	lines = getProjectLoc(project);
 	
 	scores.volume = size(lines);
-	scores.unitSize = getLocPerMethod(project);
+	<scores.unitSize, scores.unitInterfacing> = getLocPerMethod(project);
 	scores.unitCC = getCCPerMethod(project);
 	<scores.duplicates, scores.redundants> = getDuplicateLinesPerProject(lines);
 	scores.duplicatePercentage = round(scores.duplicates/ toReal(scores.volume)*100, 0.01);
 	scores.redundantPercentage = round(scores.redundants/ toReal(scores.volume)*100, 0.01);
-	scores.unitInterfacing = getParameterCountPerMethod(project);
 	
 	ratings = composeRatings(scores);
 	printInfo(scores, ratings);
@@ -35,15 +34,15 @@ private map[str,int] composeRatings(ScoresType scores) {
 		"unitSize" : getUnitRating("Unit size", scores.unitSize, <15, 30, 60>),
 	  "unitCC" : getUnitCCRating("Unit CC", scores.unitCC, <10, 20, 50>),
 		"duplicates" : getDuplicationRating(scores.duplicates, scores.volume),
-		"redundants" : getDuplicationRating(scores.redundants, scores.volume),
-		"unitInterfacing" : getUnitRating("Unit interfaces", scores.unitInterfacing, <2, 4, 6>)
+    "redundants" : getDuplicationRating(scores.redundants, scores.volume),
+    "unitInterfacing" : getUnitRating("Unit interfaces", scores.unitInterfacing, <2, 4, 6>)
 	);
 }
 
 public void Main() {
-	//loc project = |project://smallsql0.21_src|;
+	loc project = |project://smallsql0.21_src|;
 	//loc project = |project://BinaryConverter|;
-	loc project = |project://hsqldb-2.3.1|;
+	//loc project = |project://hsqldb-2.3.1|;
 	
 	time = realTime(void () {
 		Analyze(project);

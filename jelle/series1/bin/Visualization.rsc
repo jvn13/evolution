@@ -37,7 +37,7 @@ public void printInfo(ScoresType scores, map[str,int] ratings) {
 	println("Unit Complexity:\t\t\t\t<ratingsSymbols["unitCC"]>");
 	// Duplicates
 	println("Duplicates:\t\t<scores.duplicates> (<scores.duplicatePercentage>%)\t\t<ratingsSymbols["duplicates"]>");
-	println("Redundants:\t\t<scores.redundants> (<scores.redundantPercentage>%)\t\t<ratingsSymbols["redundants"]>");
+	println("Redundants:\t\t<scores.redundants> (<scores.redundantPercentage>%)");
 	avgInterfaces = round(sum(scores.unitInterfacing)/toReal(size(scores.unitInterfacing)),0.001);
 	println("Unit Interfacing:\t<avgInterfaces> (avg)\t\t<ratingsSymbols["unitInterfacing"]>");
 	println();

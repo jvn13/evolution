@@ -53,9 +53,32 @@ public list[int] getParameterCountPerMethod(loc project) {
 	return parametersPerMethod;
 }
 
-public list[int] getLocPerMethod(loc project) {
+public int parameterTest(list[str] lines) {
+	parameterCounter = 0;
+	line = lines[0];
+	
+	startIndex = findFirst(line, "(") + 1;
+	endIndex = findFirst(line, ")");
+	line = line[startIndex .. endIndex];
+	
+	while(findFirst(line, ",") != -1) {
+		i = findFirst(line, ",");
+		line = line[(i + 1)..];
+		if(line[..i] != "") {
+			parameterCounter += 1;
+		}
+	}
+	
+	if(line != "") {
+		parameterCounter += 1;
+	}
+	return parameterCounter;
+}
+
+public tuple[list[int], list[int]] getLocPerMethod(loc project) {
 	mmm = read(project);
-	return [size(getLoc(m)) | m <- methods(mmm)];
+	linesPerMethod = [getLoc(m) | m <- methods(mmm)];
+	return <[size(m) | m <- linesPerMethod], [parameterTest(m) | m <- linesPerMethod]>;
 }
 
 public list[str] getProjectLoc(loc project) {
