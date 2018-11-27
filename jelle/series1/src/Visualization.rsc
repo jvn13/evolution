@@ -39,7 +39,7 @@ public void printInfo(ScoresType scores, map[str,int] ratings) {
 	println("Duplicates:\t\t<scores.duplicates> (<scores.duplicatePercentage>%)\t\t<ratingsSymbols["duplicates"]>");
 	println("Redundants:\t\t<scores.redundants> (<scores.redundantPercentage>%)");
 	avgInterfaces = round(sum(scores.unitInterfacing)/toReal(size(scores.unitInterfacing)),0.001);
-	println("Unit Interfacing:\t<avgInterfaces> (avg)\t\t<ratingsSymbols["unitInterfacing"]>");
+	println("Unit Interfaces:\t<avgInterfaces> (avg)\t\t<ratingsSymbols["unitInterfaces"]>");
 	println();
 	
 	analysability = floor(0.4*ratings["volume"] + 0.2*ratings["duplicates"] + 0.4*ratings["unitSize"]);
