@@ -5,7 +5,13 @@ import IO;
 import List;
 import String;
 
-//input: loc of file to analyse, tuples of expected cc and number of lines per method in the file
+/*
+ * helper function which calls a method to get the cyclomatic complexity of a project and compares that to an expected result
+ *
+ * @ param loc - path of file to analyse, 
+ * expectedResults - tuples of expected cc and number of lines per method in the file
+ * 
+ */
 public bool ccTest(loc file, list[tuple[int,int]] expectedResult) {
 	return  getClassCC(file) == expectedResult;
 }

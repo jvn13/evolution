@@ -7,8 +7,11 @@ import List;
 import Count;
 import analysis::m3::AST;
 
-//returns a list that contains the cyclomatic complexity & number of lines per method
-//input: loc of a project
+/*
+ * returns a list that contains cyclomatic complexity & number of lines per method
+ *
+ * @ param loc - path of a project
+ */
 public list[tuple[int,int]] getCCPerMethod(loc project){
 	list[loc] files = getFiles(project);
 	list[tuple[int,int]] result = [];
@@ -16,8 +19,11 @@ public list[tuple[int,int]] getCCPerMethod(loc project){
 	return result;
 }
 
-//returns a list that contains cyclomatic complexity & number of lines per method
-//input: loc of a file / class
+/*
+ * returns a list that contains cyclomatic complexity & number of lines per method
+ *
+ * @ param loc - path of a file / class
+ */
 public list[tuple[int,int]] getClassCC(loc file){
 	list[tuple[int,int]] result = [];
 	Declaration decl = createAstFromFile(file, false);
@@ -28,8 +34,11 @@ public list[tuple[int,int]] getClassCC(loc file){
 	return result;
 }
 
-//visits each node and increases the cyclomatic complexity of the method by 1 in case of an if, for, ...
-//input: method declaration
+/*
+ * visits each node and increases the cyclomatic complexity of the method by 1 in case of an if, for, ...
+ *
+ * @ param meth - declaration of the method to analyse
+ */
 public int getMethodCC(Declaration meth){
 	int result = 1;
 	
