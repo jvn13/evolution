@@ -5,20 +5,18 @@ import IO;
 import List;
 import String;
 
-
-public bool ccTest(loc file, list[int] expectedResult) {
-	result = getClassCC(file);
-	println("Result = <result>");
-	return result == expectedResult;
+//input: loc of file to analyse, tuples of expected cc and number of lines per method in the file
+public bool ccTest(loc file, list[tuple[int,int]] expectedResult) {
+	return  getClassCC(file) == expectedResult;
 }
-public test bool testTraverseMethodNestedIf(){	
-return ccTest(|project://series1/src/testfiles/fileOrder/NestedIf.java|, [3]);
+public test bool testCCForNestedIf_returnComplexityThatConsidersEachIf(){	
+return ccTest(|project://series1/src/testfiles/fileOrder/NestedIf.java|, [<3,9>]);
 }
 
-public test bool testCCForSwitchCase(){
-return ccTest(|project://series1/src/testfiles/basicDuplication/File1.java|, [5,2,1]);
+public test bool testCCForDifferentSwitchCases_returnComplexityOfEachMethod(){
+return ccTest(|project://series1/src/testfiles/basicDuplication/File1.java|, [<5,13>,<2,7>,<1,3>]);
 }
 
-public test bool testCCForSmallSQL(){
-return ccTest(|project://smallsql0.21_src/src/smallsql/database/ExpressionArithmetic.java|, [1,2]);
+public test bool testCCForMethodsWithOutStatements_returnComplexity1(){
+return ccTest(|project://series1/src/testfiles/sameFiles/File1.java|, [<1,7>,<1,7>, <1,7>]);
 }
