@@ -12,21 +12,7 @@ import util::Benchmark;
 import util::Math;
 import Visualization;
 
-public ScoresType scores = Scores(0,[] ,[] ,0, 0, 0.0, 0.0, []);
-
-/*
- * Runs the analyzation for the provided project
- * and keeps track of the duration of the execution.
- * 
- * @ param project - location of the project to analyze.
- *
- */
-public void runAnalyzation(loc project) {
-	time = realTime(void () {
-		Analyze(project);
-	});
-	println("Execution time: <time> ms");
-}
+public ScoresType scores = Scores(0, [] ,[] ,0, 0, 0.0, 0.0, []);
 
 /*
  * Runs the analyzation for the smallsql project
@@ -47,17 +33,32 @@ public void runHsql() {
 }
 
 /*
- * Calculates all the desired metrics and ratings for the project.
- * Calls a function to pretty print the results
+ * Runs the analyzation for the provided project
+ * and keeps track of the duration of the execution.
+ * 
+ * @ param project - location of the project to analyze.
  *
- * @ param project - location of the project.
+ */
+public void runAnalyzation(loc project) {
+	time = realTime(void () {
+		Analyze(project);
+	});
+	println("Execution time: <time> ms");
+}
+
+/*
+ * Calculates all the desired metrics and ratings for the project.
+ * Calls a function to pretty print the results.
+ *
+ * @param project - location of the project.
  *
  */
 private void Analyze(loc project) {
 	lines = getProjectLoc(project);
 	
 	scores.volume = size(lines);
-	<scores.unitSize, scores.unitInterfacing> = getLocPerMethod(project);
+	scores.unitInterfaces = getInterfaceAndLocPerMethod(project);
+	scores.unitSize = [<e,e> | <_,e> <- scores.unitInterfaces];
 	scores.unitCC = getCCPerMethod(project);
 	<scores.duplicates, scores.redundants> = getDuplicateLinesPerProject(lines);
 	scores.duplicatePercentage = round(scores.duplicates/ toReal(scores.volume)*100, 0.01);
@@ -77,10 +78,10 @@ private void Analyze(loc project) {
 private map[str,int] composeRatings(ScoresType scores) {
 	return (
 		"volume" : getVolumeRating(scores.volume),
-		"unitSize" : getUnitRating("Unit size", scores.unitSize, <15, 30, 60>),
+		"unitSize" : getUnitCCRating("Unit size", scores.unitSize, <15, 30, 60>),
 	  "unitCC" : getUnitCCRating("Unit CC", scores.unitCC, <10, 20, 50>),
 		"duplicates" : getDuplicationRating(scores.duplicates, scores.volume),
     "redundants" : getDuplicationRating(scores.redundants, scores.volume),
-    "unitInterfaces" : getUnitRating("Unit interfaces", scores.unitInterfacing, <2, 4, 6>)
+    "unitInterfaces" : getUnitCCRating("Unit interfaces", scores.unitInterfaces, <2, 4, 6>)
 	);
 }

@@ -6,10 +6,19 @@ import IO;
 import List;
 import util::Math;
 
+/*
+ * General method to handle the tests for Duplication.
+ *
+ * @param name - name of the specific test.
+ * @param project - location of the project to test.
+ * @param exact - hand calculates result.
+ * @return bool - results matches exact param.
+ *
+ */
 public bool duplicationTest(str name, loc project, int exact) {
 	list[str] lines = getProjectLoc(project);
-	duplicates = getDuplicateLinesPerProject(lines);
-	println("\n<name>: <duplicates>, <duplicates/toReal(size(lines))*100>%");
+	<duplicates, _> = getDuplicateLinesPerProject(lines);
+	println("\n<name>: <duplicates>, <duplicates / toReal(size(lines)) * 100>%");
 	return duplicates == exact;
 }
 

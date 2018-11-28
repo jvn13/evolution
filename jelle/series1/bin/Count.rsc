@@ -7,6 +7,13 @@ import String;
 import lang::java::jdt::m3::Core;
 import Type;
 
+/*
+ * Read in a file as lines and removes the empty and comment lines.
+ *
+ * @param file - location of the file
+ * @return list[str] - list of the source code lines
+ *
+ */
 public list[str] getLoc(loc file) {
 	list[str] lines = readFileLines(file);
 	
@@ -16,7 +23,6 @@ public list[str] getLoc(loc file) {
 	for(l <- lines) {
 		l = trim(l);
 		
-		// Find the index of single line comment and remove everything behind it
 		i = findFirst(l, "//");
 		if(i != -1) {
 			l = trim(l[..i]);
@@ -39,21 +45,45 @@ public list[str] getLoc(loc file) {
 	return code;
 }
 
-public list[int] getParameterCountPerMethod(loc project) {
-	parametersPerMethod = [];
-	mmm = read(project);
-	projectParameters = parameters(mmm);
-	projectMethods = methods(mmm);
-	for(projectMethod <- projectMethods) {
-		counter = 0;
-		methodPath = projectMethod.path;
-		methodParameters = [p | p <- projectParameters, contains(p.path, methodPath)];
-		parametersPerMethod += [size(methodParameters)];
-	}
-	return parametersPerMethod;
+/*
+ * Reads in all the files in the project and combines all 
+ * the source code lines in one big list.
+ *
+ * @param project - location of the project.
+ * @return list[str] - list of all the source code lines.
+ *
+ */
+public list[str] getProjectLoc(loc project) {
+	list[loc] projectFiles = getFiles(project);
+	lines = [];
+	for(file <- projectFiles) lines += getLoc(file);
+	return lines;
 }
 
-public int parameterTest(list[str] lines) {
+/*
+ * Creates an M3 model of the project and extracts the methods from that.
+ * Creates a list of the lines of each method and calculates the number
+ * of parameters and size of each method.
+ *
+ * @param project - location of the project.
+ * @return list[tuple[int, int]] - list of tuples containing the method interface and size.
+ *
+ */
+public list[tuple[int, int]] getInterfaceAndLocPerMethod(loc project) {
+	mmm = read(project);
+	linesPerMethod = [getLoc(m) | m <- methods(mmm)];
+	return [<getParameterCount(m), size(m)> | m <- linesPerMethod];
+}
+
+/*
+ * Takes the first line of the method lines 
+ * and counts the number of parameters.
+ *
+ * @param lines - list of the lines of the method
+ * @return int - number of parameters
+ *
+ */
+public int getParameterCount(list[str] lines) {
 	parameterCounter = 0;
 	line = lines[0];
 	
@@ -73,17 +103,4 @@ public int parameterTest(list[str] lines) {
 		parameterCounter += 1;
 	}
 	return parameterCounter;
-}
-
-public tuple[list[int], list[int]] getLocPerMethod(loc project) {
-	mmm = read(project);
-	linesPerMethod = [getLoc(m) | m <- methods(mmm)];
-	return <[size(m) | m <- linesPerMethod], [parameterTest(m) | m <- linesPerMethod]>;
-}
-
-public list[str] getProjectLoc(loc project) {
-	list[loc] projectFiles = getFiles(project);
-	lines = [];
-	for(file <- projectFiles) lines += getLoc(file);
-	return lines;
 }

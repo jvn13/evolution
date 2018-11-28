@@ -6,47 +6,28 @@ import List;
 import Set;
 import util::Math;
 
-public str ratingToSymbol(int rank) {
-	switch(rank) {
-		case 5: return "++";
-		case 4: return "+";
-		case 3: return "o";
-		case 2: return "-";
-		case 1: return "--";
-	}	
-}
-
-public void printDuplicates(list[str] lines, set[int] duplicateLines) {
-	orderedDuplicateLines = sort(toList(duplicateLines));
-	for(d <- orderedDuplicateLines) {
-		println("<d> : <lines[d]>");
-	}
-}
-
 public void printInfo(ScoresType scores, map[str,int] ratings) {
 	map[str,str] ratingsSymbols = (metric : ratingToSymbol(ratings[metric]) | metric <- ratings);
 	// Header
-	println("Characteristic\t\tValue\t\t\tRating");
+	println("Metric\t\t\tValue\t\t\tRating");
 	println("------------------------------------------------------------");
 	// Volume
 	println("Volume:\t\t\t<scores.volume>\t\t\t<ratingsSymbols["volume"]>");
 	// Unit Size
-	avgSize = round(sum(scores.unitSize)/toReal(size(scores.unitSize)),0.001);
-	println("Unit Size:\t\t<avgSize> (avg)\t\t<ratingsSymbols["unitSize"]>");
+	println("Unit Size:\t\t<calculateAverage(scores.unitSize)> (avg)\t\t<ratingsSymbols["unitSize"]>");
 	// Unit CC
-	println("Unit Complexity:\t\t\t\t<ratingsSymbols["unitCC"]>");
+	println("Unit Complexity:\t<calculateAverage(scores.unitCC)> (avg)\t\t<ratingsSymbols["unitCC"]>");
 	// Duplicates
 	println("Duplicates:\t\t<scores.duplicates> (<scores.duplicatePercentage>%)\t\t<ratingsSymbols["duplicates"]>");
-	println("Redundants:\t\t<scores.redundants> (<scores.redundantPercentage>%)");
-	avgInterfaces = round(sum(scores.unitInterfacing)/toReal(size(scores.unitInterfacing)),0.001);
-	println("Unit Interfaces:\t<avgInterfaces> (avg)\t\t<ratingsSymbols["unitInterfaces"]>");
+	println("Redundants:\t\t<scores.redundants> (<scores.redundantPercentage>%)\t\tn/a");
+	println("Unit Interfaces:\t<calculateAverage(scores.unitInterfaces)> (avg)\t\t<ratingsSymbols["unitInterfaces"]>");
 	println();
 	
-	analysability = floor(0.4*ratings["volume"] + 0.2*ratings["duplicates"] + 0.4*ratings["unitSize"]);
-	changeability = floor(0.5*ratings["unitCC"] + 0.5*ratings["duplicates"]);
-	testability = floor(0.7*ratings["unitCC"] + 0.3*ratings["unitSize"]);
-	reusability = floor((ratings["unitSize"] + ratings["unitInterfacing"])/2); 
-	maintainability = (analysability + changeability + testability + reusability)/4;
+	analysability = round(0.4*ratings["volume"] + 0.2*ratings["duplicates"] + 0.4*ratings["unitSize"]);
+	changeability = round(0.5*ratings["unitCC"] + 0.5*ratings["duplicates"]);
+	testability = round(0.7*ratings["unitCC"] + 0.3*ratings["unitSize"]);
+	reusability = round((ratings["unitSize"] + ratings["unitInterfaces"])/2); 
+	maintainability = round((analysability + changeability + testability + reusability)/4);
 	
 	println("Characteristic\t\tRating");
 	println("----------------------------------------");
@@ -64,4 +45,14 @@ public void printRiskProfile(str name, RiskProfile risks) {
 	println("Moderate:\t<risks.moderate>%");
 	println("High:\t\t<risks.high>%");
 	println("Very high:\t<risks.veryhigh>%\n");
+}
+
+public str ratingToSymbol(int rank) {
+	switch(rank) {
+		case 5: return "++";
+		case 4: return "+";
+		case 3: return "o";
+		case 2: return "-";
+		case 1: return "--";
+	}	
 }
