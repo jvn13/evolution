@@ -1,11 +1,13 @@
 module Rating
 
+import Analyzation;
 import Helper;
 import IO;
-import Visualization;
-import Analyzation;
-import util::Math;
 import List;
+import Visualization;
+import util::Math;
+
+public tuple[int plusplus, int plus, int neutral, int minus] VOLUME_BOUNDARIES = <66, 246, 665, 1310>;
 
 /*
  *  The SIG ratings are converted to the following integer ratings:
@@ -26,13 +28,13 @@ import List;
  */
 public int getVolumeRating(int volume) {
 	kloc = volume/1000;
-	if(kloc < 66) {
+	if(kloc < VOLUME_BOUNDARIES.plusplus) {
 		return 5;
-	} else if(kloc < 246) {
+	} else if(kloc < VOLUME_BOUNDARIES.plus) {
 		return 4;
-	} else if(kloc < 665) {
+	} else if(kloc < VOLUME_BOUNDARIES.neutral) {
 		return 3;
-	} else if(kloc < 1310) {
+	} else if(kloc < VOLUME_BOUNDARIES.minus) {
 		return 2;
 	} else {
 		return 1;
@@ -91,8 +93,11 @@ public int getUnitRating(str name, list[tuple[int,int]] values, tuple[int,int,in
 }
 
 /*
+ * TODO
  *
- *
+ * @param values -
+ * @param boundaries - 
+ * @return RiskProfile - 
  *
  */
 public RiskProfile getUnitRisk(list[tuple[int risk,int lines]] values, tuple[int,int,int] boundaries){
@@ -112,15 +117,18 @@ public RiskProfile getUnitRisk(list[tuple[int risk,int lines]] values, tuple[int
 }
 
 /*
+ * TODO
  *
- *
- *
+ * @param locPerRiskRank - 
+ * @return RiskProfile - 
+ * 
  */
 public RiskProfile toPercentage(list[int] locPerRiskRank){
 	risks = riskProfile(0,0,0,0);
-	risks.low = round(toReal(locPerRiskRank[0])/toReal(scores.volume)*100);
-	risks.moderate = round(toReal(locPerRiskRank[1])/toReal(scores.volume)*100);
-	risks.high = round(toReal(locPerRiskRank[2])/toReal(scores.volume)*100);
-	risks.veryhigh=round(toReal(locPerRiskRank[3])/toReal(scores.volume)*100);
+	real volume = toReal(scores.volume);
+	risks.low = round(locPerRiskRank[0] / volume * 100);
+	risks.moderate = round(locPerRiskRank[1] / volume * 100);
+	risks.high = round(locPerRiskRank[2] / volume * 100);
+	risks.veryhigh=round(locPerRiskRank[3] / volume * 100);
 	return risks;
 }

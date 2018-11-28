@@ -6,6 +6,22 @@ import List;
 import Set;
 import util::Math;
 
+/*
+ * 
+ *
+ * @param name -
+ * @param risks - 
+ * 
+ */
+public void printRiskProfile(str name, RiskProfile risks) {
+	println("<name> risks");
+	println("----------------------");
+	println("Low:\t\t<risks.low>%");
+	println("Moderate:\t<risks.moderate>%");
+	println("High:\t\t<risks.high>%");
+	println("Very high:\t<risks.veryhigh>%\n");
+}
+
 public void printInfo(ScoresType scores, map[str,int] ratings) {
 	map[str,str] ratingsSymbols = (metric : ratingToSymbol(ratings[metric]) | metric <- ratings);
 	// Header
@@ -36,15 +52,6 @@ public void printInfo(ScoresType scores, map[str,int] ratings) {
 	println("Testability:\t\t<ratingToSymbol(testability)>");
 	println("Reusability:\t\t<ratingToSymbol(reusability)>");
 	println("Maintainability:\t<ratingToSymbol(maintainability)>\n");
-}
-
-public void printRiskProfile(str name, RiskProfile risks) {
-	println("<name> risks");
-	println("----------------------");
-	println("Low:\t\t<risks.low>%");
-	println("Moderate:\t<risks.moderate>%");
-	println("High:\t\t<risks.high>%");
-	println("Very high:\t<risks.veryhigh>%\n");
 }
 
 public str ratingToSymbol(int rank) {
