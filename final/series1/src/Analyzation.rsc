@@ -78,10 +78,10 @@ private void Analyze(loc project) {
 private map[str,int] composeRatings(ScoresType scores) {
 	return (
 		"volume" : getVolumeRating(scores.volume),
-		"unitSize" : getUnitCCRating("Unit size", scores.unitSize, <15, 30, 60>),
-	  "unitCC" : getUnitCCRating("Unit CC", scores.unitCC, <10, 20, 50>),
+		"unitSize" : getUnitRating("Unit size", scores.unitSize, <15, 30, 60>),
+	  "unitCC" : getUnitRating("Unit CC", scores.unitCC, <10, 20, 50>),
 		"duplicates" : getDuplicationRating(scores.duplicates, scores.volume),
     "redundants" : getDuplicationRating(scores.redundants, scores.volume),
-    "unitInterfaces" : getUnitCCRating("Unit interfaces", scores.unitInterfaces, <2, 4, 6>)
+    "unitInterfaces" : getUnitRating("Unit interfaces", scores.unitInterfaces, <2, 4, 6>)
 	);
 }

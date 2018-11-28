@@ -6,15 +6,25 @@ import Visualization;
 import Analyzation;
 import util::Math;
 import List;
-/*
-	The SIG ratings are converted to the following integer ratings:
-	++ 	-> 	5
-	+		->	4
-	o		->	3
-	-		->	2
-	--	->	1
-*/
 
+/*
+ *	The SIG ratings are converted to the following integer ratings:
+ *	++ 	-> 	5
+ *	+		->	4
+ *	o		->	3
+ *	-		->	2
+ *	--	->	1
+ *
+ */
+
+/*
+ * Convertes the number of duplicate lines into a rating of the SIG model.
+ *
+ * @param duplicates - int of duplicate lines.
+ * @param volume - int of total source code lines.
+ * @return int - SIG duplciation rating 
+ *
+ */
 public int getDuplicationRating(int duplicates, int volume) {
 	int percentage = calculatePercentage(duplicates, volume);
 	if(percentage <= 3) {
@@ -29,7 +39,7 @@ public int getDuplicationRating(int duplicates, int volume) {
 		return 1;
 	}
 }
-
+/*
 public int getUnitRating(str name, list[int] values, tuple[int,int,int] boundaries) {
 	RiskProfile risks = getUnitRisk(values, boundaries);
 	printRiskProfile(name, risks);
@@ -61,7 +71,7 @@ public int getUnitRating(str name, list[int] values, tuple[int,int,int] boundari
 		return 1;
 	}
 }
-
+*/
 public int getUnitCCRating(str name, list[tuple[int,int]] values, tuple[int,int,int] boundaries) {
 	RiskProfile risks = getUnitCCRisk(values, boundaries);
 	printRiskProfile(name, risks);
@@ -109,7 +119,7 @@ public RiskProfile getUnitCCRisk(list[tuple[int risk,int lines]] values, tuple[i
 	}
 	return toPercentageCC(linesPerRiskRank);
 }
-
+/*
 public RiskProfile getUnitRisk(list[int] values, tuple[int,int,int] boundaries) {
 	linesPerRiskRank = [0, 0, 0, 0];
 	for(val <- values) {
@@ -125,7 +135,7 @@ public RiskProfile getUnitRisk(list[int] values, tuple[int,int,int] boundaries) 
 	}
 	return toPercentageCC(linesPerRiskRank);
 }
-
+*/
 public int getVolumeRating(int volume) {
 	kloc = volume/1000;
 	if(kloc < 66) {
@@ -149,7 +159,7 @@ public RiskProfile toPercentageCC(list[int] locPerRiskRank){
 	risks.veryhigh=round(toReal(locPerRiskRank[3])/toReal(scores.volume)*100);
 	return risks;
 } 
-
+/*
 public RiskProfile toPercentage(RiskProfile risks) {
 	total = risks.low + risks.moderate + risks.high + risks.veryhigh;
 	risks.low = calculatePercentage(risks.low, total);
@@ -158,3 +168,4 @@ public RiskProfile toPercentage(RiskProfile risks) {
 	risks.veryhigh = 100 - risks.low - risks.moderate - risks.high;
 	return risks;
 }
+*/
