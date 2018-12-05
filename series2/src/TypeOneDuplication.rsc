@@ -55,7 +55,7 @@ private int getNumberOfDuplicates(map[str,list[list[LineType]]] duplicateBlocks)
  */
 private map[str,list[list[LineType]]] getDuplicateBlocks(list[LineType] lines) {
 	map[str,list[list[LineType]]] blocks = ();
-	
+	if(size(lines) >= BLOCK_SIZE){
 	for(int i <- [0 .. size(lines) - (BLOCK_SIZE - 1)]) {
 		str block = "";
 		
@@ -70,4 +70,6 @@ private map[str,list[list[LineType]]] getDuplicateBlocks(list[LineType] lines) {
 		}
 	}
 	return (block : blocks[block] | block <- blocks, size(blocks[block]) > 1);
+	}
+	return blocks;
 }
