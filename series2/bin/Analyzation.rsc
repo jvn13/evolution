@@ -4,8 +4,12 @@ import Count;
 import Helper;
 import IO;
 import List;
+import Map;
 import TypeOneDuplication;
 import util::Benchmark;
+
+public int BLOCK_SIZE = 6;
+public list[str] overlappingBlocks = [];
 
 /*
  * Runs the analyzation for the smallsql project
@@ -50,47 +54,84 @@ private void Analyze(loc project) {
 	lines = getProjectLoc(project);
 	duplicates = getDuplicateLinesPerProject(lines);
 	
-	//iprintln(duplicates);
-	//println(size(lines));
-	//println(typeOne.lines);
+	// iprintln(duplicates);
+	// println(size(lines));
+	// println(typeOne.lines);
 	
-	getCloneClasses(duplicates);
+	println("Original number of clone classes: <size(duplicates)>");
+	duplicates = createLargerCloneClasses(duplicates);
+	println("Number of clone classes: <size(duplicates)>");
+	
+	iprintln(duplicates);
 }
 
-private str removeBlockLine(list[LineType] block, int lineIndex) {
-	block = delete(block, lineIndex);
+private str removeLastLine(str block, map[str, list[list[LineType]]] duplicates) {
 	str subBlock = "";
-	for(line <- block) {
+	for(line <- take(BLOCK_SIZE - 1, duplicates[block][0])) {
 		subBlock += line.val;
 	}
 	return subBlock;
 }
 
-public void getCloneClasses(map[str, list[list[LineType]]] duplicates) {
-	subBlocks = (removeBlockLine(duplicates[clone][0], size(duplicates[clone][0]) - 1) : clone | clone <- duplicates);
-	
-	for(clone <- duplicates) {
-		println("-- <clone>");
-		cloneClass = duplicates[clone];
-		subBlock = removeBlockLine(cloneClass[0], 0);
-		
-		if(subBlock in subBlocks) {
-			overlapingCloneClass = duplicates[subBlocks[subBlock]];
-			// check for same size
-			if(size(cloneClass) == size(overlapingCloneClass)) {
-				// println("Possible superclass");
-				// println("<clone> : <subBlocks[subBlock]>");
-				
-				// Check if the overlaping blocks are in the same file
-				if(overlapFileCheck(cloneClass, overlapingCloneClass)) {
-					println("possible superclass");
-				}
-			}
-		}
+private str removeFirstLine(list[list[LineType]] block) {
+	str subBlock = "";
+	for(int i <- [size(block[0]) - (BLOCK_SIZE - 1) .. BLOCK_SIZE]) {
+		// println(size(duplicates[block][0]) - (BLOCK_SIZE - 1));
+		subBlock += block[0][i].val;
 	}
+	return subBlock;
 }
 
-public bool overlapFileCheck(list[list[LineType]] cloneClass, list[list[LineType]] overlapingClass) {
+private map[str, list[list[LineType]]] createLargerCloneClasses(map[str, list[list[LineType]]] duplicates) {
+	partialBlocks = (removeFirstLine(duplicates[clone]) : clone | clone <- duplicates);
+	map[str, str] subsumedClasses = ();
+	
+	for(block <- overlappingBlocks) {
+		subString = removeLastLine(block, duplicates);
+		
+		if(subString in partialBlocks) {
+			// println("\nkey found= <partialBlocks[subString]> : <block>");
+			
+			str originalCloneClassString = partialBlocks[subString];
+			list[list[LineType]] originalCloneClass = [[]];
+			if(partialBlocks[subString] in duplicates) {
+				originalCloneClass = duplicates[partialBlocks[subString]];
+			} else if(partialBlocks[subString] in subsumedClasses) {
+				originalCloneClassString = subsumedClasses[partialBlocks[subString]];
+				originalCloneClass = duplicates[subsumedClasses[partialBlocks[subString]]];
+			}
+			
+			/*
+			TODO: fix error about different size
+				if(overlapFileCheck(originalCloneClass, duplicates[block])) {}
+			*/
+			if(size(duplicates[block]) == size(originalCloneClass)) {
+				cloneClass = combineClasses(originalCloneClass, duplicates[block]);
+				cloneClassStr = getBlockString(cloneClass);
+				
+				// add superclass
+				subsumedClasses += (partialBlocks[subString] : cloneClassStr, block : cloneClassStr);
+				duplicates += (cloneClassStr : cloneClass);
+				
+				// remove subclasses
+				duplicates = delete(duplicates, originalCloneClassString);
+				duplicates = delete(duplicates, block);
+				overlappingBlocks = drop(1, overlappingBlocks);
+			}
+		}		
+	}
+	return duplicates;
+}
+
+private str getBlockString(list[list[LineType]] block) {
+	str blockStr = "";
+	for(line <- block[0]) {
+		blockStr += line.val;
+	}
+	return blockStr;
+}
+
+private bool overlapFileCheck(list[list[LineType]] cloneClass, list[list[LineType]] overlapingClass) {
 	bool sameFile = true;
 	for(int i <- [0 .. size(cloneClass)]) {
 		for(int j <- [0 .. size(cloneClass[i])]) {
@@ -101,4 +142,8 @@ public bool overlapFileCheck(list[list[LineType]] cloneClass, list[list[LineType
 		}
 	}
 	return sameFile;
+}
+
+private list[list[LineType]] combineClasses(list[list[LineType]] cloneClass, list[list[LineType]] overlapingClass) {	
+	return [dup(cloneClass[i] + overlapingClass[i]) | i <- [0 .. size(cloneClass)]];
 }

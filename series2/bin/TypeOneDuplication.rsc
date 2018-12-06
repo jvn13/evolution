@@ -1,5 +1,6 @@
 module TypeOneDuplication
 
+import Analyzation;
 import Helper;
 import IO;
 import String;
@@ -7,7 +8,7 @@ import List;
 import Set;
 import Map;
 
-private int BLOCK_SIZE = 6;
+public int BLOCK_SIZE = 6;
 public tuple[int lines, int geenidee] typeOne = <0, 0>;
 
 /*
@@ -20,6 +21,7 @@ public tuple[int lines, int geenidee] typeOne = <0, 0>;
  */
 public map[str, list[list[LineType]]] getDuplicateLinesPerProject(list[LineType] lines) {
 	map[str, list[list[LineType]]] duplicateBlocks = getDuplicateBlocks(lines);
+	println("number of blocks: <size(duplicateBlocks)>");
 	typeOne.lines = getNumberOfDuplicates(duplicateBlocks);
 	return duplicateBlocks;
 }
@@ -55,19 +57,27 @@ private int getNumberOfDuplicates(map[str,list[list[LineType]]] duplicateBlocks)
  */
 private map[str,list[list[LineType]]] getDuplicateBlocks(list[LineType] lines) {
 	map[str,list[list[LineType]]] blocks = ();
-	
-	for(int i <- [0 .. size(lines) - (BLOCK_SIZE - 1)]) {
-		str block = "";
-		
-		list[LineType] linesInBlock = [lines[i + j] | j <- [0 .. BLOCK_SIZE]];
-		
-		for(line <- linesInBlock) block += line.val;
-		
-		if(block in blocks) {
-			blocks[block] += [linesInBlock];
-		} else {
-			blocks += ( block : [linesInBlock]);
+	if(size(lines) >= BLOCK_SIZE) {
+		bool duplicateFound = false;
+		for(int i <- [0 .. size(lines) - (BLOCK_SIZE - 1)]) {
+			str block = "";
+			
+			list[LineType] linesInBlock = [lines[i + j] | j <- [0 .. BLOCK_SIZE]];
+			
+			for(line <- linesInBlock) block += line.val;
+			
+			if(block in blocks) {
+				blocks[block] += [linesInBlock];
+				if(duplicateFound) {
+					overlappingBlocks += [block];
+				}
+				duplicateFound = true;
+			} else {
+				blocks += ( block : [linesInBlock]);
+				duplicateFound = false;
+			}
 		}
+		return (block : blocks[block] | block <- blocks, size(blocks[block]) > 1);
 	}
-	return (block : blocks[block] | block <- blocks, size(blocks[block]) > 1);
+	return blocks;
 }
