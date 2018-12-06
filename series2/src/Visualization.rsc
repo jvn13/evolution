@@ -24,13 +24,16 @@ public void showClassFigure(){
 public void showClasses(loc projectLocation){
 	list[loc] files = getFiles(projectLocation);
 	list[Figure] boxes = [];
-	
+		
 	for(loc file <- files){ 
-		duplForFiles = getDuplicateLinesPerProject(getLoc(file)); // REDO: done to set typeOne in Class TypeOneDuplcation
+	
+		duplForFile = filterForFile(file);
+		filepath = file.path; //has to be done like this, otherwise last element of files is taken
+		
 		boxes += box(text(file.path),
-				fillColor(getColorForDuplRating()),
+				fillColor(getColorForDuplRating(duplForFile)),
 				onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers) {
-					showDuplicates(duplForFiles); //show details
+					showDuplicates(duplForFile,filepath); //go to new view which shows details
 					return true;
 				}));
 	}
@@ -39,24 +42,48 @@ public void showClasses(loc projectLocation){
 	render(b2);
 }
 
-//show duplicates on class level
-public void showDuplicates(map[str block, list[list[LineType]] mapOfDuplLines] dupl){
-list[Figure] boxes = [];
+public map[str, list[list[LineType]]] filterForFile(loc fileLoc){
 
-for (str duplText <- dupl){
+map[str, list[list[LineType]]] mapDupl = ();
+
+for(str text <- duplWholeFile){
+	for(list[LineType] lines <- duplWholeFile[text]){
+		if(lines[0].file.path == fileLoc.path){
+			//if in map add value otherwise add key and values
+			if(text in mapDupl){
+				mapDupl[text] += [lines];
+				}
+			else{
+				mapDupl += (text:[lines]);
+			}
+		}
+		
+	}
+	
+}
+return mapDupl; 
+}
+
+//show duplicates on class level TODO: Um welche Datei handelt es sich
+public void showDuplicates(map[str block, list[list[LineType]] mapOfDuplLines] duplPerFile, str filepath){
+list[Figure] boxes = [box(text(filepath))];
+
+for (str duplText <- duplPerFile){
 	
 	// find all lines where the block "duplText" appears
-	list[int] occurences = [];
-	for(list[LineType] occLine <- dupl[duplText]){
-		for(LineType typeL <- occLine){
-			occurences += typeL.index;
-		}
+	textDup = duplText;
+	occurences = "";
+	
+	
+	for(list[LineType] occLine <- duplPerFile[duplText]){
+			occurences += "line: <occLine[0].index>  -  <occLine[5].index>, ";
 	}
 	
 
 	boxes += box(
 				
-				text(duplText + "\n lines: " + toString(occurences)),
+				hcat([	text("duplicated Block "  + "\n \n appears in lines: ", fontColor("blue"), align(0,0) ), 
+						text(textDup + "\n \n" + occurences, align(0, 0))]),
  				
  				onKeyDown(bool (KeySym key, map[KeyModifier,bool] modifiers) {
 				showClassFigure(); //go back to overview
@@ -64,7 +91,7 @@ for (str duplText <- dupl){
 				}),
 				
 				onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers) {
-				showDuplicatesInOtherFiles(duplText); //TODO
+				showDuplicatesInOtherFiles(textDup, filepath); //TODO
 				return true;
 				})
 				
@@ -74,18 +101,21 @@ for (str duplText <- dupl){
  render(box(vcat(boxes)));
 }
 
-// show all occurences of the block duplicateText
-public void showDuplicatesInOtherFiles(str duplicateText){
-	list[Figure] boxes = [];
+// show all occurences of the block duplicateText TODO um welchen Text handelt es sich
+//TODO: check that not in the same file
+public void showDuplicatesInOtherFiles(str duplicateText, str filepath){
+	list[Figure] boxes = [box(text("Duplicate in other files"))];
 	
 	for (list[LineType] listOfOcc <- duplWholeFile[duplicateText]){
 		loc locat = listOfOcc[0].file;
-		boxes += box(text(locat.path), //TODO: add line numbers
+		if(locat.path != filepath){
+		boxes += box(text("In file: " + locat.path + "\n \n lines: <listOfOcc[0].index> - <listOfOcc[5].index>" ), //TODO: add line numbers
 		
 				onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers) {
 				showClassFigure(); //go back to overview
 				return true;
 				}));
+				}
 	}
 	render(box(vcat(boxes)));
 
@@ -93,50 +123,19 @@ public void showDuplicatesInOtherFiles(str duplicateText){
 }
 
 // TODO: adapt boundaries and take the number of duplicates contained in the file
-public Color getColorForDuplRating(){
-	if(typeOne.lines == 0){
-		return rgb(161, 224, 53);
+public Color getColorForDuplRating(map[str, list[list[LineType]]] duplPerFile){
+	int number = 0;
+	for(str text <- duplPerFile){
+		number += size(duplPerFile[text]);
 	}
-	else if (typeOne.lines <30){
-		return rgb(236, 239, 26);
+	
+	if(number == 0){
+		return rgb(161, 224, 53); //green
+	}
+	else if (number < 3){
+		return rgb(236, 239, 26); //yellow
 	}
 	else {
-		return rgb(226, 32, 22);
+		return rgb(226, 32, 22); //red
 	}
-}
-
-
-public void showButton(){
-  int n = 0;
-  butt = vcat([ button("Increment", void(){n += 1;}),
-                text(str(){return "<n>";})
-              ]);
-
-render(butt);
-}
-
-
-public void testThat(){
-s = "Hellooo";
-s2 = "ucweui";
-b = box(text(str () { return s; }),
-	fillColor("red"),
-	onKeyDown(bool (KeySym key, map[KeyModifier,bool] modifiers) {
-		s = "<key>";
-		return true;
-	}));
-b2 = box(vcat([
-	text(str () { return s2; }),
-	b],shrink(0.7)),
-	fillColor("green"),
-	onKeyDown(bool (KeySym key, map[KeyModifier,bool] modifiers) {
-		s2 = "<key>";
-		return true;
-	}));
-render(b2);
-}
-
-public void showFigure(){
-figureToShow = box([size(1), fillColor(rgb(25,25,112))]);
-render(figureToShow);
 }
