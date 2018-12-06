@@ -76,7 +76,7 @@ for (str duplText <- duplPerFile){
 	
 	
 	for(list[LineType] occLine <- duplPerFile[duplText]){
-			occurences += "line: <occLine[0].index>  -  <occLine[5].index>, ";
+			occurences += "line: <occLine[0].index>  -  <occLine[size(occLine)-1].index>, ";
 	}
 	
 
@@ -109,7 +109,7 @@ public void showDuplicatesInOtherFiles(str duplicateText, str filepath){
 	for (list[LineType] listOfOcc <- duplWholeFile[duplicateText]){
 		loc locat = listOfOcc[0].file;
 		if(locat.path != filepath){
-		boxes += box(text("In file: " + locat.path + "\n \n lines: <listOfOcc[0].index> - <listOfOcc[5].index>" ), //TODO: add line numbers
+		boxes += box(text("In file: " + locat.path + "\n \n lines: <listOfOcc[0].index> - <listOfOcc[size(listOfOcc)-1].index>" ), //TODO: add line numbers
 		
 				onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers) {
 				showClassFigure(); //go back to overview
@@ -122,17 +122,17 @@ public void showDuplicatesInOtherFiles(str duplicateText, str filepath){
 
 }
 
-// TODO: adapt boundaries and take the number of duplicates contained in the file
+// TODO: adapt boundaries to percentage??
 public Color getColorForDuplRating(map[str, list[list[LineType]]] duplPerFile){
-	int number = 0;
+	int numberOfDupl = 0;
 	for(str text <- duplPerFile){
-		number += size(duplPerFile[text]);
+		numberOfDupl += size(duplPerFile[text]);
 	}
 	
-	if(number == 0){
+	if(numberOfDupl == 0){
 		return rgb(161, 224, 53); //green
 	}
-	else if (number < 3){
+	else if (numberOfDupl < 3){
 		return rgb(236, 239, 26); //yellow
 	}
 	else {
