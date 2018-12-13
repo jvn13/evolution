@@ -21,7 +21,6 @@ public tuple[int lines, int geenidee] typeOne = <0, 0>;
  */
 public map[str, list[list[LineType]]] getDuplicateLinesPerProject(list[LineType] lines) {
 	map[str, list[list[LineType]]] duplicateBlocks = getDuplicateBlocks(lines);
-	println("number of blocks: <size(duplicateBlocks)>");
 	typeOne.lines = getNumberOfDuplicates(duplicateBlocks);
 	return duplicateBlocks;
 }
@@ -36,13 +35,13 @@ public map[str, list[list[LineType]]] getDuplicateLinesPerProject(list[LineType]
  *
  */
 private int getNumberOfDuplicates(map[str,list[list[LineType]]] duplicateBlocks) {
-	set[LineType] duplicates = {};
+	set[LineType] dup = {};
 	for(block <- duplicateBlocks) {
-		for(lines <- duplicateBlocks[block]) {
-			duplicates += toSet(lines);
+		for(blockLines <- duplicateBlocks[block]) {
+			dup += toSet(blockLines);
 		}
 	}
-	return size(duplicates);
+	return size(dup);
 }
 
 /*
