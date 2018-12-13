@@ -66,18 +66,29 @@ private map[str,list[list[LineType]]] getDuplicateBlocks(list[LineType] lines) {
 			
 			for(line <- linesInBlock) block += line.val;
 			
-			if(block in blocks) {
-				blocks[block] += [linesInBlock];
-				if(duplicateFound) {
-					overlappingBlocks += [block];
+			if(checkIfBlockInSameFile(linesInBlock)) {
+			
+			
+				if(block in blocks) {
+					blocks[block] += [linesInBlock];
+					if(duplicateFound) {
+						overlappingBlocks += [block];
+					}
+					duplicateFound = true;
+				} else {
+					blocks += ( block : [linesInBlock]);
+					duplicateFound = false;
 				}
-				duplicateFound = true;
-			} else {
-				blocks += ( block : [linesInBlock]);
-				duplicateFound = false;
+				
+			
 			}
 		}
 		return (block : blocks[block] | block <- blocks, size(blocks[block]) > 1);
 	}
 	return blocks;
+}
+
+private bool checkIfBlockInSameFile(list[LineType] linesInBlock) {
+	files = dup([l.file | l <- linesInBlock]);
+	return size(files) == 1;
 }
