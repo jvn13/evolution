@@ -152,8 +152,17 @@ private list[list[LineType]] combineClasses(list[list[LineType]] cloneClass, lis
 	return [dup(cloneClass[i] + overlapingClass[i]) | i <- [0 .. size(cloneClass)]];
 }
 
-public void writeExportFile(loc project, map[str, list[list[LineType]]] duplications){
+/*
+TODO: TEEESSSTTT
+*/
+public void writeExportFile(loc project, map[str, list[list[LineType]]] cloneClasses){
 	loc exportLocation = toLocation("project://series2/src/"); 
 	locatFile = project.authority + "_result" + ".txt";
-	writeFile(exportLocation + locatFile, "Todo");
+	exportString = "";
+	
+	for(str textual <- cloneClasses){
+	exportString += textual + "<cloneClasses[textual][0][0].index> - <cloneClasses[textual][0][5].index> \n"; //TODO what to export
+	}
+	
+	writeFile(exportLocation + locatFile, exportString);
 }
