@@ -5,6 +5,7 @@ import Helper;
 import IO;
 import List;
 import Map;
+import String;
 import TypeOneDuplication;
 import util::Benchmark;
 
@@ -12,6 +13,7 @@ import Type;
 
 public int BLOCK_SIZE = 6;
 public list[str] overlappingBlocks = [];
+
 
 /*
  * Runs the analyzation for the smallsql project
@@ -53,6 +55,7 @@ public void runAnalyzation(loc project) {
  *
  */
 private void Analyze(loc project) {
+
 	lines = getProjectLoc(project);
 	duplicates = getDuplicateLinesPerProject(lines);
 	
@@ -62,6 +65,8 @@ private void Analyze(loc project) {
 	println("Original number of clone classes: <size(duplicates)>");
 	duplicates = createLargerCloneClasses(duplicates);
 	println("Number of clone classes: <size(duplicates)>");
+
+	writeExportFile(project, duplicates);
 }
 
 private str removeLastLine(str block, map[str, list[list[LineType]]] duplicates) {
@@ -158,4 +163,10 @@ private bool overlapFileCheck(list[list[LineType]] cloneClass, list[list[LineTyp
 
 private list[list[LineType]] combineClasses(list[list[LineType]] cloneClass, list[list[LineType]] overlapingClass) {	
 	return [dup(cloneClass[i] + overlapingClass[i]) | i <- [0 .. size(cloneClass)]];
+}
+
+public void writeExportFile(loc project, map[str, list[list[LineType]]] duplications){
+	loc exportLocation = toLocation("project://series2/src/"); 
+	locatFile = project.authority + "_result" + ".txt";
+	writeFile(exportLocation + locatFile, "Todo");
 }
