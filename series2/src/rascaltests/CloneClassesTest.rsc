@@ -1,4 +1,4 @@
-module CloneClassesTest
+module rascaltests::CloneClassesTest
 
 import Analyzation;
 import Count;
