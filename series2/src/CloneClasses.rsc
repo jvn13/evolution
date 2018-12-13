@@ -102,6 +102,10 @@ private list[list[LineType]] combineClasses(list[list[LineType]] cloneClass, lis
 }
 
 
-public list[tuple[int, str]] getBiggestCloneClass(map[str, list[list[LineType]]] duplicates) {
-	return [<size(duplicates[block]), block> | block <- duplicates];
+public tuple[int, str] getBiggestCloneClass(map[str, list[list[LineType]]] cloneClasses) {
+	return last(sort([<size(cloneClasses[cloneClass]), cloneClass> | cloneClass <- cloneClasses]));
+}
+
+public tuple[int, str] getBiggestClone(map[str, list[list[LineType]]] cloneClasses) {
+	return last(sort([<size(cloneClasses[cloneClass][0]), cloneClass> | cloneClass <- cloneClasses]));
 }

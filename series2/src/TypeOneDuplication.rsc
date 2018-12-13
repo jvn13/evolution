@@ -35,13 +35,13 @@ public map[str, list[list[LineType]]] getDuplicateLinesPerProject(list[LineType]
  *
  */
 private int getNumberOfDuplicates(map[str,list[list[LineType]]] duplicateBlocks) {
-	set[LineType] dup = {};
+	set[LineType] duplicates = {};
 	for(block <- duplicateBlocks) {
 		for(blockLines <- duplicateBlocks[block]) {
-			dup += toSet(blockLines);
+			duplicates += toSet(blockLines);
 		}
 	}
-	return size(dup);
+	return size(duplicates);
 }
 
 /*

@@ -12,8 +12,9 @@ import util::Benchmark;
 import util::Math;
 
 public int BLOCK_SIZE = 6;
-public list[LineType] lines = [];
+public list[LineType] LINES = [];
 public list[str] overlappingBlocks = [];
+private map[str, list[list[LineType]]] CLONE_CLASSES = ();
 
 
 /*
@@ -57,41 +58,43 @@ public void runAnalyzation(loc project) {
  */
 private void Analyze(loc project) {
 
-	lines = getProjectLoc(project);
-	duplicates = getDuplicateLinesPerProject(lines);
+	LINES = getProjectLoc(project);
+	CLONE_CLASSES = getDuplicateLinesPerProject(LINES);
 	
-	println("Original number of clone classes: <size(duplicates)>");
-	duplicates = createLargerCloneClasses(duplicates);
-	println("Number of clone classes: <size(duplicates)>");
+	CLONE_CLASSES = createLargerCloneClasses(CLONE_CLASSES);
 
-	biggestCloneClass = sort(getBiggestCloneClass(duplicates));
-	println(last(biggestCloneClass));
+	tuple[int, str] biggestCloneClass = getBiggestCloneClass(CLONE_CLASSES);
+	tuple[int,str] biggestClone = getBiggestClone(CLONE_CLASSES);
 
-	// writeExportFile(project, duplicates);
-	
-	printReport(duplicates);
+	printReport(biggestCloneClass, biggestClone);
+
+	writeExportFile(project);
 }
 
 
-private void printReport(map[str, list[list[LineType]]] duplicates) {
+private void printReport(tuple[int, str] biggestCloneClass, tuple[int, str] biggestClone) {
 	println("REPORT\n-------------------------");
-	println("Volume\t\t\t\t<size(lines)>");
-	println("Number of clones\t\t\t<typeOne.lines>");
-	println("% of duplicated lines\t\t<typeOne.lines / toReal(size(lines)) * 100>%");
-	println("Number of clone classes\t\t<size(duplicates)>");
+	println("Volume\t\t\t\t<size(LINES)> lines");
+	println("Number of clones\t\t<typeOne.lines> lines");
+	println("% of duplicated lines\t\t<typeOne.lines / toReal(size(LINES)) * 100>%");
+	println("Number of clone classes\t\t<size(CLONE_CLASSES)>");
+	println("Biggest clone\t\t\t<biggestClone[0]> lines");
+	println("Biggest clone class\t\t<biggestCloneClass[0]> lines");
+	// TODO
+	println("Example clones");
 	println("-------------------------");
 }
 
 /*
 TODO: TEEESSSTTT
 */
-public void writeExportFile(loc project, map[str, list[list[LineType]]] cloneClasses){
+public void writeExportFile(loc project){
 	loc exportLocation = toLocation("project://series2/src/"); 
 	locatFile = project.authority + "_result" + ".txt";
 	exportString = "";
 	
-	for(str textual <- cloneClasses){
-	exportString += textual + "<cloneClasses[textual][0][0].index> - <cloneClasses[textual][0][5].index> \n"; //TODO what to export
+	for(str textual <- CLONE_CLASSES){
+		exportString += textual + "<CLONE_CLASSES[textual][0][0].index> - <CLONE_CLASSES[textual][0][5].index> \n"; //TODO what to export
 	}
 	
 	writeFile(exportLocation + locatFile, exportString);
