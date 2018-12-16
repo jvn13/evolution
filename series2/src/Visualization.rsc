@@ -11,27 +11,30 @@ import List;
 import IO;
 import Helper;
 import Map;
+import util::Math;
 
 map[str, list[list[LineType]]] duplWholeFile;
 
 public void showClassFigure(){
 	loc smallsql = |project://smallsql0.21_src|;
-	duplWholeFile = getDuplicateLinesPerProject(getProjectLoc(smallsql));
+	
 	showClasses(smallsql);
 }
 
 //overview classes
 public void showClasses(loc projectLocation){
+	duplWholeFile = getDuplicateLinesPerProject(getProjectLoc(projectLocation));
 	list[loc] files = getFiles(projectLocation);
 	list[Figure] boxes = [];
 		
 	for(loc file <- files){ 
 	
+		lengthOfFile = size(readFileLines(file));
 		duplForFile = filterForFile(file);
 		filepath = file.path; //has to be done like this, otherwise last element of files is taken
 		
 		boxes += box(text(file.path),
-				fillColor(getColorForDuplRating(duplForFile)),
+				fillColor(getColorForDuplRating(duplForFile, lengthOfFile)),
 				onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers) {
 					showDuplicates(duplForFile,filepath); //go to new view which shows details
 					return true;
@@ -66,7 +69,15 @@ return mapDupl;
 
 //show duplicates on class level TODO: Um welche Datei handelt es sich
 public void showDuplicates(map[str block, list[list[LineType]] mapOfDuplLines] duplPerFile, str filepath){
-list[Figure] boxes = [box(text(filepath))];
+
+goBackToOverview = box(text("To overview"),
+				onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers) {
+				showClassFigure(); //go back to overview
+				return true;
+				}));
+				
+	list[Figure] boxes = [hcat([box(text(filepath)),goBackToOverview])];
+
 
 for (str duplText <- duplPerFile){
 	
@@ -84,12 +95,7 @@ for (str duplText <- duplPerFile){
 				
 				hcat([	text("duplicated Block "  + "\n \n appears in lines: ", fontColor("blue"), align(0,0) ), 
 						text(textDup + "\n \n" + occurences, align(0, 0))]),
- 				
- 				onKeyDown(bool (KeySym key, map[KeyModifier,bool] modifiers) {
-				showClassFigure(); //go back to overview
-				return true;
-				}),
-				
+ 								
 				onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers) {
 				showDuplicatesInOtherFiles(textDup, filepath); //TODO
 				return true;
@@ -101,20 +107,23 @@ for (str duplText <- duplPerFile){
  render(box(vcat(boxes)));
 }
 
-// show all occurences of the block duplicateText TODO um welchen Text handelt es sich
+// show all occurences of the block duplicateText
 //TODO: check that not in the same file
 public void showDuplicatesInOtherFiles(str duplicateText, str filepath){
-	list[Figure] boxes = [box(text("Duplicate in other files"))];
 	
-	for (list[LineType] listOfOcc <- duplWholeFile[duplicateText]){
-		loc locat = listOfOcc[0].file;
-		if(locat.path != filepath){
-		boxes += box(text("In file: " + locat.path + "\n \n lines: <listOfOcc[0].index> - <listOfOcc[size(listOfOcc)-1].index>" ), //TODO: add line numbers
-		
+	goBackToOverview = box(text("To overview"),
+				
 				onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers) {
 				showClassFigure(); //go back to overview
 				return true;
 				}));
+				
+	list[Figure] boxes = [hcat([box(text("Duplicate in other files \n " + duplicateText)),goBackToOverview])];
+	
+	for (list[LineType] listOfOcc <- duplWholeFile[duplicateText]){
+		loc locat = listOfOcc[0].file;
+		if(locat.path != filepath){
+		boxes += box(text("In file: " + locat.path + "\n \n lines: <listOfOcc[0].index> - <listOfOcc[size(listOfOcc)-1].index>" )); //TODO: add line numbers
 				}
 	}
 	render(box(vcat(boxes)));
@@ -122,17 +131,19 @@ public void showDuplicatesInOtherFiles(str duplicateText, str filepath){
 
 }
 
-// TODO: adapt boundaries to percentage??
-public Color getColorForDuplRating(map[str, list[list[LineType]]] duplPerFile){
+
+public Color getColorForDuplRating(map[str, list[list[LineType]]] duplPerFile, int lengthOfFile){
 	int numberOfDupl = 0;
 	for(str text <- duplPerFile){
 		numberOfDupl += size(duplPerFile[text]);
 	}
 	
+	percentageOfDupl = toReal(numberOfDupl) / toReal(lengthOfFile);
+	
 	if(numberOfDupl == 0){
 		return rgb(161, 224, 53); //green
 	}
-	else if (numberOfDupl < 3){
+	else if (percentageOfDupl < 0.1){
 		return rgb(236, 239, 26); //yellow
 	}
 	else {
