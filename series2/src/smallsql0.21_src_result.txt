@@ -1,156 +1,468 @@
-}catch(Throwable ex){throwable = ex;}}});threadList.add(thread);thread.start();}for(int i = 0; i < threadList.size(); i++){Thread thread = (Thread)threadList.get(i);thread.join(5000);}if(throwable != null){throw throwable;}49 - 55 
-if(isNull()) return null;return new MutableNumeric(getInt());}Object getObject() throws Exception {if(isNull()) return null;return Utils.getInteger(getInt());}76 - 83 
-}private static TestValue a(String dataType, Object small, Object large){TestValue value = new TestValue();value.dataType  = dataType;value.small     = small;value.large     = large;return value;}private static class TestValue{String dataType;Object small;Object large;}}263 - 271 
-pr.close();time += System.currentTimeMillis();System.out.println( "  Test time: " + time + " ms");fis.close();java.io.File file = new java.io.File(tableName+".bin");file.delete();}catch(Exception e){System.out.println("  Failed:"+e);}finally{System.out.println();System.out.println("===================================================================");629 - 634 
-a("nvarchar(100)"     , new String("abc"),      new String("qwert")),a("varchar2(100)"     , new String("abc"),      new String("qwert")),a("nvarchar2(100)"    , new String("abc"),      new String("qwert")),a("character(100)"    , new String("abc"),      new String("qwert")),a("char(100)"         , new String("abc"),      new String("qwert")),a("nchar(100)"        , new String("abc"),      new String("qwert")),a("text"              , new String("abc"),      new String("qwert")),a("ntext"             , new String("abc"),      new String("qwert")),a("date"              , new Date(99, 1,1),      new Date(99, 2,2)),a("time"              , new Time(9, 1,1),       new Time(9, 2,2)),a("timestamp"         , new Timestamp(99, 1,1,0,0,0,0),      new Timestamp(99, 2,2,0,0,0,0)),a("datetime"          , new Timestamp(99, 1,1,0,0,0,0),      new Timestamp(99, 2,2,0,0,0,0)),a("smalldatetime"     , new Timestamp(99, 1,1,0,0,0,0),      new Timestamp(99, 2,2,0,0,0,0)),a("binary(100)"       , new byte[]{12, 45, 1},  new byte[]{12, 45, 2, 56, 89}),a("varbinary(100)"    , new byte[]{12, 45, 1},  new byte[]{12, 45, 2, 56, 89}),63 - 68 
-buf.append(' ');formatNumber( details.year, 4, buf);buf.append(' ');formatHour12( details.hour, buf );buf.append(':');formatNumber( details.minute, 2, buf);354 - 359 
-formatNumber( details.year, 4, buf);buf.append('-');formatNumber( details.month+1, 2, buf);buf.append('-');formatNumber( details.day, 2, buf);buf.append(' ');formatNumber( details.hour, 2, buf);buf.append(':');formatNumber( details.minute, 2, buf);buf.append(':');553 - 558 
-assertFalse( rs.next() );}finally{try{con.createStatement().execute("Drop Table transactions");}catch(Throwable e){e.printStackTrace();}}}221 - 227 
-final boolean isNull() throws Exception {return param1.isNull();}final byte[] getBytes() throws Exception{if(isNull()) return null;byte[] bytes = param1.getBytes();47 - 54 
-Connection con = AllTests.getConnection();try{con.setAutoCommit(false);con.createStatement().execute("Create Table transactions (i int identity, v varchar(20))");assertRowCount( 0, "Select * from transactions");con.createStatement().execute("Insert Into transactions(v) Values('qwert')");80 - 86 
-}public void tearDown(){try{Connection con = AllTests.getConnection();Statement st = con.createStatement();st.execute("drop table " + table);st.close();}catch(Throwable e){}}93 - 99 
-}}Object[][] result = new Object[rows.size()][];rows.toArray(result);return result;}393 - 398 
-}public double doubleValue() {return value;}public float floatValue() {return value;}public int intValue() {45 - 52 
-if(obj == null) return 0;switch(dataType){case SQLTokenizer.BIT:case SQLTokenizer.BOOLEAN:return (obj == Boolean.TRUE) ? 1 : 0;case SQLTokenizer.TINYINT:case SQLTokenizer.SMALLINT:case SQLTokenizer.INT:case SQLTokenizer.BIGINT:424 - 429 
-List rows = new ArrayList();Strings tables = getTables(table);for(int t=0; t<tables.size(); t++){String tableName = tables.get(t);TableView tab = getTableView( con, tableName);if(!(tab instanceof Table)) continue;IndexDescriptions indexes = ((Table)tab).indexes;445 - 450 
-case SQLTokenizer.BIT:case SQLTokenizer.BOOLEAN:case SQLTokenizer.TINYINT:offset++;break;case SQLTokenizer.SMALLINT:672 - 677 
-try{java.io.FileOutputStream fos = new java.io.FileOutputStream(tableName+".bin");byte bytes[] = new byte[1024];for(int i=0; i<rowCount; i++){fos.write(bytes);}fos.close();java.io.FileInputStream fis = new java.io.FileInputStream(tableName+".bin");long time = -System.currentTimeMillis();617 - 622 
-assertEquals("getRow", 1, rs.getRow() );assertTrue("isLast", rs.isLast() );assertFalse("next", rs.next() );assertFalse("isBeforeFirst", rs.isBeforeFirst() );assertTrue("isAfterLast", rs.isAfterLast() );assertEquals("getRow", 0, rs.getRow() );assertTrue("first", rs.first() );assertEquals("getRow", 1, rs.getRow() );assertFalse("previous", rs.previous() );assertEquals("getRow", 0, rs.getRow() );assertTrue("isBeforeFirst", rs.isBeforeFirst() );assertFalse("isAfterLast", rs.isAfterLast() );assertTrue("last", rs.last() );assertEquals("getRow", 1, rs.getRow() );assertTrue("isLast", rs.isLast() );rs.afterLast();assertFalse("isBeforeFirst", rs.isBeforeFirst() );assertTrue("isAfterLast", rs.isAfterLast() );assertEquals("getRow", 0, rs.getRow() );}85 - 90 
-if(idx == -1){if(status.nodeValue != null){if(status.nodeValue instanceof IndexNode){level++;nodeStack.push(new IndexNodeScrollStatus( 	(IndexNode)status.nodeValue,(expressions.get(level).getAlias() != SQLTokenizer.DESC_STR),scroll, level));continue;}elsereturn getReturnValue(status.nodeValue);}88 - 93 
-result = left.next();if(result){result = right.first();if(!result){switch(type){case Join.LEFT_JOIN:case Join.FULL_JOIN:isOuterValid = false;93 - 98 
-case OR:case AND:case NOT:case LIKE:case ISNULL:case ISNOTNULL:748 - 753 
-raFile = Utils.openRaFile( file, database.isReadOnly() );ByteBuffer buffer = ByteBuffer.allocate(8);raFile.read(buffer);buffer.position(0);int magic   = buffer.getInt();int version = buffer.getInt();173 - 178 
-pr.setString(  2 , "Test" );pr.setDate  (  3 , new Date( System.currentTimeMillis() ) );pr.setFloat (  4, (float)1234.56789 );pr.setFloat (  5 , (float)9876.54321 );pr.setBytes (  6, largeByteArray );pr.setInt   (  7 , i );pr.setDouble(  8 , 23.45 );pr.setDouble(  9 , 567.45 );pr.setFloat (  10 , (float)78.89 );pr.setTime  (  11, new Time( System.currentTimeMillis() ) );pr.setShort (  12, (short)23456 );416 - 421 
-}catch(Throwable e){con.rollback(savepoint);throw SmallSQLException.createFromException(e);}finally{if(con.getAutoCommit()) con.commit();}}138 - 143 
-case SQLTokenizer.SMALLINT:return readShort();case SQLTokenizer.INT:return readInt();case SQLTokenizer.BIGINT:return readLong();case SQLTokenizer.REAL:971 - 976 
-case SQLTokenizer.TINYINT:return readUnsignedByte();case SQLTokenizer.SMALLINT:return readShort();case SQLTokenizer.INT:return readInt();case SQLTokenizer.BIGINT:903 - 908 
-long time = -System.currentTimeMillis();for (int i=0; i<rowCount; i++){pr.setBytes (  1, byteArray );pr.setString(  2 , "Test" );pr.setDate  (  3 , new Date( System.currentTimeMillis() ) );pr.setFloat (  4, (float)1234.56789 );pr.setFloat (  5 , (float)9876.54321 );413 - 418 
-buf.append(' ');formatNumber( details.hour, 2, buf);buf.append(':');formatNumber( details.minute, 2, buf);buf.append(':');formatNumber( details.second, 2, buf);558 - 563 
-count = -1;while(rs.next()) count++;assertEquals( valueCount, count );rs.beforeFirst();count = -1;while(rs.next()) count++;718 - 724 
-if(isNull()) return null;int dataType = getDataType();switch(dataType){case SQLTokenizer.BIT:case SQLTokenizer.BOOLEAN:return getBoolean() ? Boolean.TRUE : Boolean.FALSE;case SQLTokenizer.BINARY:case SQLTokenizer.VARBINARY:return getBytes();case SQLTokenizer.TINYINT:case SQLTokenizer.SMALLINT:case SQLTokenizer.INT:return new Integer( getInt() );case SQLTokenizer.BIGINT:return new Long( getLong() );case SQLTokenizer.REAL:return new Float( getFloat() );case SQLTokenizer.FLOAT:case SQLTokenizer.DOUBLE:return new Double( getDouble() );case SQLTokenizer.MONEY:case SQLTokenizer.SMALLMONEY:return Money.createFromUnscaledValue( getMoney() );case SQLTokenizer.NUMERIC:case SQLTokenizer.DECIMAL:return getNumeric();case SQLTokenizer.CHAR:case SQLTokenizer.NCHAR:case SQLTokenizer.VARCHAR:case SQLTokenizer.NVARCHAR:case SQLTokenizer.LONGNVARCHAR:case SQLTokenizer.LONGVARCHAR:475 - 480 
-Iterator values = locks.values().iterator();while(values.hasNext()){TableStorePage lock = (TableStorePage)values.next();if(lock.con != con) return null;}}359 - 364 
-}final void beforeFirst() throws Exception {rowSource.beforeFirst();row = 0;}final boolean first() throws Exception {61 - 70 
-keyColumnNames.add(column.getName());keys.add(valueExpress.getObject());break;}}}157 - 162 
-formatNumber( details.year, 4, buf);buf.append(' ');formatHour12( details.hour, buf );buf.append(':');formatNumber( details.minute, 2, buf);buf.append(':');formatNumber( details.second, 2, buf);buf.append(':');476 - 481 
-pr.setString(  14, "sysname (30) NULL" );pr.setString(  15 , "text NULL" );pr.setByte  (  16, (byte)28 );pr.setBytes (  17, byteArray );pr.setString(  18, "varchar (255) NULL" );pr.setInt   (  19 , i );428 - 433 
-while(rs.next()){String newValue = rs.getString("v");assertTrue( oldValue.compareTo( newValue ) < 0 );oldValue = newValue;count++;}187 - 192 
-}}finally {conn.close();}}127 - 132 
-addMessages(ENTRIES);}public String[][] getEntries() {return ENTRIES;}private final String[][] ENTRIES = {40 - 51 
-a("raw(100)"          , new byte[]{12, 45, 1},  new byte[]{12, 45, 2, 56, 89}),a("long raw"          , new byte[]{12, 45, 1},  new byte[]{12, 45, 2, 56, 89}),a("longvarbinary"     , new byte[]{12, 45, 1},  new byte[]{12, 45, 2, 56, 89}),a("blob"              , new byte[]{12, 45, 1},  new byte[]{12, 45, 2, 56, 89}),a("image"             , new byte[]{12, 45, 1},  new byte[]{12, 45, 2, 56, 89}),a("boolean"           , Boolean.FALSE,          Boolean.TRUE),a("bit"               , Boolean.FALSE,          Boolean.TRUE),79 - 84 
-if(page == null)return null;if(i + 1 == count)return page.getValue();elsepage = (IndexNode)page.getValue();}throw new Error();}101 - 106 
-time += System.currentTimeMillis();System.out.println( "  Test time: " + time + " ms");st.close();}catch(Exception e){System.out.println("  Failed:"+e);}finally{System.out.println();147 - 152 
-case SQLTokenizer.INT:return readInt();case SQLTokenizer.BIGINT:return readLong();case SQLTokenizer.REAL:return readFloat();case SQLTokenizer.FLOAT:case SQLTokenizer.DOUBLE:1038 - 1043 
-node.addNode( digit, rowOffset );return null;}return node.addRoot(digit);}node = node.addNode(digit);if(node.isEmpty()){353 - 358 
-formatNumber( details.hour, 2, buf);buf.append(':');formatNumber( details.minute, 2, buf);buf.append(':');formatNumber( details.second, 2, buf);buf.append(':');formatMillis( details.millis, buf );return buf.toString();543 - 548 
-break;case SQLTokenizer.VARBINARY:case SQLTokenizer.BINARY:case SQLTokenizer.LONGVARBINARY:case SQLTokenizer.BLOB:case SQLTokenizer.UNIQUEIDENTIFIER:195 - 200 
-}boolean isNull() throws Exception {return param1.isNull();}final int getInt() throws Exception {if(isNull()) return 0;String str = param1.getString();45 - 54 
-pr.setDouble(  8 , 23.45 );pr.setDouble(  9 , 567.45 );pr.setFloat (  10 , (float)78.89 );pr.setTime  (  11, new Time( System.currentTimeMillis() ) );pr.setShort (  12, (short)23456 );pr.setFloat (  13, (float)34.56 );pr.setString(  14, "sysname (30) NULL" );pr.setString(  15 , "text NULL" );pr.setByte  (  16, (byte)28 );pr.setBytes (  17, byteArray );pr.setString(  18, "varchar (255) NULL" );422 - 427 
-formatNumber( details.minute, 2, buf);buf.append(':');formatNumber( details.second, 2, buf);buf.append(':');formatMillis( details.millis, buf);buf.append( details.hour < 12 ? "AM" : "PM" );return buf.toString();480 - 485 
-pr.setObject( 1, testValue.small);pr.setObject( 2, testValue.large);pr.execute();pr.setObject( 1, testValue.small);pr.setObject( 2, testValue.small);pr.execute();pr.setObject( 1, testValue.large);pr.setObject( 2, testValue.large);pr.execute();pr.setObject( 1, testValue.large);pr.setObject( 2, testValue.small);pr.execute();pr.setObject( 1, null);pr.setObject( 2, testValue.small);pr.execute();pr.setObject( 1, testValue.small);pr.setObject( 2, null);pr.execute();pr.setObject( 1, null);pr.setObject( 2, null);pr.execute();115 - 121 
-}final boolean rowInserted(){return rowSource.rowInserted();}final boolean rowDeleted(){return rowSource.rowDeleted();}void nullRow() {rowSource.nullRow();207 - 216 
-Statement st = con.createStatement();try{st.execute("CREATE TABLE ConcurrentWrite( value int)");st.execute("INSERT INTO ConcurrentWrite(value) Values(0)");for(int i = 0; i < 200; i++){Thread thread = new Thread(new Runnable(){public void run(){try{82 - 89 
-con1.createStatement().execute("Create Table transactions (i int identity, v varchar(20))");assertRowCount( 0, "Select * from transactions");con1.setAutoCommit(false);con1.createStatement().execute("Insert Into transactions(v) Values('qwert2')");ResultSet rs2 = con2.createStatement().executeQuery("Select count(*) from transactions");assertTrue( rs2.next() );410 - 417 
-rs.beforeFirst();assertTrue( rs.next() );assertEquals("qwert2", rs.getString("v"));assertFalse( rs.next() );}finally{try{con.createStatement().execute("Drop Table transactions");}catch(Throwable e){e.printStackTrace();}218 - 224 
-}public float floatValue() {return value;}public int intValue() {return (int)value;}public long longValue() {}public int intValue() {return (int)value;}public long longValue() {return (long)value;}public String toString(){return String.valueOf(value);}public Object getImmutableObject(){49 - 56 
-}final boolean isNull() throws Exception {return param1.isNull() || param2.isNull() || param3.isNull();}final byte[] getBytes() throws Exception{if(isNull()) return null;46 - 55 
-offset += 2;break;case SQLTokenizer.INT:case SQLTokenizer.REAL:case SQLTokenizer.SMALLMONEY:case SQLTokenizer.TIME:case SQLTokenizer.DATE:684 - 689 
-final boolean isNull() throws Exception {return param1.isNull();}final byte[] getBytes() throws Exception{if(isNull()) return null;return getString().getBytes();}final String getString() throws Exception {if(isNull()) return null;47 - 54 
-wasNull = expr.isNull();return expr.getFloat();}catch(Exception e){throw SmallSQLException.createFromException( e );}}129 - 134 
-}finally{try{con.createStatement().execute("Drop Table transactions");}catch(Throwable e){e.printStackTrace();}con.setAutoCommit(true);}98 - 103 
-try{rs.getString("v");fail("SQLException 'No current row' should be throw");}catch(SQLException ex){assertSQLException("01000", 0, ex);}}135 - 140 
-result |= (((long)nextEntry) << shift);if(listEnum.stack>=3){listEnum.offsetStack[listEnum.stack] = offset;return result;}listEnum.offsetStack[listEnum.stack] = offset+pointerSize;offset = getPointer();shift -= 16;listEnum.stack++;listEnum.resultStack[listEnum.stack] = result;332 - 337 
-rs.insertRow();}time += System.currentTimeMillis();rs = st.executeQuery( "SELECT count(*) FROM " + tableName);rs.next();int count = rs.getInt(1);174 - 179 
-if(!previous()){return false;}}}return true;}227 - 232 
-}final boolean isNull() throws Exception {return param1.isNull();}final byte[] getBytes() throws Exception{if(isNull()) return null;44 - 53 
-}if(serializeConnections.size() > 0){Iterator values = locks.values().iterator();while(values.hasNext()){TableStorePage lock = (TableStorePage)values.next();if(lock.con != con) return null;}369 - 374 
-rs.next();int count = rs.getInt(1);if (count != rowCount)System.out.println( "  Failed: Only " + count + " rows were inserted.");else System.out.println( "  Test time: " + time + " ms");st.close();}catch(Exception e){System.out.println("  Failed:"+e);}finally{119 - 124 
-if(obj == null) return 0;switch(dataType){case SQLTokenizer.BIT:return (obj.equals(Boolean.TRUE)) ? 1 : 0;case SQLTokenizer.INT:case SQLTokenizer.BIGINT:case SQLTokenizer.DOUBLE:493 - 498 
-int updateCount = pr.executeUpdate();if (updateCount != 1){System.out.println( "  Failed: Update count should be 1 but it is " + updateCount + ".");return;}}time += System.currentTimeMillis();System.out.println( "  Test time: " + time + " ms");434 - 439 
-assertTrue( rs.next() );oldValue = (Integer)rs.getObject("i");assertNull(oldValue);assertTrue( rs.next() );oldValue = (Integer)rs.getObject("i");int count = 1;while(rs.next()){assertTrue( oldValue.compareTo( (Integer)rs.getObject("i") ) < 0 );oldValue = (Integer)rs.getObject("i");count++;}assertEquals( valueCount, count );}338 - 345 
-}final boolean isNull() throws Exception {return param1.isNull() || param2.isNull();}final byte[] getBytes() throws Exception{if(isNull()) return null;byte[] bytes = param1.getBytes();int length = param2.getInt();if(bytes.length <= length) return bytes;byte[] b = new byte[length];44 - 53 
-wasNull = obj == null;return obj;}catch(Exception e){throw SmallSQLException.createFromException( e );}}87 - 92 
-pr.setBytes (  1, byteArray );pr.setString(  2 , "Test" );pr.setDate  (  3 , new Date( System.currentTimeMillis() ) );pr.setFloat (  4, (float)1234.56789 );pr.setFloat (  5 , (float)9876.54321 );pr.setBytes (  6, largeByteArray );415 - 420 
-}time += System.currentTimeMillis();System.out.println( "  Test time: " + time + " ms");st.close();}catch(Exception e){System.out.println("  Failed:"+e);354 - 359 
-rs.next();rs.next();rs.previous();rs.last();count = 0;while(rs.previous()) count++;assertEquals( valueCount, count );rs.beforeFirst();count = -1;while(rs.next()) count++;assertEquals( valueCount, count );708 - 714 
-fail("SQLException 'Duplicated Column' should be throw");}catch(SQLException e){assertSQLException("01000", 0, e);}}finally{dropTable(con, "DuplicatedColumn");}}172 - 177 
-formatNumber( details.day, 2, buf);buf.append(' ');buf.append( SHORT_MONTHS[ details.month ]);buf.append(' ');formatNumber( details.year, 4, buf);buf.append(' ');527 - 532 
-}catch(Throwable e){if(raFile != null)try{raFile.close();}catch(Exception e2){DriverManager.println(e2.toString());}throw SmallSQLException.createFromException(e);}}186 - 191 
-if(value == null){if(expr.isNull())dataType = expr.getDataType();elseinitValue( expr );}else if(!expr.isNull()){switch(dataType){case SQLTokenizer.TINYINT:case SQLTokenizer.SMALLINT:case SQLTokenizer.INT:154 - 159 
-wasNull = expr.isNull();if(wasNull) return null;return DateTime.getTime( expr.getLong() );}catch(Exception e){throw SmallSQLException.createFromException( e );}}176 - 181 
-if(failed == null){failed = new BatchUpdateException(ex.getMessage(), ex.getSQLState(), ex.getErrorCode(), result);failed.initCause(ex);}failed.setNextException(ex);}}batches.clear();if(failed != null)throw failed;return result;}249 - 254 
-wasNull = expr.isNull();if(wasNull) return null;return DateTime.getDate( expr.getLong() );}catch(Exception e){throw SmallSQLException.createFromException( e );}}166 - 171 
-if(places > 0){value /= factor;}else{value *= factor;}return value;}}62 - 67 
-if(newValue != null){assertTrue( oldValue.compareTo( newValue ) > 0 );count++;}oldValue = newValue;}assertNull(oldValue);assertFalse( rs.next() );assertEquals( valueCount, count );}213 - 218 
-}catch(Exception e){System.out.println("  Failed:"+e);}finally{System.out.println();System.out.println("===================================================================");}125 - 130 
-assertEquals(1,pr.executeUpdate());rs = pr.getGeneratedKeys();assertNotNull("RETURN_GENERATED_KEYS", rs);assertEquals("ColumnCount",1,rs.getMetaData().getColumnCount());assertEquals("ColumnCount","i",rs.getMetaData().getColumnName(1));assertRowCount(1,rs);268 - 273 
-System.out.println("  Failed:"+e);}finally{System.out.println();System.out.println("===================================================================");}}126 - 131 
-return;}}time += System.currentTimeMillis();System.out.println( "  Test time: " + time + " ms");pr.close();}catch(Exception e){System.out.println("  Failed:"+e);}finally{System.out.println();437 - 442 
-}final long getRowPosition() {return rowSource.getRowPosition();}final void setRowPosition(long rowPosition) throws Exception {rowSource.setRowPosition(rowPosition);}final void nullRow() {rowSource.nullRow();row = 0;}final void noRow() {rowSource.noRow();row = 0;}104 - 113 
-case SQLTokenizer.INT:case SQLTokenizer.REAL:case SQLTokenizer.SMALLMONEY:case SQLTokenizer.TIME:case SQLTokenizer.DATE:case SQLTokenizer.SMALLDATETIME:686 - 691 
-}final boolean rowInserted(){return false;}final boolean rowDeleted(){return false;}120 - 129 
-assertTrue( rs.next() );oldValue = rs.getString("v");int count = 1;while(oldValue != null && rs.next()){String newValue = rs.getString("v");if(newValue != null){assertTrue( oldValue.compareTo( newValue ) > 0 );count++;}oldValue = newValue;207 - 213 
-switch(operation){case IN:case EQUALS_NULL:case EQUALS:    return comp == 0;case GREATER:   return comp >  0;case GRE_EQU:   return comp >= 0;case LESSER:    return comp <  0;case LES_EQU:   return comp <= 0;case UNEQUALS:  return comp != 0;case BETWEEN:656 - 661 
-if(isNull()) return 0;int dataType = getDataType();switch(dataType){case SQLTokenizer.BIT:case SQLTokenizer.BOOLEAN:return getBoolean() ? 1 : 0;case SQLTokenizer.TINYINT:case SQLTokenizer.SMALLINT:case SQLTokenizer.INT:return getIntImpl();case SQLTokenizer.BIGINT:176 - 181 
-}public long longValue() {return value;}public String toString(){return String.valueOf(value);}public Object getImmutableObject(){57 - 64 
-else System.out.println( "  Test time: " + time + " ms");st.close();}catch(Exception e){System.out.println("  Failed:"+e);}finally{System.out.println();123 - 128 
-while(values.hasNext()){TableStorePage lock = (TableStorePage)values.next();if(lock.con != con) return null;}}tabLockConnection = con;tabLockCount++;TableStorePage lock = new TableStorePage(con, this, LOCK_TAB, page);372 - 377 
-}String getString() throws Exception{Object obj = getObject();if(obj == null) return null;return obj.toString();}}102 - 108 
-try{Statement st1 = con.createStatement();ResultSet rs = st1.executeQuery( "SELECT count(*) FROM " + tableName);rs.next();int count = rs.getInt(1);if (count != rowCount){if (count == 0){createTestDataWithClassicInsert( con );rs = st1.executeQuery( "SELECT count(*) FROM " + tableName);rs.next();count = rs.getInt(1);}if (count != rowCount){202 - 207 
-try{Expression expr = getValue(i);wasNull = expr.isNull();return expr.getLong();}catch(Exception e){throw SmallSQLException.createFromException( e );}118 - 123 
-formatNumber( details.hour, 2, buf);buf.append(':');formatNumber( details.minute, 2, buf);buf.append(':');formatNumber( details.second, 2, buf);buf.append('.');formatMillis( details.millis, buf );return buf.toString();573 - 578 
-}public void runTest() throws Exception{Connection con = AllTests.getConnection();Statement st = con.createStatement();ResultSet rs;rs = st.executeQuery("Select * from " + table + " where 1 = 0");assertFalse( "To many rows", rs.next() );146 - 154 
-private static final TestValue[] TESTS = new TestValue[]{a("tinyint"           , new Byte( (byte)3),     new Byte( (byte)4)),a("byte"              , new Byte( (byte)3),     new Byte( (byte)4)),a("smallint"          , new Short( (short)3),   new Short( (short)4)),a("int"               , new Integer(3),         new Integer(4)),a("bigint"            , new Long(3),            new Long(4)),a("real"              , new Float(3.45),        new Float(4.56)),a("float"             , new Float(3.45),        new Float(4.56)),a("double"            , new Double(3.45),       new Double(4.56)),a("smallmoney"        , new Float(3.45),        new Float(4.56)),a("money"             , new Float(3.45),        new Float(4.56)),a("money"             , new Double(3.45),       new Double(4.56)),a("numeric(19,2)"     , new BigDecimal("3.45"), new BigDecimal("4.56")),a("decimal(19,2)"     , new BigDecimal("3.45"), new BigDecimal("4.56")),45 - 50 
-}}else{prev.nextLock = lock.nextLock;}return;}prev = lock;lock = lock.nextLock;}515 - 521 
-st.execute("drop table " + table);st.close();}catch(Throwable e){}}public void setUp(){tearDown();99 - 106 
-if(num.scale < scale){num.setScale(scale);}elseif(num.scale > scale){setScale(num.scale);}167 - 172 
-case SQLTokenizer.LONGVARBINARY:return getBytes();case SQLTokenizer.DATE:case SQLTokenizer.TIME:case SQLTokenizer.TIMESTAMP:case SQLTokenizer.SMALLDATETIME:return new DateTime( getLong(), dataType );case SQLTokenizer.UNIQUEIDENTIFIER:return getBytes();516 - 521 
-case SQLTokenizer.INT:return getIntImpl();case SQLTokenizer.BIGINT:return getLongImpl();case SQLTokenizer.REAL:return getFloatImpl();case SQLTokenizer.FLOAT:case SQLTokenizer.DOUBLE:case SQLTokenizer.MONEY:case SQLTokenizer.SMALLMONEY:case SQLTokenizer.NUMERIC:270 - 275 
-this.value = value;}public double doubleValue() {return value;}public float floatValue() {44 - 51 
-try{int maxRows = Integer.parseInt(token.getName(sql));selCmd.setMaxRows(maxRows);}catch(NumberFormatException e){throw createSyntaxError(token, Language.STXADD_NOT_NUMBER, token.getName(sql));}352 - 357 
-wasNull = expr.isNull();return expr.getBoolean();}catch(Exception e){throw SmallSQLException.createFromException( e );}}96 - 101 
-case SQLTokenizer.REAL:case SQLTokenizer.SMALLMONEY:case SQLTokenizer.TIME:case SQLTokenizer.DATE:case SQLTokenizer.SMALLDATETIME:offset += 4;break;case SQLTokenizer.BIGINT:case SQLTokenizer.FLOAT:case SQLTokenizer.DOUBLE:case SQLTokenizer.MONEY:case SQLTokenizer.JAVA_OBJECT:case SQLTokenizer.LONGVARBINARY:case SQLTokenizer.BLOB:case SQLTokenizer.CLOB:case SQLTokenizer.NCLOB:case SQLTokenizer.LONGNVARCHAR:case SQLTokenizer.LONGVARCHAR:case SQLTokenizer.TIMESTAMP:offset += 8;break;687 - 692 
-case SQLTokenizer.TINYINT:case SQLTokenizer.SMALLINT:case SQLTokenizer.INT:return getIntImpl();case SQLTokenizer.BIGINT:return getLongImpl();case SQLTokenizer.REAL:226 - 231 
-thread.join(5000);}if(throwable != null){throw throwable;}assertEqualsRsValue(new Integer(200), "SELECT value FROM ConcurrentWrite");}finally{dropTable(con, "ConcurrentWrite");}}109 - 117 
-wasNull = expr.isNull();if(wasNull) return null;return DateTime.getTimestamp( expr.getLong() );}catch(Exception e){throw SmallSQLException.createFromException( e );}}186 - 191 
-byte[] b = new byte[length];System.arraycopy(bytes, 0, b, 0, length);return b;}final String getString() throws Exception {if(isNull()) return null;String str = param1.getString();59 - 66 
-case SQLTokenizer.CHAR:case SQLTokenizer.NCHAR:case SQLTokenizer.VARCHAR:case SQLTokenizer.NVARCHAR:return readString();case SQLTokenizer.CLOB:case SQLTokenizer.NCLOB:case SQLTokenizer.LONGNVARCHAR:case SQLTokenizer.LONGVARCHAR:return readLongString();case SQLTokenizer.JAVA_OBJECT:ByteArrayInputStream bais = new ByteArrayInputStream(readLongBinary());ObjectInputStream ois = new ObjectInputStream(bais);1304 - 1309 
-buf.append( SHORT_MONTHS[ details.month ]);buf.append(' ');formatNumber( details.day, 2, buf);buf.append(' ');formatNumber( details.year, 4, buf);buf.append(' ');formatHour12( details.hour, buf );buf.append(':');351 - 356 
-case SQLTokenizer.UNIQUEIDENTIFIER:return Utils.bytes2unique( page, this.offset);default: throw new Error();}}@Override1329 - 1339 
-for(int t=0; t<tables.size(); t++){String tableName = tables.get(t);TableView tab = getTableView( con, tableName);if(!(tab instanceof Table)) continue;IndexDescriptions indexes = ((Table)tab).indexes;for(int i=0; i<indexes.size(); i++){IndexDescription index = indexes.get(i);447 - 452 
-rs.beforeFirst();assertTrue("isBeforeFirst", rs.isBeforeFirst() );assertFalse("isAfterLast", rs.isAfterLast() );assertEquals("getRow", 0, rs.getRow() );assertTrue("next", rs.next() );assertTrue("isFirst", rs.isFirst() );78 - 83 
-formatNumber( details.hour, 2, buf);buf.append(':');formatNumber( details.minute, 2, buf);buf.append(':');formatNumber( details.second, 2, buf);return buf.toString();464 - 469 
-pr.setObject( 1, testValue.small);pr.setObject( 2, testValue.large);rs = pr.executeQuery();assertTrue( "To few rows", rs.next() );assertTrue( "To few rows", rs.next() );assertTrue( "To few rows", rs.next() );assertTrue( "To few rows", rs.next() );assertTrue( "To few rows", rs.next() );assertFalse( "To many rows", rs.next() );pr.close();209 - 214 
-Connection con = AllTests.getConnection();try{con.createStatement().execute("Create Table transactions (i int identity, v varchar(20))");assertRowCount( 0, "Select * from transactions");con.createStatement().execute("Insert Into transactions(v) Values('qwert')");assertRowCount( 1, "Select * from transactions");con.setAutoCommit(false);con.createStatement().execute("Insert Into transactions(v) Select v From transactions");assertRowCount( 2, "Select * from transactions");111 - 117 
-wasNull = obj == null;if(wasNull) return null;return obj.toBigDecimal();}catch(Exception e){throw SmallSQLException.createFromException( e );}}205 - 210 
-buf.append(':');formatNumber( details.minute, 2, buf);buf.append(':');formatNumber( details.second, 2, buf);buf.append(':');formatMillis( details.millis, buf);479 - 484 
-Connection con = AllTests.getConnection();try{con.createStatement().execute("Create Table Scrollable (i counter, v varchar(20))");assertRowCount( 0, "Select * from Scrollable");con.createStatement().execute("Insert Into Scrollable(v) Values('qwert')");assertRowCount( 1, "Select * from Scrollable");assertRowCount( 0, "Select * from Scrollable Where 1=0");Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);44 - 50 
-pr.close();}catch(Exception e){System.out.println("  Failed:"+e);}finally{System.out.println();System.out.println("===================================================================");442 - 447 
-this.offset = valueOffset;if(readBoolean()) return 0;switch(dataType){case SQLTokenizer.BIT:case SQLTokenizer.BOOLEAN:return readBoolean() ? 1 : 0;case SQLTokenizer.BINARY:case SQLTokenizer.VARBINARY:894 - 899 
-case SQLTokenizer.TIMESTAMP:return readTimestamp();case SQLTokenizer.TIME:return readTime();case SQLTokenizer.DATE:return readDate();case SQLTokenizer.SMALLDATETIME:return readSmallDateTime();default:1006 - 1011 
-wasNull = obj == null;if(wasNull) return null;return obj.toBigDecimal(scale);}catch(Exception e){throw SmallSQLException.createFromException( e );}}147 - 152 
-break;case SQLTokenizer.BIGINT:case SQLTokenizer.DATE:case SQLTokenizer.TIME:case SQLTokenizer.TIMESTAMP:case SQLTokenizer.SMALLDATETIME:case SQLTokenizer.MONEY:case SQLTokenizer.SMALLMONEY:175 - 180 
-}catch(Throwable e){}}public void setUp(){tearDown();try{Connection con = AllTests.getConnection();Statement st = con.createStatement();101 - 108 
-case SQLTokenizer.FLOAT:case SQLTokenizer.DOUBLE:case SQLTokenizer.MONEY:case SQLTokenizer.SMALLMONEY:case SQLTokenizer.NUMERIC:case SQLTokenizer.DECIMAL:190 - 195 
-oldValue = newValue;count++;}rs.close();assertEquals( valueCount, count );}135 - 140 
-StringBuffer buf = new StringBuffer(bytes.length << 1);for(int i=0; i<bytes.length; i++){buf.append( digits[ (bytes[i] >> 4) & 0x0F ] );buf.append( digits[ (bytes[i]     ) & 0x0F ] );}return buf.toString();}206 - 211 
-final boolean getBoolean() throws Exception {if(isNull()) return false;return Utils.string2boolean(getString().trim());}final int getInt() throws Exception {if(isNull()) return 0;return Integer.parseInt(getString().trim());}final long getLong() throws Exception {if(isNull()) return 0;return Long.parseLong(getString().trim());}final float getFloat() throws Exception {if(isNull()) return 0;return Float.parseFloat(getString().trim());}final double getDouble() throws Exception {if(isNull()) return 0;return Double.parseDouble(getString().trim());}final long getMoney() throws Exception {if(isNull()) return 0;return Money.parseMoney(getString().trim());}final MutableNumeric getNumeric() throws Exception {if(isNull()) return null;return new MutableNumeric(getString().trim());}final Object getObject() throws Exception {44 - 51 
-st.close();}catch(Exception e){System.out.println("  Failed:"+e);}finally{System.out.println();System.out.println("===================================================================");124 - 129 
-byte[] buffer = new byte[length];System.arraycopy(bytes, 0, buffer, 0, Math.min(bytes.length,length) );return buffer;}return bytes;}143 - 149 
-assertEquals( valueCount, count );rs.beforeFirst();count = -1;while(rs.next()) count++;assertEquals( valueCount, count );}720 - 726 
-assertTrue( rs.next() );oldValue = rs.getString("v");assertNull(oldValue);assertTrue( rs.next() );oldValue = rs.getString("v");int count = 1;while(rs.next()){String newValue = rs.getString("v");152 - 159 
-}firstNode = false;if(shift != 0) offset += pointerSize;}shift -= 16;}}245 - 250 
-}public void tearDown(){try {dropTable( AllTests.getConnection(), table );} catch (SQLException ex) {ex.printStackTrace();}}18 - 24 
-wasNull = expr.isNull();return expr.getInt();}catch(Exception e){throw SmallSQLException.createFromException( e );}}111 - 116 
-case SQLTokenizer.NUMERIC:case SQLTokenizer.DECIMAL:return readNumeric();case SQLTokenizer.CHAR:case SQLTokenizer.NCHAR:case SQLTokenizer.VARCHAR:case SQLTokenizer.NVARCHAR:1239 - 1244 
-}public SQLWarning getWarnings(){return null;}public void clearWarnings(){}274 - 284 
-try{con.createStatement().execute("Drop Table transactions");}catch(Throwable e){e.printStackTrace();}con.setAutoCommit(true);}}69 - 74 
-rows.add(row);}}}}Object[][] result = new Object[rows.size()][];rows.toArray(result);433 - 438 
-wasNull = expr.isNull();return expr.getLong();}catch(Exception e){throw SmallSQLException.createFromException( e );}}120 - 125 
-assertRowCount( 4, "Select * from transactions");con.commit();assertRowCount( 4, "Select * from transactions");}finally{try{con.createStatement().execute("Drop Table transactions");}catch(Throwable e){e.printStackTrace();}con.setAutoCommit(true);93 - 100 
-case SQLTokenizer.COMMA:continue;default:throw new Error();}}}1045 - 1050 
-}finally{dropTable(con1, "transactions");con1.setAutoCommit(true);con2.close();}}419 - 424 
-return false;}boolean last() throws Exception{afterLast();return previous();}113 - 120 
-boolean isNull() throws Exception{return param1.isNull() || param2.isNull();}final double getDouble() throws Exception{if(isNull()) return 0;final int places = param2.getInt();double value = param1.getDouble();long factor = 1;if(places > 0){for(int i=0; i<places; i++){factor *= 10;}value *= factor;}else{for(int i=0; i>places; i--){factor *= 10;}value /= factor;}40 - 47 
-public String toString(){return String.valueOf(value);}public Object getImmutableObject(){return new Long(value);}}117 - 123 
-this.testValue = testValue;}public void tearDown(){try{Connection con = AllTests.getConnection();Statement st = con.createStatement();92 - 98 
-}}}Object[][] result = new Object[rows.size()][];rows.toArray(result);return result;435 - 440 
+ LINES: 		| TestThreads.java: 49 - 68 || TestThreads.java: 96 - 115 || TestThreads.java: 150 - 169 |
+ CLONE CLASS: 	}catch(Throwable ex){throwable = ex;}}});threadList.add(thread);thread.start();}for(int i = 0; i < threadList.size(); i++){Thread thread = (Thread)threadList.get(i);thread.join(5000);}if(throwable != null){throw throwable;}
+ 
+ LINES: 		| ExpressionFunctionReturnInt.java: 76 - 84 || ExpressionFunctionTimestampDiff.java: 149 - 157 |
+ CLONE CLASS: 	if(isNull()) return null;return new MutableNumeric(getInt());}Object getObject() throws Exception {if(isNull()) return null;return Utils.getInteger(getInt());}
+ 
+ LINES: 		| TestOperatoren.java: 263 - 281 || TestJoins.java: 201 - 218 |
+ CLONE CLASS: 	}private static TestValue a(String dataType, Object small, Object large){TestValue value = new TestValue();value.dataType  = dataType;value.small     = small;value.large     = large;return value;}private static class TestValue{String dataType;Object small;Object large;}}
+ 
+ LINES: 		| BenchTest.java: 629 - 639 || BenchTest.java: 670 - 680 |
+ CLONE CLASS: 	pr.close();time += System.currentTimeMillis();System.out.println( "  Test time: " + time + " ms");fis.close();java.io.File file = new java.io.File(tableName+".bin");file.delete();}catch(Exception e){System.out.println("  Failed:"+e);}finally{System.out.println();System.out.println("===================================================================");
+ 
+ LINES: 		| TestOperatoren.java: 63 - 77 || TestJoins.java: 65 - 79 |
+ CLONE CLASS: 	a("nvarchar(100)"     , new String("abc"),      new String("qwert")),a("varchar2(100)"     , new String("abc"),      new String("qwert")),a("nvarchar2(100)"    , new String("abc"),      new String("qwert")),a("character(100)"    , new String("abc"),      new String("qwert")),a("char(100)"         , new String("abc"),      new String("qwert")),a("nchar(100)"        , new String("abc"),      new String("qwert")),a("text"              , new String("abc"),      new String("qwert")),a("ntext"             , new String("abc"),      new String("qwert")),a("date"              , new Date(99, 1,1),      new Date(99, 2,2)),a("time"              , new Time(9, 1,1),       new Time(9, 2,2)),a("timestamp"         , new Timestamp(99, 1,1,0,0,0,0),      new Timestamp(99, 2,2,0,0,0,0)),a("datetime"          , new Timestamp(99, 1,1,0,0,0,0),      new Timestamp(99, 2,2,0,0,0,0)),a("smalldatetime"     , new Timestamp(99, 1,1,0,0,0,0),      new Timestamp(99, 2,2,0,0,0,0)),a("binary(100)"       , new byte[]{12, 45, 1},  new byte[]{12, 45, 2, 56, 89}),a("varbinary(100)"    , new byte[]{12, 45, 1},  new byte[]{12, 45, 2, 56, 89}),
+ 
+ LINES: 		| DateTime.java: 354 - 359 || DateTime.java: 475 - 480 || DateTime.java: 601 - 606 |
+ CLONE CLASS: 	buf.append(' ');formatNumber( details.year, 4, buf);buf.append(' ');formatHour12( details.hour, buf );buf.append(':');formatNumber( details.minute, 2, buf);
+ 
+ LINES: 		| DateTime.java: 553 - 562 || DateTime.java: 567 - 576 |
+ CLONE CLASS: 	formatNumber( details.year, 4, buf);buf.append('-');formatNumber( details.month+1, 2, buf);buf.append('-');formatNumber( details.day, 2, buf);buf.append(' ');formatNumber( details.hour, 2, buf);buf.append(':');formatNumber( details.minute, 2, buf);buf.append(':');
+ 
+ LINES: 		| TestTransactions.java: 221 - 228 || TestTransactions.java: 396 - 402 |
+ CLONE CLASS: 	assertFalse( rs.next() );}finally{try{con.createStatement().execute("Drop Table transactions");}catch(Throwable e){e.printStackTrace();}}}
+ 
+ LINES: 		| ExpressionFunctionRTrim.java: 47 - 54 || ExpressionFunctionLTrim.java: 47 - 54 |
+ CLONE CLASS: 	final boolean isNull() throws Exception {return param1.isNull();}final byte[] getBytes() throws Exception{if(isNull()) return null;byte[] bytes = param1.getBytes();
+ 
+ LINES: 		| TestTransactions.java: 80 - 86 || TestTransactions.java: 346 - 352 |
+ CLONE CLASS: 	Connection con = AllTests.getConnection();try{con.setAutoCommit(false);con.createStatement().execute("Create Table transactions (i int identity, v varchar(20))");assertRowCount( 0, "Select * from transactions");con.createStatement().execute("Insert Into transactions(v) Values('qwert')");
+ 
+ LINES: 		| TestOperatoren.java: 93 - 104 || TestDataTypes.java: 66 - 77 || TestFunctions.java: 371 - 383 || TestMoneyRounding.java: 51 - 62 |
+ CLONE CLASS: 	}public void tearDown(){try{Connection con = AllTests.getConnection();Statement st = con.createStatement();st.execute("drop table " + table);st.close();}catch(Throwable e){}}
+ 
+ LINES: 		| Database.java: 393 - 398 || Database.java: 436 - 441 || Database.java: 472 - 477 || Database.java: 503 - 508 || Database.java: 540 - 545 |
+ CLONE CLASS: 	}}Object[][] result = new Object[rows.size()][];rows.toArray(result);return result;}
+ 
+ LINES: 		| MutableInteger.java: 45 - 55 || MutableLong.java: 45 - 55 || MutableFloat.java: 45 - 55 |
+ CLONE CLASS: 	}public double doubleValue() {return value;}public float floatValue() {return value;}public int intValue() {
+ 
+ LINES: 		| ExpressionValue.java: 424 - 432 || ExpressionValue.java: 459 - 467 |
+ CLONE CLASS: 	if(obj == null) return 0;switch(dataType){case SQLTokenizer.BIT:case SQLTokenizer.BOOLEAN:return (obj == Boolean.TRUE) ? 1 : 0;case SQLTokenizer.TINYINT:case SQLTokenizer.SMALLINT:case SQLTokenizer.INT:case SQLTokenizer.BIGINT:
+ 
+ LINES: 		| Database.java: 445 - 451 || Database.java: 481 - 487 |
+ CLONE CLASS: 	List rows = new ArrayList();Strings tables = getTables(table);for(int t=0; t<tables.size(); t++){String tableName = tables.get(t);TableView tab = getTableView( con, tableName);if(!(tab instanceof Table)) continue;IndexDescriptions indexes = ((Table)tab).indexes;
+ 
+ LINES: 		| StoreImpl.java: 672 - 677 || StoreImpl.java: 1473 - 1478 |
+ CLONE CLASS: 	case SQLTokenizer.BIT:case SQLTokenizer.BOOLEAN:case SQLTokenizer.TINYINT:offset++;break;case SQLTokenizer.SMALLINT:
+ 
+ LINES: 		| BenchTest.java: 617 - 625 || BenchTest.java: 654 - 662 |
+ CLONE CLASS: 	try{java.io.FileOutputStream fos = new java.io.FileOutputStream(tableName+".bin");byte bytes[] = new byte[1024];for(int i=0; i<rowCount; i++){fos.write(bytes);}fos.close();java.io.FileInputStream fis = new java.io.FileInputStream(tableName+".bin");long time = -System.currentTimeMillis();
+ 
+ LINES: 		| TestResultSet.java: 85 - 108 || TestResultSet.java: 128 - 151 |
+ CLONE CLASS: 	assertEquals("getRow", 1, rs.getRow() );assertTrue("isLast", rs.isLast() );assertFalse("next", rs.next() );assertFalse("isBeforeFirst", rs.isBeforeFirst() );assertTrue("isAfterLast", rs.isAfterLast() );assertEquals("getRow", 0, rs.getRow() );assertTrue("first", rs.first() );assertEquals("getRow", 1, rs.getRow() );assertFalse("previous", rs.previous() );assertEquals("getRow", 0, rs.getRow() );assertTrue("isBeforeFirst", rs.isBeforeFirst() );assertFalse("isAfterLast", rs.isAfterLast() );assertTrue("last", rs.last() );assertEquals("getRow", 1, rs.getRow() );assertTrue("isLast", rs.isLast() );rs.afterLast();assertFalse("isBeforeFirst", rs.isBeforeFirst() );assertTrue("isAfterLast", rs.isAfterLast() );assertEquals("getRow", 0, rs.getRow() );}
+ 
+ LINES: 		| IndexScrollStatus.java: 88 - 99 || IndexScrollStatus.java: 119 - 130 |
+ CLONE CLASS: 	if(idx == -1){if(status.nodeValue != null){if(status.nodeValue instanceof IndexNode){level++;nodeStack.push(new IndexNodeScrollStatus( 	(IndexNode)status.nodeValue,(expressions.get(level).getAlias() != SQLTokenizer.DESC_STR),scroll, level));continue;}elsereturn getReturnValue(status.nodeValue);}
+ 
+ LINES: 		| JoinScroll.java: 93 - 100 || JoinScroll.java: 130 - 137 |
+ CLONE CLASS: 	result = left.next();if(result){result = right.first();if(!result){switch(type){case Join.LEFT_JOIN:case Join.FULL_JOIN:isOuterValid = false;
+ 
+ LINES: 		| ExpressionArithmetic.java: 748 - 753 || ExpressionArithmetic.java: 786 - 791 |
+ CLONE CLASS: 	case OR:case AND:case NOT:case LIKE:case ISNULL:case ISNOTNULL:
+ 
+ LINES: 		| IndexDescription.java: 173 - 178 || TableView.java: 85 - 90 |
+ CLONE CLASS: 	raFile = Utils.openRaFile( file, database.isReadOnly() );ByteBuffer buffer = ByteBuffer.allocate(8);raFile.read(buffer);buffer.position(0);int magic   = buffer.getInt();int version = buffer.getInt();
+ 
+ LINES: 		| BenchTest.java: 416 - 426 || BenchTest.java: 470 - 480 |
+ CLONE CLASS: 	pr.setString(  2 , "Test" );pr.setDate  (  3 , new Date( System.currentTimeMillis() ) );pr.setFloat (  4, (float)1234.56789 );pr.setFloat (  5 , (float)9876.54321 );pr.setBytes (  6, largeByteArray );pr.setInt   (  7 , i );pr.setDouble(  8 , 23.45 );pr.setDouble(  9 , 567.45 );pr.setFloat (  10 , (float)78.89 );pr.setTime  (  11, new Time( System.currentTimeMillis() ) );pr.setShort (  12, (short)23456 );
+ 
+ LINES: 		| Command.java: 138 - 144 || CommandSelect.java: 436 - 442 || CommandSelect.java: 478 - 484 || CommandSelect.java: 494 - 500 |
+ CLONE CLASS: 	}catch(Throwable e){con.rollback(savepoint);throw SmallSQLException.createFromException(e);}finally{if(con.getAutoCommit()) con.commit();}}
+ 
+ LINES: 		| StoreImpl.java: 971 - 977 || StoreImpl.java: 1036 - 1042 || StoreImpl.java: 1101 - 1107 |
+ CLONE CLASS: 	case SQLTokenizer.SMALLINT:return readShort();case SQLTokenizer.INT:return readInt();case SQLTokenizer.BIGINT:return readLong();case SQLTokenizer.REAL:
+ 
+ LINES: 		| StoreImpl.java: 903 - 909 || StoreImpl.java: 969 - 975 || StoreImpl.java: 1034 - 1040 || StoreImpl.java: 1099 - 1105 |
+ CLONE CLASS: 	case SQLTokenizer.TINYINT:return readUnsignedByte();case SQLTokenizer.SMALLINT:return readShort();case SQLTokenizer.INT:return readInt();case SQLTokenizer.BIGINT:
+ 
+ LINES: 		| BenchTest.java: 413 - 419 || BenchTest.java: 467 - 473 |
+ CLONE CLASS: 	long time = -System.currentTimeMillis();for (int i=0; i<rowCount; i++){pr.setBytes (  1, byteArray );pr.setString(  2 , "Test" );pr.setDate  (  3 , new Date( System.currentTimeMillis() ) );pr.setFloat (  4, (float)1234.56789 );pr.setFloat (  5 , (float)9876.54321 );
+ 
+ LINES: 		| DateTime.java: 558 - 563 || DateTime.java: 572 - 577 || DateTime.java: 619 - 624 |
+ CLONE CLASS: 	buf.append(' ');formatNumber( details.hour, 2, buf);buf.append(':');formatNumber( details.minute, 2, buf);buf.append(':');formatNumber( details.second, 2, buf);
+ 
+ LINES: 		| TestOrderBy.java: 718 - 724 || TestOrderBy.java: 749 - 755 |
+ CLONE CLASS: 	count = -1;while(rs.next()) count++;assertEquals( valueCount, count );rs.beforeFirst();count = -1;while(rs.next()) count++;
+ 
+ LINES: 		| ExpressionArithmetic.java: 475 - 506 || ExpressionFunctionReturnP1.java: 49 - 80 |
+ CLONE CLASS: 	if(isNull()) return null;int dataType = getDataType();switch(dataType){case SQLTokenizer.BIT:case SQLTokenizer.BOOLEAN:return getBoolean() ? Boolean.TRUE : Boolean.FALSE;case SQLTokenizer.BINARY:case SQLTokenizer.VARBINARY:return getBytes();case SQLTokenizer.TINYINT:case SQLTokenizer.SMALLINT:case SQLTokenizer.INT:return new Integer( getInt() );case SQLTokenizer.BIGINT:return new Long( getLong() );case SQLTokenizer.REAL:return new Float( getFloat() );case SQLTokenizer.FLOAT:case SQLTokenizer.DOUBLE:return new Double( getDouble() );case SQLTokenizer.MONEY:case SQLTokenizer.SMALLMONEY:return Money.createFromUnscaledValue( getMoney() );case SQLTokenizer.NUMERIC:case SQLTokenizer.DECIMAL:return getNumeric();case SQLTokenizer.CHAR:case SQLTokenizer.NCHAR:case SQLTokenizer.VARCHAR:case SQLTokenizer.NVARCHAR:case SQLTokenizer.LONGNVARCHAR:case SQLTokenizer.LONGVARCHAR:
+ 
+ LINES: 		| Table.java: 359 - 364 || Table.java: 371 - 376 || Table.java: 389 - 394 |
+ CLONE CLASS: 	Iterator values = locks.values().iterator();while(values.hasNext()){TableStorePage lock = (TableStorePage)values.next();if(lock.con != con) return null;}}
+ 
+ LINES: 		| Distinct.java: 61 - 70 || Where.java: 89 - 98 |
+ CLONE CLASS: 	}final void beforeFirst() throws Exception {rowSource.beforeFirst();row = 0;}final boolean first() throws Exception {
+ 
+ LINES: 		| CommandInsert.java: 157 - 162 || CommandInsert.java: 167 - 172 |
+ CLONE CLASS: 	keyColumnNames.add(column.getName());keys.add(valueExpress.getObject());break;}}}
+ 
+ LINES: 		| DateTime.java: 476 - 483 || DateTime.java: 602 - 609 |
+ CLONE CLASS: 	formatNumber( details.year, 4, buf);buf.append(' ');formatHour12( details.hour, buf );buf.append(':');formatNumber( details.minute, 2, buf);buf.append(':');formatNumber( details.second, 2, buf);buf.append(':');
+ 
+ LINES: 		| BenchTest.java: 428 - 433 || BenchTest.java: 536 - 541 |
+ CLONE CLASS: 	pr.setString(  14, "sysname (30) NULL" );pr.setString(  15 , "text NULL" );pr.setByte  (  16, (byte)28 );pr.setBytes (  17, byteArray );pr.setString(  18, "varchar (255) NULL" );pr.setInt   (  19 , i );
+ 
+ LINES: 		| TestOrderBy.java: 187 - 192 || TestOrderBy.java: 811 - 816 |
+ CLONE CLASS: 	while(rs.next()){String newValue = rs.getString("v");assertTrue( oldValue.compareTo( newValue ) < 0 );oldValue = newValue;count++;}
+ 
+ LINES: 		| TestLanguage.java: 127 - 132 || TestLanguage.java: 167 - 172 |
+ CLONE CLASS: 	}}finally {conn.close();}}
+ 
+                LINES: 		| Language_it.java: 40 - 51 || Language_de.java: 40 - 51 |
+ CLONE CLASS: 	addMessages(ENTRIES);}public String[][] getEntries() {return ENTRIES;}private final String[][] ENTRIES = {
+ 
+ LINES: 		| TestOperatoren.java: 79 - 85 || TestJoins.java: 80 - 86 |
+ CLONE CLASS: 	a("raw(100)"          , new byte[]{12, 45, 1},  new byte[]{12, 45, 2, 56, 89}),a("long raw"          , new byte[]{12, 45, 1},  new byte[]{12, 45, 2, 56, 89}),a("longvarbinary"     , new byte[]{12, 45, 1},  new byte[]{12, 45, 2, 56, 89}),a("blob"              , new byte[]{12, 45, 1},  new byte[]{12, 45, 2, 56, 89}),a("image"             , new byte[]{12, 45, 1},  new byte[]{12, 45, 2, 56, 89}),a("boolean"           , Boolean.FALSE,          Boolean.TRUE),a("bit"               , Boolean.FALSE,          Boolean.TRUE),
+ 
+ LINES: 		| Index.java: 101 - 109 || Index.java: 128 - 136 |
+ CLONE CLASS: 	if(page == null)return null;if(i + 1 == count)return page.getValue();elsepage = (IndexNode)page.getValue();}throw new Error();}
+ 
+ LINES: 		| BenchTest.java: 147 - 153 || BenchTest.java: 355 - 361 || BenchTest.java: 597 - 603 |
+ CLONE CLASS: 	time += System.currentTimeMillis();System.out.println( "  Test time: " + time + " ms");st.close();}catch(Exception e){System.out.println("  Failed:"+e);}finally{System.out.println();
+ 
+ LINES: 		| StoreImpl.java: 1038 - 1045 || StoreImpl.java: 1103 - 1110 |
+ CLONE CLASS: 	case SQLTokenizer.INT:return readInt();case SQLTokenizer.BIGINT:return readLong();case SQLTokenizer.REAL:return readFloat();case SQLTokenizer.FLOAT:case SQLTokenizer.DOUBLE:
+ 
+ LINES: 		| Index.java: 353 - 359 || Index.java: 412 - 418 |
+ CLONE CLASS: 	node.addNode( digit, rowOffset );return null;}return node.addRoot(digit);}node = node.addNode(digit);if(node.isEmpty()){
+ 
+ LINES: 		| DateTime.java: 543 - 550 || DateTime.java: 620 - 627 |
+ CLONE CLASS: 	formatNumber( details.hour, 2, buf);buf.append(':');formatNumber( details.minute, 2, buf);buf.append(':');formatNumber( details.second, 2, buf);buf.append(':');formatMillis( details.millis, buf );return buf.toString();
+ 
+ LINES: 		| Index.java: 195 - 200 || Index.java: 269 - 274 |
+ CLONE CLASS: 	break;case SQLTokenizer.VARBINARY:case SQLTokenizer.BINARY:case SQLTokenizer.LONGVARBINARY:case SQLTokenizer.BLOB:case SQLTokenizer.UNIQUEIDENTIFIER:
+ 
+ LINES: 		| ExpressionFunctionCharLen.java: 45 - 56 || ExpressionFunctionBitLen.java: 49 - 60 || ExpressionFunctionOctetLen.java: 49 - 60 |
+ CLONE CLASS: 	}boolean isNull() throws Exception {return param1.isNull();}final int getInt() throws Exception {if(isNull()) return 0;String str = param1.getString();
+ 
+ LINES: 		| BenchTest.java: 422 - 432 || BenchTest.java: 476 - 486 || BenchTest.java: 530 - 540 |
+ CLONE CLASS: 	pr.setDouble(  8 , 23.45 );pr.setDouble(  9 , 567.45 );pr.setFloat (  10 , (float)78.89 );pr.setTime  (  11, new Time( System.currentTimeMillis() ) );pr.setShort (  12, (short)23456 );pr.setFloat (  13, (float)34.56 );pr.setString(  14, "sysname (30) NULL" );pr.setString(  15 , "text NULL" );pr.setByte  (  16, (byte)28 );pr.setBytes (  17, byteArray );pr.setString(  18, "varchar (255) NULL" );
+ 
+ LINES: 		| DateTime.java: 480 - 486 || DateTime.java: 606 - 612 |
+ CLONE CLASS: 	formatNumber( details.minute, 2, buf);buf.append(':');formatNumber( details.second, 2, buf);buf.append(':');formatMillis( details.millis, buf);buf.append( details.hour < 12 ? "AM" : "PM" );return buf.toString();
+ 
+ LINES: 		| TestOperatoren.java: 115 - 141 || TestJoins.java: 129 - 155 |
+ CLONE CLASS: 	pr.setObject( 1, testValue.small);pr.setObject( 2, testValue.large);pr.execute();pr.setObject( 1, testValue.small);pr.setObject( 2, testValue.small);pr.execute();pr.setObject( 1, testValue.large);pr.setObject( 2, testValue.large);pr.execute();pr.setObject( 1, testValue.large);pr.setObject( 2, testValue.small);pr.execute();pr.setObject( 1, null);pr.setObject( 2, testValue.small);pr.execute();pr.setObject( 1, testValue.small);pr.setObject( 2, null);pr.execute();pr.setObject( 1, null);pr.setObject( 2, null);pr.execute();
+ 
+ LINES: 		| Scrollable.java: 207 - 221 || SortedResult.java: 268 - 282 |
+ CLONE CLASS: 	}final boolean rowInserted(){return rowSource.rowInserted();}final boolean rowDeleted(){return rowSource.rowDeleted();}void nullRow() {rowSource.nullRow();
+ 
+ LINES: 		| TestThreads.java: 82 - 92 || TestThreads.java: 134 - 144 |
+ CLONE CLASS: 	Statement st = con.createStatement();try{st.execute("CREATE TABLE ConcurrentWrite( value int)");st.execute("INSERT INTO ConcurrentWrite(value) Values(0)");for(int i = 0; i < 200; i++){Thread thread = new Thread(new Runnable(){public void run(){try{
+ 
+ LINES: 		| TestTransactions.java: 410 - 417 || TestTransactions.java: 432 - 439 |
+ CLONE CLASS: 	con1.createStatement().execute("Create Table transactions (i int identity, v varchar(20))");assertRowCount( 0, "Select * from transactions");con1.setAutoCommit(false);con1.createStatement().execute("Insert Into transactions(v) Values('qwert2')");ResultSet rs2 = con2.createStatement().executeQuery("Select count(*) from transactions");assertTrue( rs2.next() );
+ 
+ LINES: 		| TestTransactions.java: 218 - 226 || TestTransactions.java: 361 - 368 |
+ CLONE CLASS: 	rs.beforeFirst();assertTrue( rs.next() );assertEquals("qwert2", rs.getString("v"));assertFalse( rs.next() );}finally{try{con.createStatement().execute("Drop Table transactions");}catch(Throwable e){e.printStackTrace();}
+ 
+ LINES: 		| MutableLong.java: 49 - 67 || MutableFloat.java: 49 - 67 |
+ CLONE CLASS: 	}public float floatValue() {return value;}public int intValue() {return (int)value;}public long longValue() {}public int intValue() {return (int)value;}public long longValue() {return (long)value;}public String toString(){return String.valueOf(value);}public Object getImmutableObject(){
+ 
+ LINES: 		| ExpressionFunctionReplace.java: 46 - 55 || ExpressionFunctionSubstring.java: 46 - 55 |
+ CLONE CLASS: 	}final boolean isNull() throws Exception {return param1.isNull() || param2.isNull() || param3.isNull();}final byte[] getBytes() throws Exception{if(isNull()) return null;
+ 
+ LINES: 		| StoreImpl.java: 684 - 690 || StoreImpl.java: 1479 - 1485 |
+ CLONE CLASS: 	offset += 2;break;case SQLTokenizer.INT:case SQLTokenizer.REAL:case SQLTokenizer.SMALLMONEY:case SQLTokenizer.TIME:case SQLTokenizer.DATE:
+ 
+ LINES: 		| ExpressionFunctionUCase.java: 47 - 59 || ExpressionFunctionLCase.java: 47 - 59 |
+ CLONE CLASS: 	final boolean isNull() throws Exception {return param1.isNull();}final byte[] getBytes() throws Exception{if(isNull()) return null;return getString().getBytes();}final String getString() throws Exception {if(isNull()) return null;
+ 
+ LINES: 		| SSCallableStatement.java: 129 - 134 || SSResultSet.java: 134 - 139 |
+ CLONE CLASS: 	wasNull = expr.isNull();return expr.getFloat();}catch(Exception e){throw SmallSQLException.createFromException( e );}}
+ 
+ LINES: 		| TestTransactions.java: 98 - 103 || TestTransactions.java: 129 - 134 || TestTransactions.java: 157 - 162 || TestTransactions.java: 188 - 193 || TestTransactions.java: 281 - 286 || TestTransactions.java: 365 - 370 |
+ CLONE CLASS: 	}finally{try{con.createStatement().execute("Drop Table transactions");}catch(Throwable e){e.printStackTrace();}con.setAutoCommit(true);}
+ 
+ LINES: 		| TestScrollable.java: 135 - 141 || TestScrollable.java: 173 - 179 |
+ CLONE CLASS: 	try{rs.getString("v");fail("SQLException 'No current row' should be throw");}catch(SQLException ex){assertSQLException("01000", 0, ex);}}
+ 
+ LINES: 		| LongTreeList.java: 332 - 341 || LongTreeList.java: 377 - 386 |
+ CLONE CLASS: 	result |= (((long)nextEntry) << shift);if(listEnum.stack>=3){listEnum.offsetStack[listEnum.stack] = offset;return result;}listEnum.offsetStack[listEnum.stack] = offset+pointerSize;offset = getPointer();shift -= 16;listEnum.stack++;listEnum.resultStack[listEnum.stack] = result;
+ 
+ LINES: 		| BenchTest.java: 174 - 179 || BenchTest.java: 279 - 284 |
+ CLONE CLASS: 	rs.insertRow();}time += System.currentTimeMillis();rs = st.executeQuery( "SELECT count(*) FROM " + tableName);rs.next();int count = rs.getInt(1);
+ 
+ LINES: 		| SortedResult.java: 227 - 233 || SortedResult.java: 246 - 252 |
+ CLONE CLASS: 	if(!previous()){return false;}}}return true;}
+ 
+ LINES: 		| ExpressionFunctionUCase.java: 44 - 53 || ExpressionFunctionLCase.java: 44 - 53 || ExpressionFunctionRTrim.java: 44 - 53 || ExpressionFunctionLTrim.java: 44 - 53 |
+ CLONE CLASS: 	}final boolean isNull() throws Exception {return param1.isNull();}final byte[] getBytes() throws Exception{if(isNull()) return null;
+ 
+ LINES: 		| Table.java: 369 - 375 || Table.java: 387 - 393 |
+ CLONE CLASS: 	}if(serializeConnections.size() > 0){Iterator values = locks.values().iterator();while(values.hasNext()){TableStorePage lock = (TableStorePage)values.next();if(lock.con != con) return null;}
+ 
+ LINES: 		| BenchTest.java: 119 - 127 || BenchTest.java: 178 - 186 |
+ CLONE CLASS: 	rs.next();int count = rs.getInt(1);if (count != rowCount)System.out.println( "  Failed: Only " + count + " rows were inserted.");else System.out.println( "  Test time: " + time + " ms");st.close();}catch(Exception e){System.out.println("  Failed:"+e);}finally{
+ 
+ LINES: 		| ExpressionValue.java: 493 - 499 || ExpressionValue.java: 518 - 524 |
+ CLONE CLASS: 	if(obj == null) return 0;switch(dataType){case SQLTokenizer.BIT:return (obj.equals(Boolean.TRUE)) ? 1 : 0;case SQLTokenizer.INT:case SQLTokenizer.BIGINT:case SQLTokenizer.DOUBLE:
+ 
+ LINES: 		| BenchTest.java: 434 - 441 || BenchTest.java: 487 - 494 |
+ CLONE CLASS: 	int updateCount = pr.executeUpdate();if (updateCount != 1){System.out.println( "  Failed: Update count should be 1 but it is " + updateCount + ".");return;}}time += System.currentTimeMillis();System.out.println( "  Test time: " + time + " ms");
+ 
+ LINES: 		| TestOrderBy.java: 338 - 352 || TestOrderBy.java: 423 - 437 |
+ CLONE CLASS: 	assertTrue( rs.next() );oldValue = (Integer)rs.getObject("i");assertNull(oldValue);assertTrue( rs.next() );oldValue = (Integer)rs.getObject("i");int count = 1;while(rs.next()){assertTrue( oldValue.compareTo( (Integer)rs.getObject("i") ) < 0 );oldValue = (Integer)rs.getObject("i");count++;}assertEquals( valueCount, count );}
+ 
+ LINES: 		| ExpressionFunctionRight.java: 44 - 58 || ExpressionFunctionLeft.java: 44 - 58 |
+ CLONE CLASS: 	}final boolean isNull() throws Exception {return param1.isNull() || param2.isNull();}final byte[] getBytes() throws Exception{if(isNull()) return null;byte[] bytes = param1.getBytes();int length = param2.getInt();if(bytes.length <= length) return bytes;byte[] b = new byte[length];
+ 
+ LINES: 		| SSCallableStatement.java: 87 - 92 || SSCallableStatement.java: 157 - 162 || SSCallableStatement.java: 196 - 201 || SSResultSet.java: 162 - 167 || SSResultSet.java: 292 - 297 |
+ CLONE CLASS: 	wasNull = obj == null;return obj;}catch(Exception e){throw SmallSQLException.createFromException( e );}}
+ 
+ LINES: 		| BenchTest.java: 415 - 420 || BenchTest.java: 469 - 474 || BenchTest.java: 523 - 528 |
+ CLONE CLASS: 	pr.setBytes (  1, byteArray );pr.setString(  2 , "Test" );pr.setDate  (  3 , new Date( System.currentTimeMillis() ) );pr.setFloat (  4, (float)1234.56789 );pr.setFloat (  5 , (float)9876.54321 );pr.setBytes (  6, largeByteArray );
+ 
+ LINES: 		| BenchTest.java: 354 - 359 || BenchTest.java: 596 - 601 |
+ CLONE CLASS: 	}time += System.currentTimeMillis();System.out.println( "  Test time: " + time + " ms");st.close();}catch(Exception e){System.out.println("  Failed:"+e);
+ 
+ LINES: 		| TestOrderBy.java: 708 - 720 || TestOrderBy.java: 739 - 751 |
+ CLONE CLASS: 	rs.next();rs.next();rs.previous();rs.last();count = 0;while(rs.previous()) count++;assertEquals( valueCount, count );rs.beforeFirst();count = -1;while(rs.next()) count++;assertEquals( valueCount, count );
+ 
+ LINES: 		| TestExceptionMethods.java: 172 - 179 || TestExceptionMethods.java: 189 - 196 |
+ CLONE CLASS: 	fail("SQLException 'Duplicated Column' should be throw");}catch(SQLException e){assertSQLException("01000", 0, e);}}finally{dropTable(con, "DuplicatedColumn");}}
+ 
+ LINES: 		| DateTime.java: 527 - 532 || DateTime.java: 598 - 603 |
+ CLONE CLASS: 	formatNumber( details.day, 2, buf);buf.append(' ');buf.append( SHORT_MONTHS[ details.month ]);buf.append(' ');formatNumber( details.year, 4, buf);buf.append(' ');
+ 
+ LINES: 		| IndexDescription.java: 186 - 195 || TableView.java: 105 - 114 |
+ CLONE CLASS: 	}catch(Throwable e){if(raFile != null)try{raFile.close();}catch(Exception e2){DriverManager.println(e2.toString());}throw SmallSQLException.createFromException(e);}}
+ 
+ LINES: 		| ExpressionValue.java: 154 - 163 || ExpressionValue.java: 211 - 220 |
+ CLONE CLASS: 	if(value == null){if(expr.isNull())dataType = expr.getDataType();elseinitValue( expr );}else if(!expr.isNull()){switch(dataType){case SQLTokenizer.TINYINT:case SQLTokenizer.SMALLINT:case SQLTokenizer.INT:
+ 
+ LINES: 		| SSCallableStatement.java: 176 - 182 || SSResultSet.java: 183 - 189 |
+ CLONE CLASS: 	wasNull = expr.isNull();if(wasNull) return null;return DateTime.getTime( expr.getLong() );}catch(Exception e){throw SmallSQLException.createFromException( e );}}
+ 
+ LINES: 		| SSPreparedStatement.java: 249 - 260 || SSStatement.java: 271 - 282 |
+ CLONE CLASS: 	if(failed == null){failed = new BatchUpdateException(ex.getMessage(), ex.getSQLState(), ex.getErrorCode(), result);failed.initCause(ex);}failed.setNextException(ex);}}batches.clear();if(failed != null)throw failed;return result;}
+ 
+ LINES: 		| SSCallableStatement.java: 166 - 172 || SSResultSet.java: 171 - 177 |
+ CLONE CLASS: 	wasNull = expr.isNull();if(wasNull) return null;return DateTime.getDate( expr.getLong() );}catch(Exception e){throw SmallSQLException.createFromException( e );}}
+ 
+ LINES: 		| ExpressionFunctionTruncate.java: 62 - 71 || ExpressionFunctionRound.java: 62 - 71 |
+ CLONE CLASS: 	if(places > 0){value /= factor;}else{value *= factor;}return value;}}
+ 
+ LINES: 		| TestOrderBy.java: 213 - 223 || TestOrderBy.java: 241 - 251 || TestOrderBy.java: 455 - 464 |
+ CLONE CLASS: 	if(newValue != null){assertTrue( oldValue.compareTo( newValue ) > 0 );count++;}oldValue = newValue;}assertNull(oldValue);assertFalse( rs.next() );assertEquals( valueCount, count );}
+ 
+ LINES: 		| BenchTest.java: 125 - 130 || BenchTest.java: 150 - 155 || BenchTest.java: 184 - 189 || BenchTest.java: 237 - 242 || BenchTest.java: 358 - 363 || BenchTest.java: 443 - 448 || BenchTest.java: 498 - 503 || BenchTest.java: 553 - 558 || BenchTest.java: 600 - 605 || BenchTest.java: 635 - 640 || BenchTest.java: 676 - 681 |
+ CLONE CLASS: 	}catch(Exception e){System.out.println("  Failed:"+e);}finally{System.out.println();System.out.println("===================================================================");}
+ 
+ LINES: 		| TestStatement.java: 268 - 273 || TestStatement.java: 283 - 288 || TestStatement.java: 298 - 303 |
+ CLONE CLASS: 	assertEquals(1,pr.executeUpdate());rs = pr.getGeneratedKeys();assertNotNull("RETURN_GENERATED_KEYS", rs);assertEquals("ColumnCount",1,rs.getMetaData().getColumnCount());assertEquals("ColumnCount","i",rs.getMetaData().getColumnName(1));assertRowCount(1,rs);
+ 
+ LINES: 		| BenchTest.java: 126 - 131 || BenchTest.java: 151 - 156 || BenchTest.java: 185 - 190 || BenchTest.java: 238 - 243 || BenchTest.java: 298 - 303 || BenchTest.java: 359 - 364 || BenchTest.java: 444 - 449 || BenchTest.java: 499 - 504 || BenchTest.java: 554 - 559 || BenchTest.java: 601 - 606 || BenchTest.java: 636 - 641 || BenchTest.java: 677 - 682 |
+ CLONE CLASS: 	System.out.println("  Failed:"+e);}finally{System.out.println();System.out.println("===================================================================");}}
+ 
+ LINES: 		| BenchTest.java: 437 - 446 || BenchTest.java: 547 - 556 |
+ CLONE CLASS: 	return;}}time += System.currentTimeMillis();System.out.println( "  Test time: " + time + " ms");pr.close();}catch(Exception e){System.out.println("  Failed:"+e);}finally{System.out.println();
+ 
+ LINES: 		| Distinct.java: 104 - 126 || Where.java: 141 - 163 |
+ CLONE CLASS: 	}final long getRowPosition() {return rowSource.getRowPosition();}final void setRowPosition(long rowPosition) throws Exception {rowSource.setRowPosition(rowPosition);}final void nullRow() {rowSource.nullRow();row = 0;}final void noRow() {rowSource.noRow();row = 0;}
+ 
+ LINES: 		| StoreImpl.java: 686 - 691 || StoreImpl.java: 1424 - 1429 || StoreImpl.java: 1481 - 1486 |
+ CLONE CLASS: 	case SQLTokenizer.INT:case SQLTokenizer.REAL:case SQLTokenizer.SMALLMONEY:case SQLTokenizer.TIME:case SQLTokenizer.DATE:case SQLTokenizer.SMALLDATETIME:
+ 
+ LINES: 		| NoFromResult.java: 120 - 130 || MemoryResult.java: 195 - 205 |
+ CLONE CLASS: 	}final boolean rowInserted(){return false;}final boolean rowDeleted(){return false;}
+ 
+ LINES: 		| TestOrderBy.java: 207 - 217 || TestOrderBy.java: 235 - 245 |
+ CLONE CLASS: 	assertTrue( rs.next() );oldValue = rs.getString("v");int count = 1;while(oldValue != null && rs.next()){String newValue = rs.getString("v");if(newValue != null){assertTrue( oldValue.compareTo( newValue ) > 0 );count++;}oldValue = newValue;
+ 
+ LINES: 		| ExpressionArithmetic.java: 656 - 665 || ExpressionArithmetic.java: 681 - 690 || ExpressionArithmetic.java: 703 - 712 |
+ CLONE CLASS: 	switch(operation){case IN:case EQUALS_NULL:case EQUALS:    return comp == 0;case GREATER:   return comp >  0;case GRE_EQU:   return comp >= 0;case LESSER:    return comp <  0;case LES_EQU:   return comp <= 0;case UNEQUALS:  return comp != 0;case BETWEEN:
+ 
+ LINES: 		| ExpressionArithmetic.java: 176 - 186 || ExpressionArithmetic.java: 220 - 230 || ExpressionArithmetic.java: 262 - 272 || ExpressionArithmetic.java: 309 - 319 |
+ CLONE CLASS: 	if(isNull()) return 0;int dataType = getDataType();switch(dataType){case SQLTokenizer.BIT:case SQLTokenizer.BOOLEAN:return getBoolean() ? 1 : 0;case SQLTokenizer.TINYINT:case SQLTokenizer.SMALLINT:case SQLTokenizer.INT:return getIntImpl();case SQLTokenizer.BIGINT:
+ 
+ LINES: 		| MutableInteger.java: 57 - 67 || MutableLong.java: 57 - 67 |
+ CLONE CLASS: 	}public long longValue() {return value;}public String toString(){return String.valueOf(value);}public Object getImmutableObject(){
+ 
+ LINES: 		| BenchTest.java: 123 - 128 || BenchTest.java: 182 - 187 || BenchTest.java: 235 - 240 |
+ CLONE CLASS: 	else System.out.println( "  Test time: " + time + " ms");st.close();}catch(Exception e){System.out.println("  Failed:"+e);}finally{System.out.println();
+ 
+ LINES: 		| Table.java: 372 - 379 || Table.java: 390 - 397 |
+ CLONE CLASS: 	while(values.hasNext()){TableStorePage lock = (TableStorePage)values.next();if(lock.con != con) return null;}}tabLockConnection = con;tabLockCount++;TableStorePage lock = new TableStorePage(con, this, LOCK_TAB, page);
+ 
+ LINES: 		| ExpressionFunctionAbs.java: 102 - 111 || ExpressionFunctionFloor.java: 43 - 53 |
+ CLONE CLASS: 	}String getString() throws Exception{Object obj = getObject();if(obj == null) return null;return obj.toString();}}
+ 
+ LINES: 		| BenchTest.java: 202 - 215 || BenchTest.java: 316 - 329 |
+ CLONE CLASS: 	try{Statement st1 = con.createStatement();ResultSet rs = st1.executeQuery( "SELECT count(*) FROM " + tableName);rs.next();int count = rs.getInt(1);if (count != rowCount){if (count == 0){createTestDataWithClassicInsert( con );rs = st1.executeQuery( "SELECT count(*) FROM " + tableName);rs.next();count = rs.getInt(1);}if (count != rowCount){
+ 
+ LINES: 		| SSCallableStatement.java: 118 - 124 || SSCallableStatement.java: 136 - 142 |
+ CLONE CLASS: 	try{Expression expr = getValue(i);wasNull = expr.isNull();return expr.getLong();}catch(Exception e){throw SmallSQLException.createFromException( e );}
+ 
+ LINES: 		| DateTime.java: 573 - 580 || DateTime.java: 589 - 596 |
+ CLONE CLASS: 	formatNumber( details.hour, 2, buf);buf.append(':');formatNumber( details.minute, 2, buf);buf.append(':');formatNumber( details.second, 2, buf);buf.append('.');formatMillis( details.millis, buf );return buf.toString();
+ 
+ LINES: 		| TestOperatoren.java: 146 - 155 || TestJoins.java: 156 - 164 |
+ CLONE CLASS: 	}public void runTest() throws Exception{Connection con = AllTests.getConnection();Statement st = con.createStatement();ResultSet rs;rs = st.executeQuery("Select * from " + table + " where 1 = 0");assertFalse( "To many rows", rs.next() );
+ 
+ LINES: 		| TestOperatoren.java: 45 - 58 || TestJoins.java: 48 - 61 |
+ CLONE CLASS: 	private static final TestValue[] TESTS = new TestValue[]{a("tinyint"           , new Byte( (byte)3),     new Byte( (byte)4)),a("byte"              , new Byte( (byte)3),     new Byte( (byte)4)),a("smallint"          , new Short( (short)3),   new Short( (short)4)),a("int"               , new Integer(3),         new Integer(4)),a("bigint"            , new Long(3),            new Long(4)),a("real"              , new Float(3.45),        new Float(4.56)),a("float"             , new Float(3.45),        new Float(4.56)),a("double"            , new Double(3.45),       new Double(4.56)),a("smallmoney"        , new Float(3.45),        new Float(4.56)),a("money"             , new Float(3.45),        new Float(4.56)),a("money"             , new Double(3.45),       new Double(4.56)),a("numeric(19,2)"     , new BigDecimal("3.45"), new BigDecimal("4.56")),a("decimal(19,2)"     , new BigDecimal("3.45"), new BigDecimal("4.56")),
+ 
+ LINES: 		| Table.java: 515 - 524 || Table.java: 542 - 551 |
+ CLONE CLASS: 	}}else{prev.nextLock = lock.nextLock;}return;}prev = lock;lock = lock.nextLock;}
+ 
+ LINES: 		| TestOperatoren.java: 99 - 107 || TestDataTypes.java: 72 - 80 || TestFunctions.java: 378 - 386 |
+ CLONE CLASS: 	st.execute("drop table " + table);st.close();}catch(Throwable e){}}public void setUp(){tearDown();
+ 
+ LINES: 		| MutableNumeric.java: 167 - 172 || MutableNumeric.java: 235 - 240 |
+ CLONE CLASS: 	if(num.scale < scale){num.setScale(scale);}elseif(num.scale > scale){setScale(num.scale);}
+ 
+ LINES: 		| ExpressionArithmetic.java: 516 - 524 || ExpressionFunctionReturnP1.java: 82 - 90 |
+ CLONE CLASS: 	case SQLTokenizer.LONGVARBINARY:return getBytes();case SQLTokenizer.DATE:case SQLTokenizer.TIME:case SQLTokenizer.TIMESTAMP:case SQLTokenizer.SMALLDATETIME:return new DateTime( getLong(), dataType );case SQLTokenizer.UNIQUEIDENTIFIER:return getBytes();
+ 
+ LINES: 		| ExpressionArithmetic.java: 270 - 280 || ExpressionArithmetic.java: 317 - 327 |
+ CLONE CLASS: 	case SQLTokenizer.INT:return getIntImpl();case SQLTokenizer.BIGINT:return getLongImpl();case SQLTokenizer.REAL:return getFloatImpl();case SQLTokenizer.FLOAT:case SQLTokenizer.DOUBLE:case SQLTokenizer.MONEY:case SQLTokenizer.SMALLMONEY:case SQLTokenizer.NUMERIC:
+ 
+ LINES: 		| MutableDouble.java: 44 - 51 || MutableInteger.java: 44 - 51 || MutableLong.java: 44 - 51 || MutableFloat.java: 44 - 51 |
+ CLONE CLASS: 	this.value = value;}public double doubleValue() {return value;}public float floatValue() {
+ 
+ LINES: 		| SQLParser.java: 352 - 357 || SQLParser.java: 1932 - 1937 |
+ CLONE CLASS: 	try{int maxRows = Integer.parseInt(token.getName(sql));selCmd.setMaxRows(maxRows);}catch(NumberFormatException e){throw createSyntaxError(token, Language.STXADD_NOT_NUMBER, token.getName(sql));}
+ 
+ LINES: 		| SSCallableStatement.java: 96 - 101 || SSResultSet.java: 101 - 106 |
+ CLONE CLASS: 	wasNull = expr.isNull();return expr.getBoolean();}catch(Exception e){throw SmallSQLException.createFromException( e );}}
+ 
+ LINES: 		| StoreImpl.java: 687 - 707 || StoreImpl.java: 1482 - 1502 |
+ CLONE CLASS: 	case SQLTokenizer.REAL:case SQLTokenizer.SMALLMONEY:case SQLTokenizer.TIME:case SQLTokenizer.DATE:case SQLTokenizer.SMALLDATETIME:offset += 4;break;case SQLTokenizer.BIGINT:case SQLTokenizer.FLOAT:case SQLTokenizer.DOUBLE:case SQLTokenizer.MONEY:case SQLTokenizer.JAVA_OBJECT:case SQLTokenizer.LONGVARBINARY:case SQLTokenizer.BLOB:case SQLTokenizer.CLOB:case SQLTokenizer.NCLOB:case SQLTokenizer.LONGNVARCHAR:case SQLTokenizer.LONGVARCHAR:case SQLTokenizer.TIMESTAMP:offset += 8;break;
+ 
+ LINES: 		| ExpressionArithmetic.java: 226 - 232 || ExpressionArithmetic.java: 268 - 274 || ExpressionArithmetic.java: 315 - 321 |
+ CLONE CLASS: 	case SQLTokenizer.TINYINT:case SQLTokenizer.SMALLINT:case SQLTokenizer.INT:return getIntImpl();case SQLTokenizer.BIGINT:return getLongImpl();case SQLTokenizer.REAL:
+ 
+ LINES: 		| TestThreads.java: 109 - 121 || TestThreads.java: 163 - 175 |
+ CLONE CLASS: 	thread.join(5000);}if(throwable != null){throw throwable;}assertEqualsRsValue(new Integer(200), "SELECT value FROM ConcurrentWrite");}finally{dropTable(con, "ConcurrentWrite");}}
+ 
+ LINES: 		| SSCallableStatement.java: 186 - 192 || SSResultSet.java: 193 - 199 |
+ CLONE CLASS: 	wasNull = expr.isNull();if(wasNull) return null;return DateTime.getTimestamp( expr.getLong() );}catch(Exception e){throw SmallSQLException.createFromException( e );}}
+ 
+ LINES: 		| ExpressionFunctionRTrim.java: 59 - 67 || ExpressionFunctionLeft.java: 58 - 66 |
+ CLONE CLASS: 	byte[] b = new byte[length];System.arraycopy(bytes, 0, b, 0, length);return b;}final String getString() throws Exception {if(isNull()) return null;String str = param1.getString();
+ 
+ LINES: 		| StoreImpl.java: 1304 - 1316 || StoreImpl.java: 1371 - 1383 |
+ CLONE CLASS: 	case SQLTokenizer.CHAR:case SQLTokenizer.NCHAR:case SQLTokenizer.VARCHAR:case SQLTokenizer.NVARCHAR:return readString();case SQLTokenizer.CLOB:case SQLTokenizer.NCLOB:case SQLTokenizer.LONGNVARCHAR:case SQLTokenizer.LONGVARCHAR:return readLongString();case SQLTokenizer.JAVA_OBJECT:ByteArrayInputStream bais = new ByteArrayInputStream(readLongBinary());ObjectInputStream ois = new ObjectInputStream(bais);
+ 
+ LINES: 		| DateTime.java: 351 - 358 || DateTime.java: 472 - 479 |
+ CLONE CLASS: 	buf.append( SHORT_MONTHS[ details.month ]);buf.append(' ');formatNumber( details.day, 2, buf);buf.append(' ');formatNumber( details.year, 4, buf);buf.append(' ');formatHour12( details.hour, buf );buf.append(':');
+ 
+ LINES: 		| StoreImpl.java: 1329 - 1339 || StoreImpl.java: 1396 - 1406 |
+ CLONE CLASS: 	case SQLTokenizer.UNIQUEIDENTIFIER:return Utils.bytes2unique( page, this.offset);default: throw new Error();}}@Override
+ 
+ LINES: 		| Database.java: 447 - 453 || Database.java: 483 - 489 || Database.java: 515 - 521 |
+ CLONE CLASS: 	for(int t=0; t<tables.size(); t++){String tableName = tables.get(t);TableView tab = getTableView( con, tableName);if(!(tab instanceof Table)) continue;IndexDescriptions indexes = ((Table)tab).indexes;for(int i=0; i<indexes.size(); i++){IndexDescription index = indexes.get(i);
+ 
+ LINES: 		| TestResultSet.java: 78 - 83 || TestResultSet.java: 121 - 126 |
+ CLONE CLASS: 	rs.beforeFirst();assertTrue("isBeforeFirst", rs.isBeforeFirst() );assertFalse("isAfterLast", rs.isAfterLast() );assertEquals("getRow", 0, rs.getRow() );assertTrue("next", rs.next() );assertTrue("isFirst", rs.isFirst() );
+ 
+ LINES: 		| DateTime.java: 464 - 469 || DateTime.java: 559 - 564 |
+ CLONE CLASS: 	formatNumber( details.hour, 2, buf);buf.append(':');formatNumber( details.minute, 2, buf);buf.append(':');formatNumber( details.second, 2, buf);return buf.toString();
+ 
+ LINES: 		| TestOperatoren.java: 209 - 218 || TestOperatoren.java: 230 - 239 |
+ CLONE CLASS: 	pr.setObject( 1, testValue.small);pr.setObject( 2, testValue.large);rs = pr.executeQuery();assertTrue( "To few rows", rs.next() );assertTrue( "To few rows", rs.next() );assertTrue( "To few rows", rs.next() );assertTrue( "To few rows", rs.next() );assertTrue( "To few rows", rs.next() );assertFalse( "To many rows", rs.next() );pr.close();
+ 
+ LINES: 		| TestTransactions.java: 111 - 121 || TestTransactions.java: 170 - 180 |
+ CLONE CLASS: 	Connection con = AllTests.getConnection();try{con.createStatement().execute("Create Table transactions (i int identity, v varchar(20))");assertRowCount( 0, "Select * from transactions");con.createStatement().execute("Insert Into transactions(v) Values('qwert')");assertRowCount( 1, "Select * from transactions");con.setAutoCommit(false);con.createStatement().execute("Insert Into transactions(v) Select v From transactions");assertRowCount( 2, "Select * from transactions");
+ 
+ LINES: 		| SSCallableStatement.java: 205 - 211 || SSResultSet.java: 322 - 328 |
+ CLONE CLASS: 	wasNull = obj == null;if(wasNull) return null;return obj.toBigDecimal();}catch(Exception e){throw SmallSQLException.createFromException( e );}}
+ 
+ LINES: 		| DateTime.java: 479 - 484 || DateTime.java: 534 - 539 || DateTime.java: 605 - 610 |
+ CLONE CLASS: 	buf.append(':');formatNumber( details.minute, 2, buf);buf.append(':');formatNumber( details.second, 2, buf);buf.append(':');formatMillis( details.millis, buf);
+ 
+ LINES: 		| TestScrollable.java: 44 - 53 || TestScrollable.java: 77 - 86 || TestScrollable.java: 109 - 118 || TestScrollable.java: 145 - 154 |
+ CLONE CLASS: 	Connection con = AllTests.getConnection();try{con.createStatement().execute("Create Table Scrollable (i counter, v varchar(20))");assertRowCount( 0, "Select * from Scrollable");con.createStatement().execute("Insert Into Scrollable(v) Values('qwert')");assertRowCount( 1, "Select * from Scrollable");assertRowCount( 0, "Select * from Scrollable Where 1=0");Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+ 
+ LINES: 		| BenchTest.java: 442 - 447 || BenchTest.java: 497 - 502 || BenchTest.java: 552 - 557 |
+ CLONE CLASS: 	pr.close();}catch(Exception e){System.out.println("  Failed:"+e);}finally{System.out.println();System.out.println("===================================================================");
+ 
+ LINES: 		| StoreImpl.java: 894 - 901 || StoreImpl.java: 960 - 967 || StoreImpl.java: 1025 - 1032 || StoreImpl.java: 1090 - 1097 |
+ CLONE CLASS: 	this.offset = valueOffset;if(readBoolean()) return 0;switch(dataType){case SQLTokenizer.BIT:case SQLTokenizer.BOOLEAN:return readBoolean() ? 1 : 0;case SQLTokenizer.BINARY:case SQLTokenizer.VARBINARY:
+ 
+ LINES: 		| StoreImpl.java: 1006 - 1014 || StoreImpl.java: 1071 - 1079 || StoreImpl.java: 1136 - 1144 |
+ CLONE CLASS: 	case SQLTokenizer.TIMESTAMP:return readTimestamp();case SQLTokenizer.TIME:return readTime();case SQLTokenizer.DATE:return readDate();case SQLTokenizer.SMALLDATETIME:return readSmallDateTime();default:
+ 
+ LINES: 		| SSCallableStatement.java: 147 - 153 || SSResultSet.java: 152 - 158 |
+ CLONE CLASS: 	wasNull = obj == null;if(wasNull) return null;return obj.toBigDecimal(scale);}catch(Exception e){throw SmallSQLException.createFromException( e );}}
+ 
+ LINES: 		| Index.java: 175 - 182 || Index.java: 250 - 257 |
+ CLONE CLASS: 	break;case SQLTokenizer.BIGINT:case SQLTokenizer.DATE:case SQLTokenizer.TIME:case SQLTokenizer.TIMESTAMP:case SQLTokenizer.SMALLDATETIME:case SQLTokenizer.MONEY:case SQLTokenizer.SMALLMONEY:
+ 
+ LINES: 		| TestOperatoren.java: 101 - 110 || TestFunctions.java: 380 - 389 |
+ CLONE CLASS: 	}catch(Throwable e){}}public void setUp(){tearDown();try{Connection con = AllTests.getConnection();Statement st = con.createStatement();
+ 
+ LINES: 		| ExpressionArithmetic.java: 190 - 195 || ExpressionArithmetic.java: 234 - 239 || ExpressionArithmetic.java: 276 - 281 || ExpressionArithmetic.java: 323 - 328 |
+ CLONE CLASS: 	case SQLTokenizer.FLOAT:case SQLTokenizer.DOUBLE:case SQLTokenizer.MONEY:case SQLTokenizer.SMALLMONEY:case SQLTokenizer.NUMERIC:case SQLTokenizer.DECIMAL:
+ 
+ LINES: 		| TestOrderBy.java: 135 - 140 || TestOrderBy.java: 190 - 195 |
+ CLONE CLASS: 	oldValue = newValue;count++;}rs.close();assertEquals( valueCount, count );}
+ 
+ LINES: 		| Utils.java: 206 - 212 || BasicTestCase.java: 103 - 109 |
+ CLONE CLASS: 	StringBuffer buf = new StringBuffer(bytes.length << 1);for(int i=0; i<bytes.length; i++){buf.append( digits[ (bytes[i] >> 4) & 0x0F ] );buf.append( digits[ (bytes[i]     ) & 0x0F ] );}return buf.toString();}
+ 
+ LINES: 		| ExpressionFunctionReturnP1StringAndBinary.java: 44 - 86 || ExpressionFunctionReturnString.java: 48 - 90 |
+ CLONE CLASS: 	final boolean getBoolean() throws Exception {if(isNull()) return false;return Utils.string2boolean(getString().trim());}final int getInt() throws Exception {if(isNull()) return 0;return Integer.parseInt(getString().trim());}final long getLong() throws Exception {if(isNull()) return 0;return Long.parseLong(getString().trim());}final float getFloat() throws Exception {if(isNull()) return 0;return Float.parseFloat(getString().trim());}final double getDouble() throws Exception {if(isNull()) return 0;return Double.parseDouble(getString().trim());}final long getMoney() throws Exception {if(isNull()) return 0;return Money.parseMoney(getString().trim());}final MutableNumeric getNumeric() throws Exception {if(isNull()) return null;return new MutableNumeric(getString().trim());}final Object getObject() throws Exception {
+ 
+ LINES: 		| BenchTest.java: 124 - 129 || BenchTest.java: 149 - 154 || BenchTest.java: 183 - 188 || BenchTest.java: 236 - 241 || BenchTest.java: 357 - 362 || BenchTest.java: 599 - 604 |
+ CLONE CLASS: 	st.close();}catch(Exception e){System.out.println("  Failed:"+e);}finally{System.out.println();System.out.println("===================================================================");
+ 
+ LINES: 		| ExpressionFunctionConvert.java: 143 - 149 || ExpressionFunctionConvert.java: 154 - 160 |
+ CLONE CLASS: 	byte[] buffer = new byte[length];System.arraycopy(bytes, 0, buffer, 0, Math.min(bytes.length,length) );return buffer;}return bytes;}
+ 
+ LINES: 		| TestOrderBy.java: 720 - 726 || TestOrderBy.java: 751 - 757 |
+ CLONE CLASS: 	assertEquals( valueCount, count );rs.beforeFirst();count = -1;while(rs.next()) count++;assertEquals( valueCount, count );}
+ 
+ LINES: 		| TestOrderBy.java: 152 - 161 || TestOrderBy.java: 179 - 188 |
+ CLONE CLASS: 	assertTrue( rs.next() );oldValue = rs.getString("v");assertNull(oldValue);assertTrue( rs.next() );oldValue = rs.getString("v");int count = 1;while(rs.next()){String newValue = rs.getString("v");
+ 
+ LINES: 		| LongTreeList.java: 245 - 251 || LongTreeList.java: 308 - 314 |
+ CLONE CLASS: 	}firstNode = false;if(shift != 0) offset += pointerSize;}shift -= 16;}}
+ 
+ LINES: 		| TestAlterTable2.java: 18 - 26 || TestAlterTable.java: 37 - 45 |
+ CLONE CLASS: 	}public void tearDown(){try {dropTable( AllTests.getConnection(), table );} catch (SQLException ex) {ex.printStackTrace();}}
+ 
+ LINES: 		| SSCallableStatement.java: 111 - 116 || SSResultSet.java: 116 - 121 |
+ CLONE CLASS: 	wasNull = expr.isNull();return expr.getInt();}catch(Exception e){throw SmallSQLException.createFromException( e );}}
+ 
+ LINES: 		| StoreImpl.java: 1239 - 1245 || StoreImpl.java: 1301 - 1307 |
+ CLONE CLASS: 	case SQLTokenizer.NUMERIC:case SQLTokenizer.DECIMAL:return readNumeric();case SQLTokenizer.CHAR:case SQLTokenizer.NCHAR:case SQLTokenizer.VARCHAR:case SQLTokenizer.NVARCHAR:
+ 
+ LINES: 		| SSConnection.java: 274 - 284 || SSResultSet.java: 266 - 276 |
+ CLONE CLASS: 	}public SQLWarning getWarnings(){return null;}public void clearWarnings(){}
+ 
+ LINES: 		| TestTransactions.java: 69 - 74 || TestTransactions.java: 99 - 104 || TestTransactions.java: 130 - 135 || TestTransactions.java: 158 - 163 || TestTransactions.java: 189 - 194 || TestTransactions.java: 282 - 287 || TestTransactions.java: 366 - 371 |
+ CLONE CLASS: 	try{con.createStatement().execute("Drop Table transactions");}catch(Throwable e){e.printStackTrace();}con.setAutoCommit(true);}}
+ 
+ LINES: 		| Database.java: 433 - 439 || Database.java: 469 - 475 || Database.java: 500 - 506 |
+ CLONE CLASS: 	rows.add(row);}}}}Object[][] result = new Object[rows.size()][];rows.toArray(result);
+ 
+ LINES: 		| SSCallableStatement.java: 120 - 125 || SSCallableStatement.java: 138 - 143 || SSResultSet.java: 125 - 130 |
+ CLONE CLASS: 	wasNull = expr.isNull();return expr.getLong();}catch(Exception e){throw SmallSQLException.createFromException( e );}}
+ 
+ LINES: 		| TestTransactions.java: 93 - 102 || TestTransactions.java: 124 - 133 |
+ CLONE CLASS: 	assertRowCount( 4, "Select * from transactions");con.commit();assertRowCount( 4, "Select * from transactions");}finally{try{con.createStatement().execute("Drop Table transactions");}catch(Throwable e){e.printStackTrace();}con.setAutoCommit(true);
+ 
+ LINES: 		| SQLParser.java: 1045 - 1051 || SQLParser.java: 1112 - 1118 |
+ CLONE CLASS: 	case SQLTokenizer.COMMA:continue;default:throw new Error();}}}
+ 
+ LINES: 		| TestTransactions.java: 419 - 424 || TestTransactions.java: 441 - 446 |
+ CLONE CLASS: 	}finally{dropTable(con1, "transactions");con1.setAutoCommit(true);con2.close();}}
+ 
+ LINES: 		| Scrollable.java: 113 - 120 || SortedResult.java: 171 - 178 |
+ CLONE CLASS: 	return false;}boolean last() throws Exception{afterLast();return previous();}
+ 
+ LINES: 		| ExpressionFunctionTruncate.java: 40 - 60 || ExpressionFunctionRound.java: 40 - 60 |
+ CLONE CLASS: 	boolean isNull() throws Exception{return param1.isNull() || param2.isNull();}final double getDouble() throws Exception{if(isNull()) return 0;final int places = param2.getInt();double value = param1.getDouble();long factor = 1;if(places > 0){for(int i=0; i<places; i++){factor *= 10;}value *= factor;}else{for(int i=0; i>places; i--){factor *= 10;}value /= factor;}
+ 
+ LINES: 		| Identity.java: 117 - 124 || MutableLong.java: 63 - 70 |
+ CLONE CLASS: 	public String toString(){return String.valueOf(value);}public Object getImmutableObject(){return new Long(value);}}
+ 
+ LINES: 		| TestOperatoren.java: 92 - 98 || TestFunctions.java: 370 - 377 |
+ CLONE CLASS: 	this.testValue = testValue;}public void tearDown(){try{Connection con = AllTests.getConnection();Statement st = con.createStatement();
+ 
+ LINES: 		| Database.java: 435 - 440 || Database.java: 471 - 476 || Database.java: 502 - 507 || Database.java: 539 - 544 |
+ CLONE CLASS: 	}}}Object[][] result = new Object[rows.size()][];rows.toArray(result);return result;
+ 
