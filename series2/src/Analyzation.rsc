@@ -76,8 +76,8 @@ private void Analyze(loc project) {
 private void printReport(tuple[int, str] biggestCloneClass, tuple[int, str] biggestClone) {
 	println("REPORT\n-------------------------");
 	println("Volume\t\t\t\t<size(LINES)> lines");
-	println("Number of clones\t\t<typeOne.lines> lines");
 	println("% of duplicated lines\t\t<typeOne.lines / toReal(size(LINES)) * 100>%");
+	println("Number of clones\t\t<typeOne.lines> lines");
 	println("Number of clone classes\t\t<size(CLONE_CLASSES)>");
 	println("Biggest clone\t\t\t<biggestClone[0]> lines");
 	println("Biggest clone class\t\t<biggestCloneClass[0]> lines");
