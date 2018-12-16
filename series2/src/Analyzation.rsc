@@ -15,6 +15,7 @@ public int BLOCK_SIZE = 6;
 public list[LineType] LINES = [];
 public list[str] overlappingBlocks = [];
 private map[str, list[list[LineType]]] CLONE_CLASSES = ();
+private loc EXPORTCLONECLASSES = toLocation("project://series2/src/");
 
 
 /*
@@ -89,13 +90,16 @@ private void printReport(tuple[int, str] biggestCloneClass, tuple[int, str] bigg
 TODO: TEEESSSTTT
 */
 public void writeExportFile(loc project){
-	loc exportLocation = toLocation("project://series2/src/"); 
 	locatFile = project.authority + "_result" + ".txt";
 	exportString = "";
 	
 	for(str textual <- CLONE_CLASSES){
-		exportString += textual + "<CLONE_CLASSES[textual][0][0].index> - <CLONE_CLASSES[textual][0][5].index> \n"; //TODO what to export
+		exportString += " LINES: \t\t";
+		for(list[LineType] lines <- CLONE_CLASSES[textual]){
+			exportString += "| <lines[0].file.file >: <lines[0].index> - <lines[size(lines)-1].index> |";
+		}
+		exportString += left("\n CLONE CLASS: \t" + textual + "\n \n",60);
 	}
 	
-	writeFile(exportLocation + locatFile, exportString);
+	writeFile(EXPORTCLONECLASSES + locatFile, exportString);
 }
