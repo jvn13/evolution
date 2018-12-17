@@ -9,7 +9,6 @@ import Set;
 import Map;
 
 public int BLOCK_SIZE = 6;
-public tuple[int lines, int geenidee] typeOne = <0, 0>;
 
 /*
  * Finds the number of duplicate and redundant lines in a list of lines.

@@ -1,3 +1,6 @@
+// volume = 15
+// duplicated lines = 14
+// 
 a
 b
 c

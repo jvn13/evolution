@@ -6,4 +6,3 @@ extend rascaltests::CountTest;
 extend rascaltests::HelperTest;
 extend rascaltests::DuplicationTest;
 extend rascaltests::TypeOneDuplicationTest;
-

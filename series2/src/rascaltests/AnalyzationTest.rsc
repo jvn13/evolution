@@ -1,19 +1,19 @@
 module rascaltests::AnalyzationTest
 
+import Analyzation;
 import Count;
 import Helper;
-import Analyzation;
 import IO;
 
 loc projLoc = |project://series2/src/Analyzation.rsc|;
 loc destination = |project://series2/src/series2_result.txt|;
 
 void initializeGlobalVariables(loc projLoc){
-CLONE_CLASSES = ("Test String ":[getLoc(projLoc)]);
+	CLONE_CLASSES = ("Test String ":[getLoc(projLoc)]);
 }
 
 void deinitializeGlobalVariables(loc projLoc){
-CLONE_CLASSES = ();
+	CLONE_CLASSES = ();
 }
 
 test bool writeFileWithCloneClasses_FileExistsAndIsNotEmpty(){
