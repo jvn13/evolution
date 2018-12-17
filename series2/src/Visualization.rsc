@@ -47,24 +47,24 @@ public void showClasses(loc projectLocation){
 
 public map[str, list[list[LineType]]] filterForFile(loc fileLoc){
 
-map[str, list[list[LineType]]] mapDupl = ();
-
-for(str text <- duplWholeFile){
-	for(list[LineType] lines <- duplWholeFile[text]){
-		if(lines[0].file.path == fileLoc.path){
-			//if in map add value otherwise add key and values
-			if(text in mapDupl){
-				mapDupl[text] += [lines];
+	map[str, list[list[LineType]]] mapDupl = ();
+	
+	for(str text <- duplWholeFile){
+		for(list[LineType] lines <- duplWholeFile[text]){
+			if(lines[0].file.path == fileLoc.path){
+				//if in map add value otherwise add key and values
+				if(text in mapDupl){
+					mapDupl[text] += [lines];
+					}
+				else{
+					mapDupl += (text:[lines]);
 				}
-			else{
-				mapDupl += (text:[lines]);
 			}
+			
 		}
 		
 	}
-	
-}
-return mapDupl; 
+	return mapDupl; 
 }
 
 //show duplicates on class level TODO: Um welche Datei handelt es sich

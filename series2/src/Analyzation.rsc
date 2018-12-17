@@ -6,15 +6,18 @@ import Helper;
 import IO;
 import List;
 import Map;
+import Report;
 import String;
 import TypeOneDuplication;
+import Visualization;
 import util::Benchmark;
 import util::Math;
 
 public int BLOCK_SIZE = 6;
 public list[LineType] LINES = [];
+public tuple[int lines, int geenidee] typeOne = <0, 0>;
 public list[str] overlappingBlocks = [];
-public map[str, list[list[LineType]]] CLONE_CLASSES = (); //public for Tests
+public map[str, list[list[LineType]]] CLONE_CLASSES = ();
 private loc EXPORTCLONECLASSES = toLocation("project://series2/src/");
 
 
@@ -70,20 +73,7 @@ private void Analyze(loc project) {
 	printReport(biggestCloneClass, biggestClone);
 
 	writeExportFile(project);
-}
-
-
-private void printReport(tuple[int, str] biggestCloneClass, tuple[int, str] biggestClone) {
-	println("REPORT\n-------------------------");
-	println("Volume\t\t\t\t<size(LINES)> lines");
-	println("% of duplicated lines\t\t<typeOne.lines / toReal(size(LINES)) * 100>%");
-	println("Number of clones\t\t<typeOne.lines> lines");
-	println("Number of clone classes\t\t<size(CLONE_CLASSES)>");
-	println("Biggest clone\t\t\t<biggestClone[0]> lines");
-	println("Biggest clone class\t\t<biggestCloneClass[0]> lines");
-	// TODO
-	println("Example clones");
-	println("-------------------------");
+	// showClasses(project);
 }
 
 public void writeExportFile(loc project){

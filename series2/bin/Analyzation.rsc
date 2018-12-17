@@ -6,15 +6,19 @@ import Helper;
 import IO;
 import List;
 import Map;
+import Report;
 import String;
 import TypeOneDuplication;
+import Visualization;
 import util::Benchmark;
 import util::Math;
 
 public int BLOCK_SIZE = 6;
 public list[LineType] LINES = [];
+public tuple[int lines, int geenidee] typeOne = <0, 0>;
 public list[str] overlappingBlocks = [];
-private map[str, list[list[LineType]]] CLONE_CLASSES = ();
+public map[str, list[list[LineType]]] CLONE_CLASSES = ();
+private loc EXPORTCLONECLASSES = toLocation("project://series2/src/");
 
 
 /*
@@ -69,33 +73,20 @@ private void Analyze(loc project) {
 	printReport(biggestCloneClass, biggestClone);
 
 	writeExportFile(project);
+	// showClasses(project);
 }
 
-
-private void printReport(tuple[int, str] biggestCloneClass, tuple[int, str] biggestClone) {
-	println("REPORT\n-------------------------");
-	println("Volume\t\t\t\t<size(LINES)> lines");
-	println("Number of clones\t\t<typeOne.lines> lines");
-	println("% of duplicated lines\t\t<typeOne.lines / toReal(size(LINES)) * 100>%");
-	println("Number of clone classes\t\t<size(CLONE_CLASSES)>");
-	println("Biggest clone\t\t\t<biggestClone[0]> lines");
-	println("Biggest clone class\t\t<biggestCloneClass[0]> lines");
-	// TODO
-	println("Example clones");
-	println("-------------------------");
-}
-
-/*
-TODO: TEEESSSTTT
-*/
 public void writeExportFile(loc project){
-	loc exportLocation = toLocation("project://series2/src/"); 
 	locatFile = project.authority + "_result" + ".txt";
 	exportString = "";
 	
 	for(str textual <- CLONE_CLASSES){
-		exportString += textual + "<CLONE_CLASSES[textual][0][0].index> - <CLONE_CLASSES[textual][0][5].index> \n"; //TODO what to export
+		exportString += " LINES: \t\t";
+		for(list[LineType] lines <- CLONE_CLASSES[textual]){
+			exportString += "| <lines[0].file.file >: <lines[0].index> - <lines[size(lines)-1].index> |";
+		}
+		exportString += left("\n CLONE CLASS: \t" + textual + "\n \n",60);
 	}
 	
-	writeFile(exportLocation + locatFile, exportString);
+	writeFile(EXPORTCLONECLASSES + locatFile, exportString);
 }
