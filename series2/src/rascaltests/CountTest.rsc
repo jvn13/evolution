@@ -22,3 +22,9 @@ test bool getLocOfFile_returnListOfSize15(){
 	return size(linesProjLoc)==15 && size(linesLoc)==15;
 }
 
+test bool removeCommentsFromStringWithComments_ReturnStringWithoutComments(){
+	str strWithComments = "1 \n 2 \n /* \n */ \n 3 //comment";
+	str strWithoutComments = removeComments(strWithComments);
+	return strWithoutComments == "1 \n 23";
+}
+
