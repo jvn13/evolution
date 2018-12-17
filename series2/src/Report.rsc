@@ -18,7 +18,7 @@ public void printReport(tuple[int, str] biggestCloneClass, tuple[int, str] bigge
 	// TODO
 	println("Example clones:");
 	for (int i <- [1 .. 3]) {
-		println("\n\tExmaple <i>");
+		print("\n\tExmaple <i> [");
 		int index = arbInt(size(CLONE_CLASSES));
 		printExample(index);
 	}	
@@ -27,6 +27,12 @@ public void printReport(tuple[int, str] biggestCloneClass, tuple[int, str] bigge
 
 private void printExample(int index) {
 	list[str] keys = [k | k <- CLONE_CLASSES];
+	
+	for(block <- CLONE_CLASSES[keys[index]]) {
+		print(" <block[0].file.file >: <block[0].index> - <block[size(block)-1].index>,");
+	}
+	print("]\n");
+	
 	for (line <- CLONE_CLASSES[keys[index]][0]) {
 		println("\t\t<line.val>");
 	}

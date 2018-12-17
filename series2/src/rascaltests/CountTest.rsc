@@ -2,7 +2,7 @@ module rascaltests::CountTest
 
 import Count;
 import Helper;
-
+import List;
 
 test bool getLocOfEmptyFile_returnListOfSize0(){
 	loc locEmptyFile = |project://series2/src/testfiles/EmptyFile.java|;
@@ -19,6 +19,6 @@ test bool getLocOfFile_returnListOfSize15(){
 	list[LineType] linesProjLoc = getProjectLoc(locFile);
 	list[LineType] linesLoc = getLoc(locFile);
 
-	return size(linesProjLoc)==15 && size(linesLoc)==15;
+	return size(linesProjLoc) == 15 && size(linesLoc) == 15;
 }
 

@@ -20,7 +20,6 @@ public list[str] overlappingBlocks = [];
 public map[str, list[list[LineType]]] CLONE_CLASSES = ();
 private loc EXPORTCLONECLASSES = toLocation("project://series2/src/");
 
-
 /*
  * Runs the analyzation for the smallsql project
  *
