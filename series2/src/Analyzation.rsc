@@ -14,7 +14,7 @@ import util::Math;
 public int BLOCK_SIZE = 6;
 public list[LineType] LINES = [];
 public list[str] overlappingBlocks = [];
-private map[str, list[list[LineType]]] CLONE_CLASSES = ();
+public map[str, list[list[LineType]]] CLONE_CLASSES = (); //public for Tests
 private loc EXPORTCLONECLASSES = toLocation("project://series2/src/");
 
 
@@ -86,9 +86,6 @@ private void printReport(tuple[int, str] biggestCloneClass, tuple[int, str] bigg
 	println("-------------------------");
 }
 
-/*
-TODO: TEEESSSTTT
-*/
 public void writeExportFile(loc project){
 	locatFile = project.authority + "_result" + ".txt";
 	exportString = "";

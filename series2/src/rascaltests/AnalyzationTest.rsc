@@ -5,14 +5,27 @@ import Helper;
 import Analyzation;
 import IO;
 
-test bool generateFileWithCloneClasses(){
-	map[str, list[list[LineType]]] cloneClasses = ();
+loc projLoc = |project://series2/src/Analyzation.rsc|;
+loc destination = |project://series2/src/series2_result.txt|;
 
-	loc projLoc = |project://series2/src/Analyzation.rsc|;
-	cloneClasses += ("String ":[getLoc(projLoc)]);
+void initializeGlobalVariables(loc projLoc){
+CLONE_CLASSES = ("Test String ":[getLoc(projLoc)]);
+}
 
-	writeExportFile(projLoc, cloneClasses);
+void deinitializeGlobalVariables(loc projLoc){
+CLONE_CLASSES = ();
+}
+
+test bool writeFileWithCloneClasses_FileExistsAndIsNotEmpty(){
 	
-	destination = |project://series2/src/series2_result.txt|;
+	initializeGlobalVariables(projLoc);
+	writeExportFile(projLoc);
+	deinitializeGlobalVariables(projLoc);
+	
 	return exists(destination) && readFile(destination) != "";
+}
+
+test bool writeFileWithCloneClasses_FileExistsButIsEmpty(){	
+	writeExportFile(projLoc);		
+	return exists(destination) && readFile(destination) == "";
 }
