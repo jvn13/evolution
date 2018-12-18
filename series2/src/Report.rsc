@@ -21,7 +21,7 @@ public void printReport(tuple[int, str] biggestCloneClass, tuple[int, str] bigge
 	// TODO
 	println("Example clones:");
 	for (int i <- [1 .. 3]) {
-		print("\n\tExmaple <i> [");
+		print("\n\tExample <i> [");
 		int index = arbInt(size(CLONE_CLASSES));
 		printExample(index);
 	}	
