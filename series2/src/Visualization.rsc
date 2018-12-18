@@ -87,15 +87,13 @@ for (str duplText <- duplPerFile){
 	
 	textDupFormated="";
 	textDupUnformated=duplText;
+	
 	// find all lines where the block "duplText" appears
 	for(line <- duplPerFile[duplText][0]){
 		textDupFormated+="<line.val> \n";
 	}
 	
-	
-	//textDup = duplText; //use line.val
 	occurences = "";
-	
 	
 	for(list[LineType] occLine <- duplPerFile[textDupUnformated]){
 			occurences += "line: <occLine[0].index>  -  <occLine[size(occLine)-1].index>, ";
@@ -118,8 +116,7 @@ for (str duplText <- duplPerFile){
  render(box(vcat(boxes)));
 }
 
-// show all occurences of the block duplicateText
-//TODO: check that not in the same file
+// show all occurences (not in the same file) of the block duplicateText
 public void showDuplicatesInOtherFiles(str duplicateText, str duplicateTextFormated, str filepath){
 	
 	goBackToOverview = box(text("To overview"),
