@@ -15,7 +15,7 @@ import util::Math;
 
 public int BLOCK_SIZE = 6;
 public list[LineType] LINES = [];
-public tuple[int lines, int geenidee] typeOne = <0, 0>;
+public int typeOne = 0;
 public list[str] overlappingBlocks = [];
 public map[str, list[list[LineType]]] CLONE_CLASSES = ();
 private loc EXPORTCLONECLASSES = toLocation("project://series2/src/");
@@ -47,7 +47,8 @@ public void runHsql() {
  */
 public void runAnalyzation(loc project) {
 	time = realTime(void () {
-		Analyze(project);
+		list[loc] projectFiles = getFiles(project);
+		Analyze(project, projectFiles);
 	});
 	println("Execution time: <time> ms");
 }
@@ -59,9 +60,9 @@ public void runAnalyzation(loc project) {
  * @param project - location of the project.
  *
  */
-private void Analyze(loc project) {
+private void Analyze(loc project, list[loc] projectFiles) {
 
-	LINES = getProjectLoc(project);
+	LINES = getProjectLoc(projectFiles);
 	CLONE_CLASSES = getDuplicateLinesPerProject(LINES);
 	
 	CLONE_CLASSES = createLargerCloneClasses(CLONE_CLASSES);

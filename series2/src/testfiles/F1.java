@@ -1,6 +1,6 @@
-// volume = 15
-// duplicated lines = 14
-// 
+// LOC = 18
+// SLOC = 15
+// DUPLICATES = 7
 a
 b
 c

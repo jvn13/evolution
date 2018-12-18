@@ -20,7 +20,7 @@ public int BLOCK_SIZE = 6;
  */
 public map[str, list[list[LineType]]] getDuplicateLinesPerProject(list[LineType] lines) {
 	map[str, list[list[LineType]]] duplicateBlocks = getDuplicateBlocks(lines);
-	typeOne.lines = getNumberOfDuplicates(duplicateBlocks);
+	typeOne = getNumberOfDuplicates(duplicateBlocks);
 	return duplicateBlocks;
 }
 
@@ -33,7 +33,7 @@ public map[str, list[list[LineType]]] getDuplicateLinesPerProject(list[LineType]
  * @return set[int] - set of indices of the duplicate lines.
  *
  */
-private int getNumberOfDuplicates(map[str,list[list[LineType]]] duplicateBlocks) {
+public int getNumberOfDuplicates(map[str,list[list[LineType]]] duplicateBlocks) {
 	set[LineType] duplicates = {};
 	for(block <- duplicateBlocks) {
 		for(blockLines <- duplicateBlocks[block]) {
@@ -86,6 +86,9 @@ private map[str,list[list[LineType]]] getDuplicateBlocks(list[LineType] lines) {
 	return blocks;
 }
 
+/*
+ * TODO
+ */
 private bool checkIfBlockInSameFile(list[LineType] linesInBlock) {
 	files = dup([l.file | l <- linesInBlock]);
 	return size(files) == 1;
