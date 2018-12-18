@@ -5,6 +5,9 @@ import Helper;
 import List;
 import Map;
 
+/*
+ * Creates a string of the first five line values of the block 
+ */
 private str removeLastLine(str block, map[str, list[list[LineType]]] duplicates) {
 	str subBlock = "";
 	for(line <- take(BLOCK_SIZE - 1, duplicates[block][0])) {
@@ -13,10 +16,12 @@ private str removeLastLine(str block, map[str, list[list[LineType]]] duplicates)
 	return subBlock;
 }
 
+/*
+ * Creates a string of the last five line values of the block 
+ */
 private str removeFirstLine(list[list[LineType]] block) {
 	str subBlock = "";
 	for(int i <- [size(block[0]) - (BLOCK_SIZE - 1) .. BLOCK_SIZE]) {
-		// println(size(duplicates[block][0]) - (BLOCK_SIZE - 1));
 		subBlock += block[0][i].val;
 	}
 	return subBlock;
@@ -29,42 +34,31 @@ public map[str, list[list[LineType]]] createLargerCloneClasses(map[str, list[lis
 	overlappingBlocks = dup(overlappingBlocks);
 	
 	for(block <- overlappingBlocks) {
-		if(block in subsumedClasses) {
-			block = subsumedClasses[block];
-		}
+		if(block in subsumedClasses) block = subsumedClasses[block];
 		if(block in duplicates) {
 			subString = removeLastLine(block, duplicates);
 		
 			if(subString in partialBlocks) {
-				// println("\nkey found= <partialBlocks[subString]> : <block>");
-				
 				str originalCloneClassString = partialBlocks[subString];
 				list[list[LineType]] originalCloneClass = [[]];
+				
 				if(partialBlocks[subString] in duplicates) {
 					originalCloneClass = duplicates[partialBlocks[subString]];
 				} else if(partialBlocks[subString] in subsumedClasses) {
-					//println(subsumedClasses[partialBlocks[subString]]);
 					originalCloneClassString = subsumedClasses[partialBlocks[subString]];
 					
-					// TODO: fix this!!!!!! 
 					if(originalCloneClassString in duplicates) {
 						originalCloneClass = duplicates[originalCloneClassString];
 					}
 				}
 				
-				/*
-				TODO: fix error about different size
-					if(overlapFileCheck(originalCloneClass, duplicates[block])) {}
-				*/
 				if(size(duplicates[block]) == size(originalCloneClass)) {
 					cloneClass = combineClasses(originalCloneClass, duplicates[block]);
 					cloneClassStr = getBlockString(cloneClass);
 					
-					// add superclass
 					subsumedClasses += (partialBlocks[subString] : cloneClassStr, block : cloneClassStr);
 					duplicates += (cloneClassStr : cloneClass);
 					
-					// remove subclasses
 					duplicates = delete(duplicates, originalCloneClassString);
 					duplicates = delete(duplicates, block);
 					overlappingBlocks = drop(1, overlappingBlocks);
@@ -97,15 +91,23 @@ private bool overlapFileCheck(list[list[LineType]] cloneClass, list[list[LineTyp
 	return sameFile;
 }
 
+/*
+ * Combines two clone classes into one large class
+ */
 private list[list[LineType]] combineClasses(list[list[LineType]] cloneClass, list[list[LineType]] overlapingClass) {	
 	return [dup(cloneClass[i] + overlapingClass[i]) | i <- [0 .. size(cloneClass)]];
 }
 
-
+/*
+ * Returns the clone class with the most occurences
+ */
 public tuple[int, str] getBiggestCloneClass(map[str, list[list[LineType]]] cloneClasses) {
 	return last(sort([<size(cloneClasses[cloneClass]), cloneClass> | cloneClass <- cloneClasses]));
 }
 
+/*
+ * Returns the clone class with the most lines
+ */
 public tuple[int, str] getBiggestClone(map[str, list[list[LineType]]] cloneClasses) {
 	return last(sort([<size(cloneClasses[cloneClass][0]), cloneClass> | cloneClass <- cloneClasses]));
 }

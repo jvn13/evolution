@@ -5,7 +5,7 @@ import lang::java::jdt::m3::Core;
 import util::FileSystem;
 
 /*
- * TODO
+ * Datatype to store the lines from the source code
  */
 data LineType = Line(
 	loc file,
@@ -14,14 +14,14 @@ data LineType = Line(
 );
 
 /*
- * TODO
+ * Return the files in a project which have the ".java" extension
  */
 public list[loc] getFiles(loc project) {
 	return [f | f <- visibleFiles(project), f.extension == "java"];
 }
 
 /*
- * TODO
+ *  
  */
 public M3 read(loc java_project) {
 	mmm = createM3FromEclipseProject(java_project);

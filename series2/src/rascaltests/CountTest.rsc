@@ -40,9 +40,7 @@ test bool removeCommentsFromStringWithComments_ReturnStringWithoutComments(){
 }
 
 test bool locTest() {
-	if(isEmpty(locPerFile)) {
-		loopFiles();
-	}
+	if(isEmpty(locPerFile)) loopFiles();
 	for(file <- locPerFile) {
 		if(file[0] != file[1]) return false;
 	}
@@ -50,9 +48,7 @@ test bool locTest() {
 }
 
 test bool slocTest() {
-	if(isEmpty(slocPerFile)) {
-		loopFiles();
-	}
+	if(isEmpty(slocPerFile)) loopFiles();
 	for(file <- slocPerFile) {
 		if(file[0] != file[1]) return false;
 	}
@@ -60,9 +56,7 @@ test bool slocTest() {
 }
 
 test bool projectSlocTest() {
-	if(isEmpty(slocPerFile)) {
-		loopFiles();
-	}
+	if(isEmpty(slocPerFile)) loopFiles();
 	if(sum([v | <v, _> <- slocPerFile]) != size(getProjectLoc(testFiles))) return false;
 	return true;
 }

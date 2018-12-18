@@ -73,19 +73,24 @@ private void Analyze(loc project, list[loc] projectFiles) {
 	printReport(biggestCloneClass, biggestClone);
 
 	writeExportFile(project);
-	// showClasses(project);
+	showClasses(project);
 }
 
 public void writeExportFile(loc project){
 	locatFile = project.authority + "_result" + ".txt";
+	
 	exportString = "";
 	
 	for(str textual <- CLONE_CLASSES){
+		formatedCloneClass="";
 		exportString += " LINES: \t\t";
 		for(list[LineType] lines <- CLONE_CLASSES[textual]){
 			exportString += "| <lines[0].file.file >: <lines[0].index> - <lines[size(lines)-1].index> |";
 		}
-		exportString += left("\n CLONE CLASS: \t" + textual + "\n \n",60);
+		for(line<-CLONE_CLASSES[textual][0]){
+			formatedCloneClass+="<line.val> \n \t\t\t\t";
+		}
+		exportString += left("\n CLONE CLASS: \t" + formatedCloneClass + "\n \n",60);
 	}
 	
 	writeFile(EXPORTCLONECLASSES + locatFile, exportString);

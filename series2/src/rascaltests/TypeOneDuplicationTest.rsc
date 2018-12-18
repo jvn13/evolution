@@ -20,7 +20,6 @@ public bool duplicationTest(str name, loc project, int exact) {
 	list[LineType] lines = getProjectLoc(getFiles(project));
 	map[str, list[list[LineType]]] duplicates = getDuplicateLinesPerProject(lines);
 	int numberOfDupl = getNumberOfDuplicates(duplicates);
-	
 	return numberOfDupl == exact;
 }
 

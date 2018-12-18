@@ -73,7 +73,7 @@ private void Analyze(loc project, list[loc] projectFiles) {
 	printReport(biggestCloneClass, biggestClone);
 
 	writeExportFile(project);
-	// showClasses(project);
+	showClasses(project);
 }
 
 public void writeExportFile(loc project){

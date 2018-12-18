@@ -16,12 +16,6 @@ private void deinitializeGlobalVariables(loc projLoc){
 	CLONE_CLASSES = ();
 }
 
-/*
- * TODO: write test to check analyse output
- *			 1 case with duplicates
- *			 1 case without duplicates
- */
-
 test bool writeFileWithCloneClasses_FileExistsAndIsNotEmpty(){
 	
 	initializeGlobalVariables(projLoc);
