@@ -26,6 +26,6 @@ test bool writeFileWithCloneClasses_FileExistsAndIsNotEmpty(){
 }
 
 test bool writeFileWithCloneClasses_FileExistsButIsEmpty(){	
-	writeExportFile(projLoc);		
+	writeExportFile(projLoc);
 	return exists(destination) && readFile(destination) == "";
 }

@@ -43,7 +43,15 @@ public map[str, list[list[LineType]]] createLargerCloneClasses(map[str, list[lis
 		
 			if(subString in partialBlocks) {
 				str originalCloneClassString = partialBlocks[subString];
-				list[list[LineType]] originalCloneClass = getOriginalCloneClass(subString, partialBlocks, duplicates, originalCloneClassString, subsumedClasses);
+				list[list[LineType]] originalCloneClass = [[]];
+				if(partialBlocks[subString] in duplicates) {
+					originalCloneClass = duplicates[partialBlocks[subString]];
+				} else if(partialBlocks[subString] in subsumedClasses) {
+					originalCloneClassString = subsumedClasses[partialBlocks[subString]];
+					if(originalCloneClassString in duplicates) {
+						originalCloneClass = duplicates[originalCloneClassString];
+					}
+				}
 				
 				if(size(duplicates[block]) == size(originalCloneClass)) {
 					cloneClass = combineClasses(originalCloneClass, duplicates[block]);
@@ -68,15 +76,7 @@ public map[str, list[list[LineType]]] createLargerCloneClasses(map[str, list[lis
  */
 private list[list[LineType]] getOriginalCloneClass(str subString, map[str,str] partialBlocks, 
 		map[str, list[list[LineType]]] duplicates, str originalCloneClassString, map[str, str] subsumedClasses) {
-	list[list[LineType]] originalCloneClass = [[]];
-	if(partialBlocks[subString] in duplicates) {
-			originalCloneClass = duplicates[partialBlocks[subString]];
-		} else if(partialBlocks[subString] in subsumedClasses) {
-			originalCloneClassString = subsumedClasses[partialBlocks[subString]];
-			if(originalCloneClassString in duplicates) {
-				originalCloneClass = duplicates[originalCloneClassString];
-			}
-		}
+	
 	return originalCloneClass;
 }
 
