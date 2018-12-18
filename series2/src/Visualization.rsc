@@ -94,15 +94,21 @@ for (str duplText <- duplPerFile){
 	}
 	
 	occurences = "";
+	entriesOcc=0;
 	
 	for(list[LineType] occLine <- duplPerFile[textDupUnformated]){
 			occurences += "line: <occLine[0].index>  -  <occLine[size(occLine)-1].index>, ";
+			entriesOcc+=1;
+			if(entriesOcc==3){
+				occurences+="\n";
+				entriesOcc=0;
+			}
 	}
 	
 
 	boxes += box(
 				
-				hcat([	text("lines: \n \n" +  "duplicated Block: ", fontColor("blue"), align(0,0) ), 
+				hcat([	text("lines: \n \n \n" +  "duplicated Block: ", fontColor("blue"), align(0,0) ), 
 						text(occurences + "\n \n" + textDupFormated, align(0, 0))]),
  								
 				onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers) {
@@ -151,10 +157,10 @@ public Color getColorForDuplRating(map[str, list[list[LineType]]] duplPerFile, i
 	
 	percentageOfDupl = toReal(numberOfDupl) / toReal(lengthOfFile);
 	
-	if(numberOfDupl == 0){
+	if(numberOfDupl < 0.03){
 		return rgb(161, 224, 53); //green
 	}
-	else if (percentageOfDupl < 0.1){
+	else if (percentageOfDupl < 0.2){
 		return rgb(236, 239, 26); //yellow
 	}
 	else {
