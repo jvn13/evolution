@@ -15,7 +15,7 @@ private list[loc] testFiles = [
 private list[tuple[int, int]] locPerFile = [];
 private list[tuple[int, int]] slocPerFile = [];
 
-test bool emptyFileLOCAndSLOC() {
+test bool getLOCForEmptyFileLOCAndSLOC_Return0() {
 	loc locEmptyFile = |project://series2/src/testfiles/EmptyFile.java|;
 	
 	list[LineType] linesProjLoc = getProjectLoc([locEmptyFile]);

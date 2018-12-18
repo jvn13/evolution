@@ -5,6 +5,7 @@ import vis::Figure;
 import vis::Render;
 
 import TypeOneDuplication;
+import CloneClasses;
 import Count;
 import Read;
 import List;
@@ -23,7 +24,10 @@ public void showClassFigure(){
 
 //overview classes
 public void showClasses(loc projectLocation){
-	duplWholeFile = getDuplicateLinesPerProject(getProjectLoc(projectLocation));
+	projLoc = getProjectLoc(getFiles(projectLocation));
+	duplWholeFile = getDuplicateLinesPerProject(projLoc);
+	duplWholeFile = createLargerCloneClasses(duplWholeFile);
+	
 	list[loc] files = getFiles(projectLocation);
 	list[Figure] boxes = [];
 		
@@ -67,7 +71,7 @@ public map[str, list[list[LineType]]] filterForFile(loc fileLoc){
 	return mapDupl; 
 }
 
-//show duplicates on class level TODO: Um welche Datei handelt es sich
+//show duplicates on class level
 public void showDuplicates(map[str block, list[list[LineType]] mapOfDuplLines] duplPerFile, str filepath){
 
 goBackToOverview = box(text("To overview"),
@@ -81,23 +85,30 @@ goBackToOverview = box(text("To overview"),
 
 for (str duplText <- duplPerFile){
 	
+	textDupFormated="";
+	textDupUnformated=duplText;
 	// find all lines where the block "duplText" appears
-	textDup = duplText;
+	for(line <- duplPerFile[duplText][0]){
+		textDupFormated+="<line.val> \n";
+	}
+	
+	
+	//textDup = duplText; //use line.val
 	occurences = "";
 	
 	
-	for(list[LineType] occLine <- duplPerFile[duplText]){
+	for(list[LineType] occLine <- duplPerFile[textDupUnformated]){
 			occurences += "line: <occLine[0].index>  -  <occLine[size(occLine)-1].index>, ";
 	}
 	
 
 	boxes += box(
 				
-				hcat([	text("duplicated Block "  + "\n \n appears in lines: ", fontColor("blue"), align(0,0) ), 
-						text(textDup + "\n \n" + occurences, align(0, 0))]),
+				hcat([	text("lines: \n \n" +  "duplicated Block: ", fontColor("blue"), align(0,0) ), 
+						text(occurences + "\n \n" + textDupFormated, align(0, 0))]),
  								
 				onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers) {
-				showDuplicatesInOtherFiles(textDup, filepath); //TODO
+				showDuplicatesInOtherFiles(textDupUnformated,textDupFormated, filepath); //TODO
 				return true;
 				})
 				
@@ -109,7 +120,7 @@ for (str duplText <- duplPerFile){
 
 // show all occurences of the block duplicateText
 //TODO: check that not in the same file
-public void showDuplicatesInOtherFiles(str duplicateText, str filepath){
+public void showDuplicatesInOtherFiles(str duplicateText, str duplicateTextFormated, str filepath){
 	
 	goBackToOverview = box(text("To overview"),
 				
@@ -118,7 +129,7 @@ public void showDuplicatesInOtherFiles(str duplicateText, str filepath){
 				return true;
 				}));
 				
-	list[Figure] boxes = [hcat([box(text("Duplicate in other files \n " + duplicateText)),goBackToOverview])];
+	list[Figure] boxes = [hcat([box(text("Duplicate in other files \n " + duplicateTextFormated)),goBackToOverview])];
 	
 	for (list[LineType] listOfOcc <- duplWholeFile[duplicateText]){
 		loc locat = listOfOcc[0].file;
@@ -134,8 +145,11 @@ public void showDuplicatesInOtherFiles(str duplicateText, str filepath){
 
 public Color getColorForDuplRating(map[str, list[list[LineType]]] duplPerFile, int lengthOfFile){
 	int numberOfDupl = 0;
+	
 	for(str text <- duplPerFile){
-		numberOfDupl += size(duplPerFile[text]);
+		for(list[LineType] lines <- duplPerFile[text]){
+			numberOfDupl += size(lines);
+		}
 	}
 	
 	percentageOfDupl = toReal(numberOfDupl) / toReal(lengthOfFile);
