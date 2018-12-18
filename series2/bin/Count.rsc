@@ -44,12 +44,18 @@ public list[LineType] getLoc(loc file) {
 	return code;
 }
 
+/*
+ * Removes single and multi line comments from the line value.
+ */
 public str removeComments(str lineValue) {
 	lineValue = removeSingleLineComment(lineValue);
 	lineValue = removeMultiLineComment(lineValue);
 	return lineValue;
 }
 
+/*
+ * Removes single line comments from the line value.
+ */
 public str removeSingleLineComment(str lineValue) {
 	commentIndex = findFirst(lineValue, "//");
 	if(commentIndex != -1) {
@@ -58,6 +64,10 @@ public str removeSingleLineComment(str lineValue) {
 	return lineValue;
 }
 
+
+/*
+ * Removes multi line comments from the line value.
+ */
 public str removeMultiLineComment(str lineValue) {
 	startCommentIndex = findFirst(lineValue, "/*");
 	endCommentIndex = findFirst(lineValue, "*/");
@@ -71,19 +81,4 @@ public str removeMultiLineComment(str lineValue) {
 		inComment = false;
 	}
 	return lineValue;
-}
-
-/*
- * Creates an M3 model of the project and extracts the methods from that.
- * Creates a list of the lines of each method and calculates the number
- * of parameters and size of each method.
- *
- * @param project - location of the project.
- * @return list[tuple[int, int]] - list of tuples containing the method interface and size.
- *
- */
-public void getInterfaceAndLocPerMethod(loc project) {
-	mmm = read(project);
-	mm = {<e,f> | <e,f> <- mmm.declarations, isMethod(e)};
-	iprintln(mm);
 }

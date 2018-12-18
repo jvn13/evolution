@@ -21,7 +21,7 @@ public list[loc] getFiles(loc project) {
 }
 
 /*
- *  
+ * Creates a M3 model of the project and returns it.
  */
 public M3 read(loc java_project) {
 	mmm = createM3FromEclipseProject(java_project);

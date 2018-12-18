@@ -87,7 +87,7 @@ private map[str,list[list[LineType]]] getDuplicateBlocks(list[LineType] lines) {
 }
 
 /*
- * TODO
+ * Checks if the block does not overlap from one file into another.
  */
 private bool checkIfBlockInSameFile(list[LineType] linesInBlock) {
 	files = dup([l.file | l <- linesInBlock]);

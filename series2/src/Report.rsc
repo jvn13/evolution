@@ -8,7 +8,7 @@ import Map;
 import util::Math;
 
 /*
- * TODO
+ * Prints the metrics of the report
  */
 public void printReport(tuple[int, str] biggestCloneClass, tuple[int, str] biggestClone) {
 	println("REPORT\n-------------------------");
@@ -16,9 +16,8 @@ public void printReport(tuple[int, str] biggestCloneClass, tuple[int, str] bigge
 	println("% of duplicated lines\t\t<typeOne / toReal(size(LINES)) * 100>%");
 	println("Number of clones\t\t<typeOne> lines");
 	println("Number of clone classes\t\t<size(CLONE_CLASSES)>");
-	println("Biggest clone\t\t\t<biggestClone[0]> lines");
+	println("Biggest clone\t\t\t<biggestClone[0]> occurrences");
 	println("Biggest clone class\t\t<biggestCloneClass[0]> lines");
-	// TODO
 	println("Example clones:");
 	for (int i <- [1 .. 3]) {
 		print("\n\tExample <i> [");
@@ -29,7 +28,7 @@ public void printReport(tuple[int, str] biggestCloneClass, tuple[int, str] bigge
 }
 
 /*
- * TODO
+ * Prints a clone line for line, including the locations where it can be found.
  */
 private void printExample(int index) {
 	list[str] keys = [k | k <- CLONE_CLASSES];
