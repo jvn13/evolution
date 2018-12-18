@@ -2,6 +2,7 @@ module rascaltests::TypeOneDuplicationTest
 
 import TypeOneDuplication;
 import Count;
+import Helper;
 import IO;
 import List;
 import util::Math;
