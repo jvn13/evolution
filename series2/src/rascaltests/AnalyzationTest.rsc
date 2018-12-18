@@ -6,7 +6,7 @@ import Helper;
 import IO;
 
 private loc projLoc = |project://series2/src/Analyzation.rsc|;
-private loc destination = |project://series2/src/rascaltests/series2_result.txt|;
+private loc destination = |project://series2/src/series2_result.txt|;
 
 private void initializeGlobalVariables(loc projLoc){
 	CLONE_CLASSES = ("Test String ":[getLoc(projLoc)]);
