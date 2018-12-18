@@ -5,16 +5,22 @@ import Count;
 import Helper;
 import IO;
 
-loc projLoc = |project://series2/src/Analyzation.rsc|;
-loc destination = |project://series2/src/series2_result.txt|;
+private loc projLoc = |project://series2/src/Analyzation.rsc|;
+private loc destination = |project://series2/src/rascaltests/series2_result.txt|;
 
-void initializeGlobalVariables(loc projLoc){
+private void initializeGlobalVariables(loc projLoc){
 	CLONE_CLASSES = ("Test String ":[getLoc(projLoc)]);
 }
 
-void deinitializeGlobalVariables(loc projLoc){
+private void deinitializeGlobalVariables(loc projLoc){
 	CLONE_CLASSES = ();
 }
+
+/*
+ * TODO: write test to check analyse output
+ *			 1 case with duplicates
+ *			 1 case without duplicates
+ */
 
 test bool writeFileWithCloneClasses_FileExistsAndIsNotEmpty(){
 	

@@ -1,9 +1,5 @@
-/CloneClassesTest.rsc
-/testfiles/
-/Read.rsc
 /Visualization.rsc
-/CloneClasses.rsc
-/smallsql0.21_src_result.txt
-/rascaltests/
 /hsqldb-2.3.1_result.txt
-/Report.rsc
+/rascaltests/
+/smallsql0.21_src_result.txt
+/testfiles/

@@ -16,10 +16,8 @@ private bool inComment = false;
  * @return list[str] - list of all the source code lines.
  *
  */
-public list[LineType] getProjectLoc(loc project) {
+public list[LineType] getProjectLoc(list[loc] projectFiles) {
 	lines = [];
-	
-	list[loc] projectFiles = getFiles(project);
 	for(file <- projectFiles) lines += getLoc(file);
 	return lines;
 }

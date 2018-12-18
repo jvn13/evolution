@@ -1,9 +1,10 @@
 module rascaltests::HelperTest
 
 import Helper;
+import List;
 
 test bool getFilesOfProjectLoc_ReturnsAllJavaFiles(){
-	projectLoc = |project://series2/src|;
-	files = getFiles(projectLoc);
-	return size(files)==12;
+	project = |project://series2/src|;
+	files = getFiles(project);
+	return size(files) == 12;
 }
